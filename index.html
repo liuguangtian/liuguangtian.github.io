@@ -2,166 +2,170 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘光恬的学术与项目主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>刘广天 | Guangtian Liu</title>
     <style>
-        /* CSS 变量定义：方便进行暗黑模式切换和全局颜色管理 */
-        :root {
-            --bg-color: #f8f9fa;
-            --sidebar-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            --sidebar-text: #94a3b8;
-            --sidebar-hover: rgba(255, 255, 255, 0.05);
-            --card-bg: #ffffff;
-            --text-main: #334155;
-            --text-muted: #475569;
-            --accent-color: #3b82f6;
-            --shadow: 0 10px 30px -5px rgba(0,0,0,0.08);
-            --border-color: #cbd5e1;
-        }
-
-        /* 暗黑模式变量 */
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --sidebar-bg: linear-gradient(180deg, #020617 0%, #0f172a 100%);
-            --sidebar-text: #64748b;
-            --sidebar-hover: rgba(255, 255, 255, 0.02);
-            --card-bg: #1e293b;
-            --text-main: #f1f5f9;
-            --text-muted: #cbd5e1;
-            --accent-color: #60a5fa;
-            --shadow: 0 10px 30px -5px rgba(0,0,0,0.5);
-            --border-color: #334155;
-        }
-
+        /* 基础页面布局与现代字体栈 */
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
-            display: flex; 
-            height: 100vh; 
-            background-color: var(--bg-color); 
-            color: var(--text-main);
-            overflow: hidden;
-            transition: background-color 0.3s ease;
+            background-color: #f4f7f9; 
+            color: #334155;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* ---------------- 语言切换核心逻辑 ---------------- */
+        body.lang-zh .en { display: none; }
+        body.lang-zh .zh { display: inline-block; } 
+        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h2.zh, body.lang-zh h3.zh { display: block; }
         
-        /* 侧边栏整体布局 */
-        .sidebar { 
-            width: 260px; 
-            background: var(--sidebar-bg);
-            padding: 40px 0 20px 0; 
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
+        body.lang-en .zh { display: none; }
+        body.lang-en .en { display: inline-block; }
+        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h2.en, body.lang-en h3.en { display: block; }
 
-        .sidebar h2 {
-            color: #f8fafc;
-            text-align: center;
-            font-size: 1.25rem;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* 导航菜单区 */
-        .nav-menu {
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .nav-link { 
-            display: block; 
-            color: var(--sidebar-text); 
-            padding: 14px 24px; 
-            text-decoration: none; 
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            margin-bottom: 8px;
-            margin-right: 16px;
-            border-radius: 0 20px 20px 0; 
-        }
-
-        .nav-link:hover { 
-            background-color: var(--sidebar-hover); 
-            color: #f8fafc;
-        }
-
-        .nav-link.active { 
-            background-color: rgba(59, 130, 246, 0.15); 
-            color: var(--accent-color);
-            border-left: 4px solid var(--accent-color); 
-        }
-
-        /* 底部功能按钮区 */
-        .action-buttons {
-            padding: 0 20px;
-            margin-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-        }
-
-        .action-btn {
+        /* ---------------- 顶部滑动导航栏 ---------------- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px); 
+            box-shadow: 0 1px 15px rgba(0,0,0,0.04);
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: rgba(255,255,255,0.05);
-            color: #e2e8f0;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            z-index: 1000;
             box-sizing: border-box;
+            padding: 0 4%;
         }
 
-        .action-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
+        /* 左侧姓名品牌 (固定不滑动) */
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            margin-right: 20px;
+            flex-shrink: 0; /* 防止名字被压缩 */
+        }
+        .brand span.dot { color: #3b82f6; } 
+
+        /* 右侧导航容器 (支持横向滑动) */
+        .nav-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            overflow-x: auto; /* 允许横向滑动 */
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* 顺滑的触摸滚动 */
+            scrollbar-width: none; /* 隐藏火狐浏览器滚动条 */
+        }
+        .nav-container::-webkit-scrollbar { 
+            display: none; /* 隐藏Chrome/Safari浏览器滚动条 */
         }
 
-        /* 主内容区域样式 */
-        .main-content { 
-            flex-grow: 1; 
-            padding: 50px; 
-            overflow-y: auto; 
-            scroll-behavior: smooth;
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-right: 10px; /* 给滑动留出余量 */
         }
 
-        .section { 
-            display: none; 
-            background: var(--card-bg); 
-            padding: 45px; 
-            border-radius: 16px; 
-            box-shadow: var(--shadow); 
-            border-top: 5px solid var(--accent-color); 
-            animation: slideUpFade 0.4s ease-out; 
-            max-width: 900px;
-            margin: 0 auto 40px auto; 
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        .nav-menu a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 4px;
+            position: relative;
+            transition: color 0.3s;
+            white-space: nowrap; /* 强制链接不换行 */
+        }
+        .nav-menu a:hover {
+            color: #3b82f6;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            background-color: #3b82f6;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        .nav-menu a.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .nav-menu a.active::after {
+            width: 100%;
         }
 
-        .section.active { display: block; }
+        /* 语言切换按钮 */
+        .lang-btn {
+            background-color: #f8fafc;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .lang-btn:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
 
-        @keyframes slideUpFade {
+        /* ---------------- 主内容区域样式 ---------------- */
+        .main-content {
+            padding-top: 100px; 
+            padding-bottom: 60px;
+            padding-left: 4%;
+            padding-right: 4%;
+            min-height: calc(100vh - 160px);
+        }
+        .section {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 45px 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02);
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* 内容排版细节 */
         .section h2 { 
-            color: var(--text-main); 
-            font-size: 1.8rem;
+            color: #0f172a; 
+            font-size: 1.75rem;
             margin-top: 0;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
             position: relative;
+            margin-bottom: 35px;
         }
         .section h2::after {
             content: '';
@@ -169,184 +173,207 @@
             left: 0;
             bottom: 0;
             height: 4px;
-            width: 40px;
-            background-color: var(--accent-color);
+            width: 35px;
+            background-color: #3b82f6;
             border-radius: 2px;
         }
         .section h3 { 
-            color: var(--text-main); 
-            font-size: 1.25rem;
-            margin-top: 30px;
-            border-left: 3px solid var(--border-color);
-            padding-left: 12px;
+            color: #1e293b; 
+            font-size: 1.2rem;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
-        .section p, .section ul {
-            line-height: 1.7;
-            color: var(--text-muted);
+        .meta-info {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        .section ul { padding-left: 20px; }
-        .section li { margin-bottom: 10px; }
-        strong { color: var(--text-main); font-weight: 600; }
+        .meta-info span {
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .section p { color: #475569; margin-bottom: 15px; }
+        .section ul { padding-left: 22px; color: #475569; }
+        .section li { margin-bottom: 12px; padding-left: 5px; }
+        .section li::marker { color: #94a3b8; }
+        strong { color: #0f172a; font-weight: 600; }
 
-        /* 响应式设计：适配手机屏幕 */
+        /* 移动端适配 */
         @media (max-width: 768px) {
-            body { flex-direction: column; overflow: auto; }
-            .sidebar { 
-                width: 100%; 
-                padding: 15px 0; 
-                flex-direction: column;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                position: sticky;
-                top: 0;
-            }
-            .sidebar h2 { margin-bottom: 15px; font-size: 1.1rem; }
-            
-            /* 手机端导航变为横向滚动 */
-            .nav-menu {
-                display: flex;
-                flex-direction: row;
-                overflow-x: auto;
-                white-space: nowrap;
-                padding-bottom: 5px;
-            }
-            .nav-link {
-                margin: 0 5px;
-                padding: 10px 15px;
-                border-radius: 20px;
-                border-left: none;
-                border-bottom: 3px solid transparent;
-            }
-            .nav-link.active {
-                border-left: none;
-                border-bottom: 3px solid var(--accent-color);
-            }
-            
-            /* 手机端按钮组变为并排 */
-            .action-buttons {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                margin-top: 10px;
-                padding: 10px 15px 0 15px;
-            }
-            .action-btn { margin-bottom: 0; margin-right: 5px; font-size: 0.8rem; padding: 8px;}
-            .action-btn:last-child { margin-right: 0; }
-            
-            .main-content { padding: 20px; }
-            .section { padding: 25px; }
+            .section { padding: 30px 25px; }
+            header { padding: 0 15px; }
+            .brand { margin-right: 15px; font-size: 1.2rem; }
+            .nav-menu { gap: 15px; }
         }
     </style>
 </head>
-<body>
+<body class="lang-zh">
 
-<div class="sidebar">
-    <h2>导航目录</h2>
+<header>
+    <div class="brand">
+        <span class="zh">刘广天</span><span class="zh dot">.</span>
+        <span class="en">Guangtian Liu</span><span class="en dot">.</span>
+    </div>
     
-    <div class="nav-menu">
-        <a href="#" class="nav-link active" onclick="switchSection('education', this)">教育背景</a>
-        <a href="#" class="nav-link" onclick="switchSection('internship', this)">实习经历</a>
-        <a href="#" class="nav-link" onclick="switchSection('projects', this)">项目经历</a>
-        <a href="#" class="nav-link" onclick="switchSection('skills', this)">专业技能</a>
-        <a href="#" class="nav-link" onclick="switchSection('knowledge', this)">专业知识</a>
+    <div class="nav-container">
+        <div class="nav-menu">
+            <a href="#" class="nav-link active" onclick="switchSection('education', this)">
+                <span class="zh">教育背景</span><span class="en">Education</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('internship', this)">
+                <span class="zh">实习经历</span><span class="en">Experience</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('projects', this)">
+                <span class="zh">项目经历</span><span class="en">Projects</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('skills', this)">
+                <span class="zh">专业技能</span><span class="en">Skills</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('hobbies', this)">
+                <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
+            </a>
+        </div>
+        <button class="lang-btn" onclick="toggleLanguage()">EN / 中文</button>
     </div>
-
-    <div class="action-buttons">
-        <button class="action-btn" id="themeToggle" onclick="toggleTheme()">🌓 切换主题</button>
-        <a href="resume.pdf" target="_blank" class="action-btn">📄 下载简历</a> 
-        <a href="mailto:your.email@example.com" class="action-btn">✉️ 联系我</a>
-    </div>
-</div>
+</header>
 
 <div class="main-content">
     
     <div id="education" class="section active">
-        <h2>教育背景</h2>
-        <h3>[你的大学名称]</h3>
-        <p><strong>专业：</strong> [你的专业] | <strong>学位：</strong> [博士/硕士] | <strong>时间：</strong> 20XX - 至今</p>
+        <h2 class="zh">教育背景</h2>
+        <h2 class="en">Education</h2>
+        
+        <h3 class="zh">[你的大学名称]</h3>
+        <h3 class="en">[Your University Name]</h3>
+        <div class="meta-info zh">
+            <span><strong>专业：</strong> [你的专业]</span>
+            <span><strong>学位：</strong> [博士/硕士]</span>
+            <span>20XX - 至今</span>
+        </div>
+        <div class="meta-info en">
+            <span><strong>Major:</strong> [Your Major]</span>
+            <span><strong>Degree:</strong> [Ph.D./Master]</span>
+            <span>20XX - Present</span>
+        </div>
         <ul>
-            <li>主修课程：[填写核心课程]</li>
-            <li>荣誉奖项：[填写奖学金或相关荣誉]</li>
+            <li class="zh">主修课程：[填写核心课程]</li>
+            <li class="en">Core Courses: [Fill in core courses]</li>
+            <li class="zh">荣誉奖项：[填写奖学金或相关荣誉]</li>
+            <li class="en">Honors & Awards: [Fill in scholarships or awards]</li>
         </ul>
     </div>
 
     <div id="internship" class="section">
-        <h2>实习经历</h2>
-        <h3>[某某研究院 / 电网公司] - [职位名称]</h3>
-        <p><strong>时间：</strong> 20XX.XX - 20XX.XX</p>
+        <h2 class="zh">实习经历</h2>
+        <h2 class="en">Professional Experience</h2>
+
+        <h3 class="zh">[某某研究院 / 电网公司]</h3>
+        <h3 class="en">[Institute / Grid Company Name]</h3>
+        <div class="meta-info zh">
+            <span><strong>职位：</strong> [职位名称]</span>
+            <span>20XX.XX - 20XX.XX</span>
+        </div>
+        <div class="meta-info en">
+            <span><strong>Role:</strong> [Job Title]</span>
+            <span>20XX.XX - 20XX.XX</span>
+        </div>
         <ul>
-            <li>参与了某某项目的开发与研究，主要负责...</li>
-            <li>优化了...模型，提升了...效率。</li>
+            <li class="zh">参与了某某项目的开发与研究，主要负责...</li>
+            <li class="en">Participated in the research and development of [Project Name], responsible for...</li>
+            <li class="zh">优化了...模型，提升了...效率。</li>
+            <li class="en">Optimized the [...] model, improving efficiency by [...].</li>
         </ul>
     </div>
 
     <div id="projects" class="section">
-        <h2>项目经历</h2>
-        <h3>计及持续性可再生能源干旱与季节性电量不平衡联合风险的长期电力系统规划</h3>
-        <p><strong>时间：</strong> 2025 - 至今</p>
+        <h2 class="zh">项目经历</h2>
+        <h2 class="en">Research Projects</h2>
+
+        <h3 class="zh">计及持续性可再生能源干旱与季节性电量不平衡联合风险的长期电力系统规划</h3>
+        <h3 class="en">Long-Term Power System Planning Considering Joint Risks of Persistent Renewable Droughts and Seasonal Energy Imbalances</h3>
+        <div class="meta-info">
+            <span>2025 - Present</span>
+        </div>
         <ul>
-            <li>针对持续性极端低新能源出力 (ELRG) 与季节性电量不平衡 (SEI) 的联合风险，构建了长周期的电力系统规划框架。</li>
-            <li>提出了一种基于代表性真实事件提取的 ELRG 聚类方法。该方法有效替代了传统的统一长度典型片段生成法，摒弃了常规的事件分类思路，从而更准确地保留了系统真实的物理边界与特性。</li>
-            <li>目前相关研究成果已撰写成文，计划提交至 IEEE 顶级期刊。</li>
+            <li class="zh">针对持续性极端低新能源出力 (ELRG) 与季节性电量不平衡 (SEI) 的联合风险，构建了长周期的电力系统规划框架。</li>
+            <li class="en">Developed a long-term power system planning framework addressing the joint risks of persistent extreme low renewable generation (ELRG) and seasonal electricity imbalance (SEI).</li>
+            
+            <li class="zh">提出并开发了一种新的 ELRG 事件聚类方法。该方法直接提取并筛选代表性的真实事件进行分析，摒弃了传统的统一长度典型片段生成法与事件分类法，精确保留了系统真实的物理特性边界。</li>
+            <li class="en">Proposed a novel ELRG event clustering method. By selecting representative real events rather than generating unified-length typical fragments or relying on event classification, this approach preserves the actual physical characteristics and boundaries of the system.</li>
+            
+            <li class="zh">目前相关研究成果已撰写成文，计划提交至 IEEE 顶级期刊。</li>
+            <li class="en">Target outcome structured into a manuscript, prepared for submission to a top-tier IEEE journal.</li>
         </ul>
     </div>
 
     <div id="skills" class="section">
-        <h2>专业技能</h2>
+        <h2 class="zh">专业技能</h2>
+        <h2 class="en">Technical Skills</h2>
+
         <ul>
-            <li><strong>运筹与优化算法:</strong> 熟练掌握并应用 Benders 分解（严格精确算法）解决大规模复杂电力系统规划与运行优化问题。</li>
-            <li><strong>数据与时间序列分析:</strong> 掌握并应用 STL 分解构建动态基准线等高级时间序列分析技术。</li>
-            <li><strong>编程语言与工具:</strong> Python, MATLAB, C++, Gurobi/CPLEX (请根据你的实际情况修改)</li>
+            <li class="zh"><strong>运筹与优化算法：</strong> 熟练掌握并应用 Benders 分解（严格精确算法，非启发式）解决大规模复杂电力系统规划与运行优化问题。</li>
+            <li class="en"><strong>Operations Research & Optimization:</strong> Proficient in applying Benders decomposition (a strict exact algorithm, non-heuristic) to solve large-scale complex power system planning and operation problems.</li>
+            
+            <li class="zh"><strong>数据与时间序列分析：</strong> 掌握并应用 STL 分解构建动态基准线等高级时间序列分析技术。</li>
+            <li class="en"><strong>Data & Time Series Analysis:</strong> Mastered advanced techniques including the application of STL decomposition to construct dynamic baselines.</li>
+            
+            <li class="zh"><strong>编程语言与工具：</strong> Python, MATLAB, C++, Gurobi/CPLEX (请根据实际情况修改)</li>
+            <li class="en"><strong>Programming & Tools:</strong> Python, MATLAB, C++, Gurobi/CPLEX (Modify as needed)</li>
         </ul>
     </div>
 
-    <div id="knowledge" class="section">
-        <h2>专业知识</h2>
+    <div id="hobbies" class="section">
+        <h2 class="zh">兴趣爱好</h2>
+        <h2 class="en">Interests & Hobbies</h2>
+
         <ul>
-            <li>长期电力系统规划与运行模拟</li>
-            <li>新能源消纳与极端天气风险评估</li>
-            <li>系统可靠性建模与分析</li>
-            <li>电力市场与电力经济学</li>
+            <li class="zh"><strong>体育运动：</strong> [例如：羽毛球、游泳、徒步]，保持健康体魄与充沛精力。</li>
+            <li class="en"><strong>Sports:</strong> [e.g., Badminton, Swimming, Hiking], maintaining physical health and high energy levels.</li>
+            
+            <li class="zh"><strong>阅读与学习：</strong> 关注前沿科技动态，喜欢阅读历史与科技类书籍。</li>
+            <li class="en"><strong>Reading & Learning:</strong> Keeping up with cutting-edge tech trends, enjoying history and science books.</li>
+            
+            <li class="zh"><strong>其他爱好：</strong> [例如：摄影、音乐、咖啡拉花] 等。</li>
+            <li class="en"><strong>Other Interests:</strong> [e.g., Photography, Music, Coffee Art], etc.</li>
         </ul>
     </div>
 
 </div>
 
 <script>
-    // 1. 板块切换逻辑
     function switchSection(sectionId, element) {
         var sections = document.querySelectorAll('.section');
-        sections.forEach(function(sec) { sec.classList.remove('active'); });
+        sections.forEach(function(sec) {
+            sec.classList.remove('active');
+        });
 
         var links = document.querySelectorAll('.nav-link');
-        links.forEach(function(link) { link.classList.remove('active'); });
+        links.forEach(function(link) {
+            link.classList.remove('active');
+        });
 
         document.getElementById(sectionId).classList.add('active');
         element.classList.add('active');
+        
+        // 点击后让被点击的菜单项在移动端尽量居中显示
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
-    // 2. 暗黑模式切换逻辑
-    function toggleTheme() {
-        const body = document.documentElement;
-        const currentTheme = body.getAttribute('data-theme');
-        let newTheme = 'dark';
-        if (currentTheme === 'dark') {
-            newTheme = 'light';
+    function toggleLanguage() {
+        var body = document.body;
+        if (body.classList.contains('lang-zh')) {
+            body.classList.remove('lang-zh');
+            body.classList.add('lang-en');
+        } else {
+            body.classList.remove('lang-en');
+            body.classList.add('lang-zh');
         }
-        body.setAttribute('data-theme', newTheme);
-        // 将主题偏好保存在本地浏览器中
-        localStorage.setItem('theme', newTheme);
     }
-
-    // 3. 页面加载时读取主题偏好
-    window.onload = function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            // 如果用户系统是暗黑模式，默认开启
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    };
 </script>
 
 </body>
