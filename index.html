@@ -9,7 +9,7 @@
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
-            background-color: #f8fafc; /* 更现代的极浅灰背景 */
+            background-color: #f8fafc; 
             color: #334155;
             line-height: 1.75;
             -webkit-font-smoothing: antialiased;
@@ -18,11 +18,13 @@
         /* ---------------- 语言切换核心逻辑 ---------------- */
         body.lang-zh .en { display: none; }
         body.lang-zh .zh { display: inline-block; } 
-        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h2.zh, body.lang-zh h3.zh { display: block; }
+        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h2.zh, body.lang-zh h3.zh, body.lang-zh li.zh { display: list-item; }
+        body.lang-zh div.zh, body.lang-zh p.zh { display: block; }
         
         body.lang-en .zh { display: none; }
         body.lang-en .en { display: inline-block; }
-        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h2.en, body.lang-en h3.en { display: block; }
+        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h2.en, body.lang-en h3.en, body.lang-en li.en { display: list-item; }
+        body.lang-en div.en, body.lang-en p.en { display: block; }
 
         /* ---------------- 顶部滑动导航栏 ---------------- */
         header {
@@ -37,13 +39,11 @@
             border-bottom: 1px solid rgba(226, 232, 240, 0.6);
             z-index: 1000;
             box-sizing: border-box;
-            /* 使用动态 padding 保证在大屏幕上导航栏不会过度拉伸 */
             padding: 0 max(4%, calc((100% - 1100px) / 2)); 
             display: flex;
             align-items: center;
         }
 
-        /* 左侧姓名品牌 (已去除标点) */
         .brand {
             font-size: 1.35rem;
             font-weight: 700;
@@ -54,7 +54,6 @@
             flex-shrink: 0; 
         }
 
-        /* 右侧导航容器 (支持横向滑动) */
         .nav-container {
             flex-grow: 1;
             display: flex;
@@ -84,9 +83,7 @@
             transition: color 0.3s;
             white-space: nowrap; 
         }
-        .nav-menu a:hover {
-            color: #2563eb; /* 更加专业的学术蓝 */
-        }
+        .nav-menu a:hover { color: #2563eb; }
         
         .nav-menu a::after {
             content: '';
@@ -100,13 +97,9 @@
             transform: translateX(-50%);
             border-radius: 3px;
         }
-        .nav-menu a.active {
-            color: #2563eb;
-            font-weight: 600;
-        }
+        .nav-menu a.active { color: #2563eb; font-weight: 600; }
         .nav-menu a.active::after { width: 100%; }
 
-        /* 语言切换按钮 */
         .lang-btn {
             background-color: #ffffff;
             color: #475569;
@@ -143,13 +136,11 @@
             background: #ffffff;
             padding: 50px 60px;
             border-radius: 16px;
-            border: 1px solid #f1f5f9; /* 极细的边框提升精致感 */
+            border: 1px solid #f1f5f9; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.01);
             animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .section.active {
-            display: block;
-        }
+        .section.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -176,21 +167,43 @@
             background-color: #2563eb;
             border-radius: 2px;
         }
+        
+        /* 经历条目样式 */
+        .experience-item { margin-bottom: 40px; }
+        .experience-item:last-child { margin-bottom: 0; }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
         .section h3 { 
             color: #1e293b; 
             font-size: 1.15rem;
-            margin-top: 35px;
-            margin-bottom: 12px;
+            margin: 0;
             font-weight: 600;
         }
+        
+        .date-badge {
+            font-family: monospace;
+            color: #64748b;
+            font-size: 0.95rem;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
         .meta-info {
             font-size: 0.9rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
-        /* 胶囊状的标签设计 */
         .meta-info span {
             background: #f8fafc;
             color: #475569;
@@ -199,9 +212,10 @@
             border: 1px solid #e2e8f0;
             font-weight: 500;
         }
+        
         .section p { color: #475569; margin-bottom: 15px; }
         .section ul { padding-left: 20px; color: #475569; }
-        .section li { margin-bottom: 12px; padding-left: 5px; }
+        .section li { margin-bottom: 10px; padding-left: 5px; }
         .section li::marker { color: #94a3b8; }
         strong { color: #1e293b; font-weight: 600; }
 
@@ -211,6 +225,7 @@
             header { padding: 0 15px; }
             .brand { margin-right: 15px; font-size: 1.2rem; }
             .nav-menu { gap: 18px; }
+            .experience-header { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -231,13 +246,13 @@
                 <span class="zh">实习经历</span><span class="en">Experience</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('projects', this)">
-                <span class="zh">项目经历</span><span class="en">Projects</span>
+                <span class="zh">科研项目</span><span class="en">Projects</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('skills', this)">
                 <span class="zh">专业技能</span><span class="en">Skills</span>
             </a>
-            <a href="#" class="nav-link" onclick="switchSection('hobbies', this)">
-                <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
+            <a href="#" class="nav-link" onclick="switchSection('honors', this)">
+                <span class="zh">荣誉评价</span><span class="en">Honors</span>
             </a>
         </div>
         <button class="lang-btn" onclick="toggleLanguage()">EN / 中文</button>
@@ -250,67 +265,129 @@
         <h2 class="zh">教育背景</h2>
         <h2 class="en">Education</h2>
         
-        <h3 class="zh">[你的大学名称]</h3>
-        <h3 class="en">[Your University Name]</h3>
-        <div class="meta-info zh">
-            <span><strong>专业：</strong> [你的专业]</span>
-            <span><strong>学位：</strong> [博士/硕士]</span>
-            <span>20XX - 至今</span>
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">香港中文大学 (深圳)</h3>
+                <h3 class="en">The Chinese University of Hong Kong, Shenzhen</h3>
+                <div class="date-badge">2025.09 - 2027.06</div>
+            </div>
+            <div class="meta-info zh">
+                <span><strong>研究方向：</strong> 电力系统</span>
+                <span><strong>学位：</strong> 硕士研究生</span>
+            </div>
+            <div class="meta-info en">
+                <span><strong>Research:</strong> Power Systems</span>
+                <span><strong>Degree:</strong> Master's Candidate</span>
+            </div>
+            <ul>
+                <li class="zh"><strong>主修课程：</strong> 电力系统、智能电网、机器学习、半导体物理与器件、模拟电路、数字电路、电机学。</li>
+                <li class="en"><strong>Core Courses:</strong> Power Systems, Smart Grids, Machine Learning, Semiconductor Physics and Devices, Analog/Digital Circuits, Electrical Machinery.</li>
+            </ul>
         </div>
-        <div class="meta-info en">
-            <span><strong>Major:</strong> [Your Major]</span>
-            <span><strong>Degree:</strong> [Ph.D./Master]</span>
-            <span>20XX - Present</span>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">南京理工大学</h3>
+                <h3 class="en">Nanjing University of Science and Technology</h3>
+                <div class="date-badge">2021.09 - 2025.06</div>
+            </div>
+            <div class="meta-info zh">
+                <span><strong>专业：</strong> 新能源科学与工程</span>
+                <span><strong>综合排名：</strong> 9/56</span>
+            </div>
+            <div class="meta-info en">
+                <span><strong>Major:</strong> New Energy Science & Engineering</span>
+                <span><strong>Rank:</strong> 9/56</span>
+            </div>
+            <ul>
+                <li class="zh"><strong>主修课程：</strong> 电路、电力电子技术、控制工程基础、风力发电系统与控制技术、风力机原理、光伏器件与系统、储能原理与技术、传热传质学、工程热力学、流体力学等。</li>
+                <li class="en"><strong>Core Courses:</strong> Circuits, Power Electronics, Control Engineering, Wind Power Systems, Photovoltaic Systems, Energy Storage Technology, Fluid Mechanics, Thermodynamics, etc.</li>
+            </ul>
         </div>
-        <ul>
-            <li class="zh">主修课程：[填写核心课程]</li>
-            <li class="en">Core Courses: [Fill in core courses]</li>
-            <li class="zh">荣誉奖项：[填写奖学金或相关荣誉]</li>
-            <li class="en">Honors & Awards: [Fill in scholarships or awards]</li>
-        </ul>
     </div>
 
     <div id="internship" class="section">
         <h2 class="zh">实习经历</h2>
         <h2 class="en">Professional Experience</h2>
 
-        <h3 class="zh">[某某研究院 / 电网公司]</h3>
-        <h3 class="en">[Institute / Grid Company Name]</h3>
-        <div class="meta-info zh">
-            <span><strong>职位：</strong> [职位名称]</span>
-            <span>20XX.XX - 20XX.XX</span>
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">北京北方华创微电子装备有限公司 (总部)</h3>
+                <h3 class="en">NAURA Technology Group Co., Ltd. (HQ)</h3>
+                <div class="date-badge">2025.06 - 2025.08</div>
+            </div>
+            <div class="meta-info zh"><span><strong>职位：</strong> 助理电气工程师</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Assistant Electrical Engineer</span></div>
+            <ul>
+                <li class="zh"><strong>PLM 管理：</strong> 负责新物料的申请与发布，完成变更物料图纸的修改、检入及 BOM 的发布。</li>
+                <li class="en"><strong>PLM Management:</strong> Managed new material applications and releases; handled drawing modifications, check-ins, and BOM releases.</li>
+                
+                <li class="zh"><strong>电气制图：</strong> 基于 SWE 完成电缆图、配线图的核对与修正；基于中望 CAD 对图纸进行校对修正。</li>
+                <li class="en"><strong>Electrical Drafting:</strong> Proofread and corrected cable/wiring diagrams using SWE; verified mechanical drawings using ZWCAD.</li>
+                
+                <li class="zh"><strong>洁净间测试与维保：</strong> 协助制造人员完成设备出厂前的 Safety Check 安全测试，确保故障预警功能正常；编写限温器等产品的符合性 SOP 文件并协助软件配置；累计 300+ 次测试清洗机腔室电机驱动器的输入输出电压。</li>
+                <li class="en"><strong>Cleanroom Operations:</strong> Assisted in pre-factory safety tests ensuring fault warning functionalities; authored SOPs for components like temperature limiters; conducted 300+ voltage I/O tests on motor drivers using multimeters.</li>
+            </ul>
         </div>
-        <div class="meta-info en">
-            <span><strong>Role:</strong> [Job Title]</span>
-            <span>20XX.XX - 20XX.XX</span>
-        </div>
-        <ul>
-            <li class="zh">参与了某某项目的开发与研究，主要负责...</li>
-            <li class="en">Participated in the research and development of [Project Name], responsible for...</li>
-            <li class="zh">优化了...模型，提升了...效率。</li>
-            <li class="en">Optimized the [...] model, improving efficiency by [...].</li>
-        </ul>
     </div>
 
     <div id="projects" class="section">
-        <h2 class="zh">项目经历</h2>
+        <h2 class="zh">科研项目</h2>
         <h2 class="en">Research Projects</h2>
 
-        <h3 class="zh">计及持续性可再生能源干旱与季节性电量不平衡联合风险的长期电力系统规划</h3>
-        <h3 class="en">Long-Term Power System Planning Considering Joint Risks of Persistent Renewable Droughts and Seasonal Energy Imbalances</h3>
-        <div class="meta-info">
-            <span>2025 - Present</span>
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">考虑季节电量失衡以及极端低出力场景的电力系统规划问题</h3>
+                <h3 class="en">Long-Term Power System Planning Considering Seasonal Energy Imbalances & Extreme Scenarios</h3>
+                <div class="date-badge">2025.09 - 至今</div>
+            </div>
+            <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Project Lead</span></div>
+            <ul>
+                <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力 (ELRG) 场景的源-荷-储长期电力系统规划模型。</li>
+                <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation (ELRG).</li>
+                
+                <li class="zh">提出一种新的 ELRG 事件聚类方法，通过直接提取并分析代表性的真实事件，有效摒弃了传统的统一长度典型片段生成法及事件分类法，精确保留了系统真实的物理边界。</li>
+                <li class="en">Proposed a novel ELRG clustering method by directly selecting representative real events, overcoming the limitations of unified-length typical fragments and event classification methods to preserve actual physical boundaries.</li>
+                
+                <li class="zh">目前正撰写相关学术论文，计划提交至相关领域顶级期刊。</li>
+                <li class="en">Currently writing the manuscript, targeting submission to a top-tier journal.</li>
+            </ul>
         </div>
-        <ul>
-            <li class="zh">针对持续性极端低新能源出力 (ELRG) 与季节性电量不平衡 (SEI) 的联合风险，构建了长周期的电力系统规划框架。</li>
-            <li class="en">Developed a long-term power system planning framework addressing the joint risks of persistent extreme low renewable generation (ELRG) and seasonal electricity imbalance (SEI).</li>
-            
-            <li class="zh">提出并开发了一种新的 ELRG 事件聚类方法。该方法直接提取并筛选代表性的真实事件进行分析，摒弃了传统的统一长度典型片段生成法与事件分类法，精确保留了系统真实的物理特性边界。</li>
-            <li class="en">Proposed a novel ELRG event clustering method. By selecting representative real events rather than generating unified-length typical fragments or relying on event classification, this approach preserves the actual physical characteristics and boundaries of the system.</li>
-            
-            <li class="zh">目前相关研究成果已撰写成文，计划提交至 IEEE 顶级期刊。</li>
-            <li class="en">Target outcome structured into a manuscript, prepared for submission to a top-tier IEEE journal.</li>
-        </ul>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">结构变形对风力机超长柔性叶片气动弹性影响分析 (本科毕设)</h3>
+                <h3 class="en">Aeroelastic Effects of Structural Deformation on Ultra-long Flexible Wind Turbine Blades</h3>
+                <div class="date-badge">2025.01 - 2025.06</div>
+            </div>
+            <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Project Lead (Undergrad Thesis)</span></div>
+            <ul>
+                <li class="zh">基于 OpenFAST 多物理场开源平台对风力机叶片建模并进行可靠性仿真验证。</li>
+                <li class="en">Modeled wind turbine blades and verified reliability simulations using the OpenFAST multi-physics platform.</li>
+                <li class="zh">系统研究了 5MW、10MW、22MW 三种基于 FFA-W3、不同展长的柔性叶片在额定风速下的动态形变。</li>
+                <li class="en">Systematically studied the dynamic deformation of 5MW, 10MW, and 22MW flexible blades (FFA-W3 based) under rated wind speeds.</li>
+                <li class="zh">基于 IEA-22-280-RWT 风力机，深入探究超长柔性叶片的动态变形对叶片气动性能及风机整体性能的影响。</li>
+                <li class="en">Analyzed the impact of ultra-long blade dynamic deformation on aerodynamic and overall turbine performance based on the IEA-22-280-RWT model.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3 class="zh">悬浮式高空风力机的流体力学问题研究及其设计实现 (校级重点)</h3>
+                <h3 class="en">Fluid Dynamics and Design of Suspended Airborne Wind Turbines</h3>
+                <div class="date-badge">2024.04 - 2024.10</div>
+            </div>
+            <div class="meta-info zh"><span><strong>角色：</strong> 核心成员</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Core Member (Univ-level Key Project)</span></div>
+            <ul>
+                <li class="zh">利用 Workbench 的瞬态结构模块对高空风电机组进行结构稳定性仿真，分析系统受流体作用时的变形应力，辅助完成系统的双向流固耦合仿真。</li>
+                <li class="en">Conducted structural stability simulations using Workbench Transient Structural module, analyzing deformation stress under fluid interaction to support two-way fluid-solid coupling simulations.</li>
+                <li class="zh">深入学习 Fluent 流体仿真，对风力机功率提升、舵面偏转受力等问题进行数值模拟，大幅提升数据分析能力。</li>
+                <li class="en">Applied Fluent for fluid numerical simulations on turbine power enhancement and rudder deflection forces, significantly improving fluid dynamics analysis capabilities.</li>
+            </ul>
+        </div>
     </div>
 
     <div id="skills" class="section">
@@ -318,30 +395,33 @@
         <h2 class="en">Technical Skills</h2>
 
         <ul>
-            <li class="zh"><strong>运筹与优化算法：</strong> 熟练掌握并应用 Benders 分解（严格精确算法，非启发式）解决大规模复杂电力系统规划与运行优化问题。</li>
-            <li class="en"><strong>Operations Research & Optimization:</strong> Proficient in applying Benders decomposition (a strict exact algorithm, non-heuristic) to solve large-scale complex power system planning and operation problems.</li>
+            <li class="zh"><strong>语言与编程：</strong> 英语水平良好（CET-6, 雅思 6.5）；熟练掌握 Python、MATLAB 编程语言。</li>
+            <li class="en"><strong>Language & Programming:</strong> Fluent in English (IELTS 6.5, CET-6); Proficient in Python and MATLAB.</li>
             
-            <li class="zh"><strong>数据与时间序列分析：</strong> 掌握并应用 STL 分解构建动态基准线等高级时间序列分析技术。</li>
-            <li class="en"><strong>Data & Time Series Analysis:</strong> Mastered advanced techniques including the application of STL decomposition to construct dynamic baselines.</li>
+            <li class="zh"><strong>运筹与时间序列分析：</strong> 熟练应用 Benders 分解（严格精确算法，非启发式）解决大规模系统优化问题；掌握 STL 分解等高级数据分析技术。</li>
+            <li class="en"><strong>Optimization & Data Analysis:</strong> Proficient in exact algorithms like Benders decomposition for large-scale optimization; mastered time-series analysis like STL decomposition.</li>
             
-            <li class="zh"><strong>编程语言与工具：</strong> Python, MATLAB, C++, Gurobi/CPLEX (请根据实际情况修改)</li>
-            <li class="en"><strong>Programming & Tools:</strong> Python, MATLAB, C++, Gurobi/CPLEX (Modify as needed)</li>
+            <li class="zh"><strong>工程与制图软件：</strong> SolidWorks (SW), SolidWorks Electrical (SWE), 中望 CAD, OpenFAST, Fluent/Workbench。</li>
+            <li class="en"><strong>Engineering & CAD:</strong> SolidWorks (SW), SW Electrical (SWE), ZWCAD, OpenFAST, Fluent/Workbench.</li>
+            
+            <li class="zh"><strong>科研绘图与设计：</strong> Origin, Visio, Adobe Photoshop (PS), Adobe Premiere Pro (PR)。</li>
+            <li class="en"><strong>Scientific Plotting & Media:</strong> Origin, Visio, Adobe Photoshop (PS), Premiere Pro (PR).</li>
         </ul>
     </div>
 
-    <div id="hobbies" class="section">
-        <h2 class="zh">兴趣爱好</h2>
-        <h2 class="en">Interests & Hobbies</h2>
+    <div id="honors" class="section">
+        <h2 class="zh">荣誉与评价</h2>
+        <h2 class="en">Honors & Evaluation</h2>
 
         <ul>
-            <li class="zh"><strong>体育运动：</strong> [例如：羽毛球、游泳、徒步]，保持健康体魄与充沛精力。</li>
-            <li class="en"><strong>Sports:</strong> [e.g., Badminton, Swimming, Hiking], maintaining physical health and high energy levels.</li>
+            <li class="zh"><strong>荣誉奖项：</strong> 本科期间荣获南京理工大学校级奖学金 4 次；获评“社会活动积极分子”称号。</li>
+            <li class="en"><strong>Awards:</strong> NJUST University-level Scholarship (4 times); Awarded "Active Member in Social Activities".</li>
             
-            <li class="zh"><strong>阅读与学习：</strong> 关注前沿科技动态，喜欢阅读历史与科技类书籍。</li>
-            <li class="en"><strong>Reading & Learning:</strong> Keeping up with cutting-edge tech trends, enjoying history and science books.</li>
+            <li class="zh"><strong>交叉学科背景：</strong> 具备新能源发电与电气工程的深度交叉背景，能够从宏观系统规划到微观物理器件进行全方位思考。</li>
+            <li class="en"><strong>Interdisciplinary Background:</strong> Possess a strong cross-disciplinary foundation in both New Energy Generation and Electrical Engineering.</li>
             
-            <li class="zh"><strong>其他爱好：</strong> [例如：摄影、音乐、咖啡拉花] 等。</li>
-            <li class="en"><strong>Other Interests:</strong> [e.g., Photography, Music, Coffee Art], etc.</li>
+            <li class="zh"><strong>坚实理论基础：</strong> 深入掌握电路、模拟/数字电路、半导体器件、电力电子技术和自动控制原理等核心硬件与控制理论知识。</li>
+            <li class="en"><strong>Solid Theoretical Foundation:</strong> Mastered core knowledge in circuits, analog/digital electronics, semiconductors, power electronics, and automatic control principles.</li>
         </ul>
     </div>
 
