@@ -9,9 +9,9 @@
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
-            background-color: #f8fafc; 
+            background-color: #f0f4f8; /* 更清透的高级灰蓝背景 */
             color: #334155;
-            line-height: 1.75;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -32,11 +32,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 72px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px); 
-            box-shadow: 0 1px 10px rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            height: 76px;
+            background: rgba(255, 255, 255, 0.85); /* 提升透明度 */
+            backdrop-filter: blur(16px); /* 增强毛玻璃效果 */
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             z-index: 1000;
             box-sizing: border-box;
             padding: 0 max(4%, calc((100% - 1100px) / 2)); 
@@ -45,12 +46,12 @@
         }
 
         .brand {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #1e293b;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
             letter-spacing: 0.5px;
             white-space: nowrap;
-            margin-right: 30px;
+            margin-right: 40px;
             flex-shrink: 0; 
         }
 
@@ -69,8 +70,8 @@
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 24px;
-            padding-right: 15px; 
+            gap: 28px;
+            padding-right: 20px; 
         }
 
         .nav-menu a {
@@ -78,12 +79,12 @@
             color: #64748b;
             font-weight: 500;
             font-size: 0.95rem;
-            padding: 8px 2px;
+            padding: 10px 2px;
             position: relative;
             transition: color 0.3s;
             white-space: nowrap; 
         }
-        .nav-menu a:hover { color: #2563eb; }
+        .nav-menu a:hover { color: #1d4ed8; } /* 宝石蓝 */
         
         .nav-menu a::after {
             content: '';
@@ -92,70 +93,70 @@
             height: 3px;
             bottom: 0;
             left: 50%;
-            background-color: #2563eb;
+            background-color: #1d4ed8;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
             border-radius: 3px;
         }
-        .nav-menu a.active { color: #2563eb; font-weight: 600; }
+        .nav-menu a.active { color: #1d4ed8; font-weight: 600; }
         .nav-menu a.active::after { width: 100%; }
 
         .lang-btn {
-            background-color: #ffffff;
-            color: #475569;
-            border: 1px solid #cbd5e1;
-            padding: 6px 16px;
-            border-radius: 20px;
+            background-color: #f8fafc;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 30px; /* 更圆润的按钮 */
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.85rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             white-space: nowrap;
             margin-left: 10px;
             flex-shrink: 0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
         .lang-btn:hover {
-            background-color: #f8fafc;
-            color: #0f172a;
-            border-color: #94a3b8;
+            background-color: #1d4ed8;
+            color: #ffffff;
+            border-color: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
         }
 
         /* ---------------- 主内容区域样式 ---------------- */
         .main-content {
-            padding-top: 110px; 
-            padding-bottom: 60px;
+            padding-top: 120px; 
+            padding-bottom: 80px;
             padding-left: 4%;
             padding-right: 4%;
-            min-height: calc(100vh - 170px);
+            min-height: calc(100vh - 200px);
         }
         .section {
             display: none;
-            max-width: 820px;
+            max-width: 860px;
             margin: 0 auto;
-            background: #ffffff;
-            padding: 50px 60px;
-            border-radius: 16px;
-            border: 1px solid #f1f5f9; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.01);
-            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px 70px;
+            border-radius: 20px; /* 大圆角卡片 */
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02); /* 高级悬浮阴影 */
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .section.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(15px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         /* 内容排版细节 */
         .section h2 { 
             color: #0f172a; 
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             margin-top: 0;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
             position: relative;
-            margin-bottom: 35px;
-            font-weight: 700;
+            margin-bottom: 40px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
         .section h2::after {
             content: '';
@@ -163,69 +164,70 @@
             left: 0;
             bottom: 0;
             height: 4px;
-            width: 30px;
-            background-color: #2563eb;
-            border-radius: 2px;
+            width: 36px;
+            background-color: #1d4ed8;
+            border-radius: 4px;
         }
         
-        /* 经历条目样式 */
-        .experience-item { margin-bottom: 40px; }
+        .experience-item { margin-bottom: 45px; }
         .experience-item:last-child { margin-bottom: 0; }
         
         .experience-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         
         .section h3 { 
-            color: #1e293b; 
-            font-size: 1.15rem;
+            color: #0f172a; 
+            font-size: 1.25rem;
             margin: 0;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .date-badge {
-            font-family: monospace;
-            color: #64748b;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            color: #475569;
             font-size: 0.95rem;
             background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 500;
         }
 
         .meta-info {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
         .meta-info span {
             background: #f8fafc;
-            color: #475569;
-            padding: 4px 12px;
+            color: #334155;
+            padding: 5px 14px;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
-            font-weight: 500;
+            font-weight: 600;
         }
         
-        .section p { color: #475569; margin-bottom: 15px; }
+        .section p { color: #475569; margin-bottom: 16px; }
         .section ul { padding-left: 20px; color: #475569; }
-        .section li { margin-bottom: 10px; padding-left: 5px; }
-        .section li::marker { color: #94a3b8; }
-        strong { color: #1e293b; font-weight: 600; }
+        .section li { margin-bottom: 12px; padding-left: 6px; }
+        .section li::marker { color: #cbd5e1; font-size: 1.2em; }
+        strong { color: #1e293b; font-weight: 700; }
 
         /* 移动端适配 */
         @media (max-width: 768px) {
-            .section { padding: 35px 25px; }
-            header { padding: 0 15px; }
-            .brand { margin-right: 15px; font-size: 1.2rem; }
-            .nav-menu { gap: 18px; }
+            .section { padding: 40px 25px; border-radius: 16px; }
+            header { padding: 0 15px; height: 68px; }
+            .brand { margin-right: 20px; font-size: 1.25rem; }
+            .nav-menu { gap: 20px; }
             .experience-header { flex-direction: column; align-items: flex-start; }
+            .main-content { padding-top: 100px; }
         }
     </style>
 </head>
@@ -251,8 +253,11 @@
             <a href="#" class="nav-link" onclick="switchSection('skills', this)">
                 <span class="zh">专业技能</span><span class="en">Skills</span>
             </a>
-            <a href="#" class="nav-link" onclick="switchSection('honors', this)">
-                <span class="zh">荣誉评价</span><span class="en">Honors</span>
+            <a href="#" class="nav-link" onclick="switchSection('knowledge', this)">
+                <span class="zh">专业知识</span><span class="en">Knowledge</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('hobbies', this)">
+                <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
             </a>
         </div>
         <button class="lang-btn" onclick="toggleLanguage()">EN / 中文</button>
@@ -409,19 +414,35 @@
         </ul>
     </div>
 
-    <div id="honors" class="section">
-        <h2 class="zh">荣誉与评价</h2>
-        <h2 class="en">Honors & Evaluation</h2>
+    <div id="knowledge" class="section">
+        <h2 class="zh">专业知识</h2>
+        <h2 class="en">Domain Knowledge</h2>
 
         <ul>
-            <li class="zh"><strong>荣誉奖项：</strong> 本科期间荣获南京理工大学校级奖学金 4 次；获评“社会活动积极分子”称号。</li>
-            <li class="en"><strong>Awards:</strong> NJUST University-level Scholarship (4 times); Awarded "Active Member in Social Activities".</li>
+            <li class="zh"><strong>电力系统与新能源：</strong> 长期电力系统规划与运行模拟、新能源消纳与极端天气风险评估、系统可靠性建模与分析。</li>
+            <li class="en"><strong>Power Systems & Renewable Energy:</strong> Long-term power system planning and operational simulation, renewable energy integration, extreme weather risk assessment, and system reliability modeling.</li>
             
-            <li class="zh"><strong>交叉学科背景：</strong> 具备新能源发电与电气工程的深度交叉背景，能够从宏观系统规划到微观物理器件进行全方位思考。</li>
-            <li class="en"><strong>Interdisciplinary Background:</strong> Possess a strong cross-disciplinary foundation in both New Energy Generation and Electrical Engineering.</li>
+            <li class="zh"><strong>底层硬件与电路基础：</strong> 深入掌握电路、模拟电路、数字电路、半导体物理与器件、电力电子技术等核心知识。</li>
+            <li class="en"><strong>Hardware & Circuit Fundamentals:</strong> In-depth knowledge of circuits, analog/digital electronics, semiconductor physics and devices, and power electronics.</li>
             
-            <li class="zh"><strong>坚实理论基础：</strong> 深入掌握电路、模拟/数字电路、半导体器件、电力电子技术和自动控制原理等核心硬件与控制理论知识。</li>
-            <li class="en"><strong>Solid Theoretical Foundation:</strong> Mastered core knowledge in circuits, analog/digital electronics, semiconductors, power electronics, and automatic control principles.</li>
+            <li class="zh"><strong>控制原理与流体力学：</strong> 掌握自动控制原理、流体力学与传热传质学基础理论，具备交叉学科的宏观与微观分析视野。</li>
+            <li class="en"><strong>Control Theory & Fluid Mechanics:</strong> Proficient in automatic control principles, fluid mechanics, and thermodynamics, with an interdisciplinary perspective for macroscopic and microscopic analysis.</li>
+        </ul>
+    </div>
+
+    <div id="hobbies" class="section">
+        <h2 class="zh">兴趣爱好</h2>
+        <h2 class="en">Interests & Hobbies</h2>
+
+        <ul>
+            <li class="zh"><strong>探索与运动：</strong> [请填写如：徒步、羽毛球、游泳]，在运动中保持充沛的精力与专注力。</li>
+            <li class="en"><strong>Sports & Outdoors:</strong> [e.g., Hiking, Badminton, Swimming], maintaining high energy and focus through physical activities.</li>
+            
+            <li class="zh"><strong>阅读与思考：</strong> 热爱科技前沿、历史或传记类书籍，享受深度阅读带来的思维拓展。</li>
+            <li class="en"><strong>Reading & Thinking:</strong> Passionate about cutting-edge tech, history, and biographies, enjoying the cognitive expansion from deep reading.</li>
+            
+            <li class="zh"><strong>艺术与生活：</strong> [请填写如：摄影、咖啡拉花、吉他]，在科研之余探索生活的美学。</li>
+            <li class="en"><strong>Arts & Lifestyle:</strong> [e.g., Photography, Coffee Art, Guitar], exploring the aesthetics of life outside of research.</li>
         </ul>
     </div>
 
