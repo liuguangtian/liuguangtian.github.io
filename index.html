@@ -241,20 +241,20 @@
     
     <div class="nav-container">
         <div class="nav-menu">
-            <a href="#" class="nav-link active" onclick="switchSection('education', this)">
+            <a href="#" class="nav-link active" onclick="switchSection('personal', this)">
+                <span class="zh">个人信息</span><span class="en">Personal Info</span>
+            </a>
+            <a href="#" class="nav-link" onclick="switchSection('education', this)">
                 <span class="zh">教育背景</span><span class="en">Education</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('internship', this)">
                 <span class="zh">实习经历</span><span class="en">Experience</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('projects', this)">
-                <span class="zh">科研项目</span><span class="en">Projects</span>
+                <span class="zh">项目经历</span><span class="en">Projects</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('skills', this)">
                 <span class="zh">专业技能</span><span class="en">Skills</span>
-            </a>
-            <a href="#" class="nav-link" onclick="switchSection('knowledge', this)">
-                <span class="zh">专业知识</span><span class="en">Knowledge</span>
             </a>
             <a href="#" class="nav-link" onclick="switchSection('hobbies', this)">
                 <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
@@ -266,7 +266,32 @@
 
 <div class="main-content">
     
-    <div id="education" class="section active">
+    <div id="personal" class="section active">
+        <h2 class="zh">个人信息</h2>
+        <h2 class="en">Personal Information</h2>
+        
+        <div class="experience-item">
+            <div class="meta-info zh">
+                <span><strong>姓名：</strong> 刘广天</span>
+                <span><strong>电话：</strong> 18832060103</span>
+                <span><strong>邮箱：</strong> 18832060103@163.com</span>
+                <span><strong>状态：</strong> 2027届硕士毕业生</span>
+            </div>
+            <div class="meta-info en">
+                <span><strong>Name:</strong> Guangtian Liu</span>
+                <span><strong>Phone:</strong> (+86) 18832060103</span>
+                <span><strong>Email:</strong> 18832060103@163.com</span>
+                <span><strong>Status:</strong> Master's Candidate (Class of 2027)</span>
+            </div>
+            
+            <br>
+            <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端天气影响（ELRG）与季节性电量失衡（SEI）联合风险的研究空白，熟练掌握严密的运筹学优化算法（如 Benders 分解）与时间序列动态基准线构建技术。能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
+            
+            <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint risks of extreme weather events (ELRG) and seasonal energy imbalances (SEI) in power system planning. Highly proficient in rigorous operations research optimization algorithms (e.g., Benders decomposition) and dynamic time-series baseline construction, with a comprehensive analytical perspective ranging from macroscopic system planning to microscopic physical devices.</p>
+        </div>
+    </div>
+
+    <div id="education" class="section">
         <h2 class="zh">教育背景</h2>
         <h2 class="en">Education</h2>
         
@@ -337,8 +362,8 @@
     </div>
 
     <div id="projects" class="section">
-        <h2 class="zh">科研项目</h2>
-        <h2 class="en">Research Projects</h2>
+        <h2 class="zh">项目经历</h2>
+        <h2 class="en">Project Experience</h2>
 
         <div class="experience-item">
             <div class="experience-header">
@@ -411,22 +436,6 @@
             
             <li class="zh"><strong>科研绘图与设计：</strong> Origin, Visio, Adobe Photoshop (PS), Adobe Premiere Pro (PR)。</li>
             <li class="en"><strong>Scientific Plotting & Media:</strong> Origin, Visio, Adobe Photoshop (PS), Premiere Pro (PR).</li>
-        </ul>
-    </div>
-
-    <div id="knowledge" class="section">
-        <h2 class="zh">专业知识</h2>
-        <h2 class="en">Domain Knowledge</h2>
-
-        <ul>
-            <li class="zh"><strong>电力系统与新能源：</strong> 长期电力系统规划与运行模拟、新能源消纳与极端天气风险评估、系统可靠性建模与分析。</li>
-            <li class="en"><strong>Power Systems & Renewable Energy:</strong> Long-term power system planning and operational simulation, renewable energy integration, extreme weather risk assessment, and system reliability modeling.</li>
-            
-            <li class="zh"><strong>底层硬件与电路基础：</strong> 深入掌握电路、模拟电路、数字电路、半导体物理与器件、电力电子技术等核心知识。</li>
-            <li class="en"><strong>Hardware & Circuit Fundamentals:</strong> In-depth knowledge of circuits, analog/digital electronics, semiconductor physics and devices, and power electronics.</li>
-            
-            <li class="zh"><strong>控制原理与流体力学：</strong> 掌握自动控制原理、流体力学与传热传质学基础理论，具备交叉学科的宏观与微观分析视野。</li>
-            <li class="en"><strong>Control Theory & Fluid Mechanics:</strong> Proficient in automatic control principles, fluid mechanics, and thermodynamics, with an interdisciplinary perspective for macroscopic and microscopic analysis.</li>
         </ul>
     </div>
 
