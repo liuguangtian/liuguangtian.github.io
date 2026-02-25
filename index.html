@@ -3,84 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的求职简历</title>
+    <title>求职简历与项目主页</title>
     <style>
-        /* 基础页面布局 */
+        /* 基础页面布局与现代字体栈 */
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
             display: flex; 
             height: 100vh; 
-            background-color: #f4f7f6;
+            background-color: #f8f9fa; /* 极简浅灰背景 */
+            color: #334155;
+            overflow: hidden;
         }
         
-        /* 侧边栏样式 */
+        /* 侧边栏样式：深色渐变与现代交互 */
         .sidebar { 
-            width: 220px; 
-            background-color: #2c3e50; 
-            padding-top: 30px; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            width: 240px; 
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            padding-top: 40px; 
+            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
         }
         .sidebar h2 {
-            color: white;
+            color: #f8fafc;
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
         .sidebar a { 
             display: block; 
-            color: #bdc3c7; 
-            padding: 15px 20px; 
+            color: #94a3b8; 
+            padding: 14px 24px; 
             text-decoration: none; 
-            transition: 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            margin-bottom: 8px;
+            margin-right: 16px;
+            border-radius: 0 20px 20px 0; /* 现代感右侧圆角 */
         }
         .sidebar a:hover { 
-            background-color: #34495e; 
-            color: white;
-            padding-left: 25px; /* 悬停时的缩进动画效果 */
+            background-color: rgba(255, 255, 255, 0.05); 
+            color: #f8fafc;
         }
         .sidebar a.active { 
-            background-color: #3498db; 
-            color: white;
-            border-left: 4px solid #2980b9;
+            background-color: rgba(59, 130, 246, 0.15); 
+            color: #60a5fa;
+            border-left: 4px solid #3b82f6; /* 亮蓝色强调 */
         }
 
         /* 主内容区域样式 */
         .main-content { 
             flex-grow: 1; 
-            padding: 40px; 
+            padding: 50px; 
             overflow-y: auto; 
+            scroll-behavior: smooth;
         }
         .section { 
-            display: none; /* 默认隐藏所有板块 */
-            background: white; 
-            padding: 30px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-            animation: fadeIn 0.5s; /* 切换时的淡入动画 */
+            display: none; 
+            background: #ffffff; 
+            padding: 45px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.08); /* 柔和的高级阴影 */
+            border-top: 5px solid #3b82f6; /* 顶部色彩强调 */
+            animation: slideUpFade 0.4s ease-out; 
+            max-width: 900px;
+            margin: 0 auto; /* 居中显示 */
         }
         .section.active { 
-            display: block; /* 只显示带有 active 类的板块 */
+            display: block; 
         }
 
-        /* 简单的淡入动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        /* 优雅的进场动画 */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* 内容排版细节 */
-        h2 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h3 { color: #34495e; }
-        ul { line-height: 1.8; }
+        .section h2 { 
+            color: #0f172a; 
+            font-size: 1.8rem;
+            margin-top: 0;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        /* 标题下方的精致下划线 */
+        .section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 4px;
+            width: 40px;
+            background-color: #3b82f6;
+            border-radius: 2px;
+        }
+        .section h3 { 
+            color: #334155; 
+            font-size: 1.25rem;
+            margin-top: 30px;
+            border-left: 3px solid #cbd5e1;
+            padding-left: 12px;
+        }
+        .section p {
+            line-height: 1.7;
+            color: #475569;
+        }
+        .section ul { 
+            line-height: 1.8; 
+            color: #475569;
+            padding-left: 20px;
+        }
+        .section li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>个人简历</h2>
-    <a href="#" class="nav-link active" onclick="switchSection('personal', this)">个人信息</a>
-    <a href="#" class="nav-link" onclick="switchSection('education', this)">教育背景</a>
+    <h2>导航目录</h2>
+    <a href="#" class="nav-link active" onclick="switchSection('education', this)">教育背景</a>
     <a href="#" class="nav-link" onclick="switchSection('internship', this)">实习经历</a>
     <a href="#" class="nav-link" onclick="switchSection('projects', this)">项目经历</a>
     <a href="#" class="nav-link" onclick="switchSection('skills', this)">专业技能</a>
@@ -89,35 +141,33 @@
 
 <div class="main-content">
     
-    <div id="personal" class="section active">
-        <h2>个人信息</h2>
-        <p><strong>姓名：</strong> [你的名字]</p>
-        <p><strong>求职意向：</strong> 电力系统规划工程师 / 算法研究员</p>
-        <p><strong>联系方式：</strong> your.email@example.com</p>
-        <p><strong>个人主页：</strong> github.com/yourusername</p>
-    </div>
-
-    <div id="education" class="section">
+    <div id="education" class="section active">
         <h2>教育背景</h2>
         <h3>[某某大学]</h3>
         <p><strong>专业：</strong> [你的专业] (博士/硕士) | <strong>时间：</strong> 20XX - 至今</p>
+        <ul>
+            <li>核心课程：[填写核心课程]</li>
+            <li>荣誉奖项：[填写奖学金或荣誉]</li>
+        </ul>
     </div>
 
     <div id="internship" class="section">
         <h2>实习经历</h2>
-        <h3>[某某研究院/公司] - [职位名称]</h3>
+        <h3>[某某研究院/电网公司] - [职位名称]</h3>
         <p><strong>时间：</strong> 20XX.XX - 20XX.XX</p>
         <ul>
-            <li>参与了某某项目的开发与研究...</li>
+            <li>参与了某某项目的开发与研究，负责...</li>
+            <li>优化了...模型，提升了...效率。</li>
         </ul>
     </div>
 
     <div id="projects" class="section">
         <h2>项目经历</h2>
         <h3>计及持续性可再生能源干旱与季节性电量不平衡联合风险的长期电力系统规划</h3>
+        <p><strong>项目角色：</strong> 核心研究员 | <strong>时间：</strong> 20XX.XX - 至今</p>
         <ul>
             <li>针对持续性极端低新能源出力 (ELRG) 与季节性电量不平衡 (SEI) 的联合风险，构建了长周期的电力系统规划框架。</li>
-            <li>提出并开发了一种新的 ELRG 事件聚类方法，该方法通过提取代表性的真实事件进行分析，有效替代了传统的统一长度典型片段生成法。</li>
+            <li>提出并开发了一种新的 ELRG 事件聚类方法，该方法通过提取代表性的真实事件进行分析，有效替代了传统的统一长度典型片段生成法，保留了系统真实物理特性。</li>
             <li>目标成果已整理成文，准备提交至 IEEE 顶级期刊。</li>
         </ul>
     </div>
@@ -125,9 +175,9 @@
     <div id="skills" class="section">
         <h2>专业技能</h2>
         <ul>
-            <li><strong>运筹与优化算法:</strong> 熟练掌握并应用 Benders 分解（严格精确算法）解决大规模复杂系统优化问题。</li>
-            <li><strong>数据与时间序列分析:</strong> 掌握使用 STL 分解构建动态基准线等高级分析技术。</li>
-            <li><strong>编程语言:</strong> Python, MATLAB, C++ (根据实际情况修改)</li>
+            <li><strong>运筹与优化算法:</strong> 熟练掌握并应用 Benders 分解（严格精确算法，非启发式）解决大规模复杂系统规划与运行优化问题。</li>
+            <li><strong>数据与时间序列分析:</strong> 掌握使用 STL 分解构建动态基准线等高级时间序列分析技术。</li>
+            <li><strong>编程语言与工具:</strong> Python, MATLAB, C++, Gurobi/CPLEX (根据实际情况修改)</li>
         </ul>
     </div>
 
@@ -137,6 +187,7 @@
             <li>长期电力系统规划与运行模拟</li>
             <li>新能源消纳与极端天气风险评估</li>
             <li>系统可靠性建模与分析</li>
+            <li>电力市场与电力经济学</li>
         </ul>
     </div>
 
