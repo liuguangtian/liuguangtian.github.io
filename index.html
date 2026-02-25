@@ -5,27 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>刘光恬的学术与项目主页</title>
     <style>
-        /* 基础页面布局与现代字体栈 */
+        /* CSS 变量定义：方便进行暗黑模式切换和全局颜色管理 */
+        :root {
+            --bg-color: #f8f9fa;
+            --sidebar-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            --sidebar-text: #94a3b8;
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #475569;
+            --accent-color: #3b82f6;
+            --shadow: 0 10px 30px -5px rgba(0,0,0,0.08);
+            --border-color: #cbd5e1;
+        }
+
+        /* 暗黑模式变量 */
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --sidebar-bg: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            --sidebar-text: #64748b;
+            --sidebar-hover: rgba(255, 255, 255, 0.02);
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --accent-color: #60a5fa;
+            --shadow: 0 10px 30px -5px rgba(0,0,0,0.5);
+            --border-color: #334155;
+        }
+
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
             display: flex; 
             height: 100vh; 
-            background-color: #f8f9fa; /* 极简浅灰背景 */
-            color: #334155;
+            background-color: var(--bg-color); 
+            color: var(--text-main);
             overflow: hidden;
+            transition: background-color 0.3s ease;
         }
         
-        /* 侧边栏样式：深色渐变与现代交互 */
+        /* 侧边栏整体布局 */
         .sidebar { 
-            width: 240px; 
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            padding-top: 40px; 
-            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+            width: 260px; 
+            background: var(--sidebar-bg);
+            padding: 40px 0 20px 0; 
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
             z-index: 10;
+            transition: all 0.3s ease;
         }
+
         .sidebar h2 {
             color: #f8fafc;
             text-align: center;
@@ -34,9 +64,16 @@
             letter-spacing: 1px;
             font-weight: 600;
         }
-        .sidebar a { 
+
+        /* 导航菜单区 */
+        .nav-menu {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .nav-link { 
             display: block; 
-            color: #94a3b8; 
+            color: var(--sidebar-text); 
             padding: 14px 24px; 
             text-decoration: none; 
             font-weight: 500;
@@ -44,16 +81,50 @@
             border-left: 4px solid transparent;
             margin-bottom: 8px;
             margin-right: 16px;
-            border-radius: 0 20px 20px 0; /* 现代感右侧圆角 */
+            border-radius: 0 20px 20px 0; 
         }
-        .sidebar a:hover { 
-            background-color: rgba(255, 255, 255, 0.05); 
+
+        .nav-link:hover { 
+            background-color: var(--sidebar-hover); 
             color: #f8fafc;
         }
-        .sidebar a.active { 
+
+        .nav-link.active { 
             background-color: rgba(59, 130, 246, 0.15); 
-            color: #60a5fa;
-            border-left: 4px solid #3b82f6; /* 亮蓝色强调 */
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color); 
+        }
+
+        /* 底部功能按钮区 */
+        .action-buttons {
+            padding: 0 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(255,255,255,0.05);
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .action-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
         }
 
         /* 主内容区域样式 */
@@ -63,22 +134,22 @@
             overflow-y: auto; 
             scroll-behavior: smooth;
         }
+
         .section { 
             display: none; 
-            background: #ffffff; 
+            background: var(--card-bg); 
             padding: 45px; 
             border-radius: 16px; 
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.08); /* 柔和的高级阴影 */
-            border-top: 5px solid #3b82f6; /* 顶部色彩强调 */
+            box-shadow: var(--shadow); 
+            border-top: 5px solid var(--accent-color); 
             animation: slideUpFade 0.4s ease-out; 
             max-width: 900px;
-            margin: 0 auto; /* 居中显示 */
-        }
-        .section.active { 
-            display: block; 
+            margin: 0 auto 40px auto; 
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* 优雅的进场动画 */
+        .section.active { display: block; }
+
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -86,13 +157,12 @@
 
         /* 内容排版细节 */
         .section h2 { 
-            color: #0f172a; 
+            color: var(--text-main); 
             font-size: 1.8rem;
             margin-top: 0;
             padding-bottom: 15px;
             position: relative;
         }
-        /* 标题下方的精致下划线 */
         .section h2::after {
             content: '';
             position: absolute;
@@ -100,31 +170,70 @@
             bottom: 0;
             height: 4px;
             width: 40px;
-            background-color: #3b82f6;
+            background-color: var(--accent-color);
             border-radius: 2px;
         }
         .section h3 { 
-            color: #334155; 
+            color: var(--text-main); 
             font-size: 1.25rem;
             margin-top: 30px;
-            border-left: 3px solid #cbd5e1;
+            border-left: 3px solid var(--border-color);
             padding-left: 12px;
         }
-        .section p {
+        .section p, .section ul {
             line-height: 1.7;
-            color: #475569;
+            color: var(--text-muted);
         }
-        .section ul { 
-            line-height: 1.8; 
-            color: #475569;
-            padding-left: 20px;
-        }
-        .section li {
-            margin-bottom: 10px;
-        }
-        strong {
-            color: #1e293b;
-            font-weight: 600;
+        .section ul { padding-left: 20px; }
+        .section li { margin-bottom: 10px; }
+        strong { color: var(--text-main); font-weight: 600; }
+
+        /* 响应式设计：适配手机屏幕 */
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { 
+                width: 100%; 
+                padding: 15px 0; 
+                flex-direction: column;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+            }
+            .sidebar h2 { margin-bottom: 15px; font-size: 1.1rem; }
+            
+            /* 手机端导航变为横向滚动 */
+            .nav-menu {
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+            .nav-link {
+                margin: 0 5px;
+                padding: 10px 15px;
+                border-radius: 20px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            .nav-link.active {
+                border-left: none;
+                border-bottom: 3px solid var(--accent-color);
+            }
+            
+            /* 手机端按钮组变为并排 */
+            .action-buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                margin-top: 10px;
+                padding: 10px 15px 0 15px;
+            }
+            .action-btn { margin-bottom: 0; margin-right: 5px; font-size: 0.8rem; padding: 8px;}
+            .action-btn:last-child { margin-right: 0; }
+            
+            .main-content { padding: 20px; }
+            .section { padding: 25px; }
         }
     </style>
 </head>
@@ -132,11 +241,20 @@
 
 <div class="sidebar">
     <h2>导航目录</h2>
-    <a href="#" class="nav-link active" onclick="switchSection('education', this)">教育背景</a>
-    <a href="#" class="nav-link" onclick="switchSection('internship', this)">实习经历</a>
-    <a href="#" class="nav-link" onclick="switchSection('projects', this)">项目经历</a>
-    <a href="#" class="nav-link" onclick="switchSection('skills', this)">专业技能</a>
-    <a href="#" class="nav-link" onclick="switchSection('knowledge', this)">专业知识</a>
+    
+    <div class="nav-menu">
+        <a href="#" class="nav-link active" onclick="switchSection('education', this)">教育背景</a>
+        <a href="#" class="nav-link" onclick="switchSection('internship', this)">实习经历</a>
+        <a href="#" class="nav-link" onclick="switchSection('projects', this)">项目经历</a>
+        <a href="#" class="nav-link" onclick="switchSection('skills', this)">专业技能</a>
+        <a href="#" class="nav-link" onclick="switchSection('knowledge', this)">专业知识</a>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-btn" id="themeToggle" onclick="toggleTheme()">🌓 切换主题</button>
+        <a href="resume.pdf" target="_blank" class="action-btn">📄 下载简历</a> 
+        <a href="mailto:your.email@example.com" class="action-btn">✉️ 联系我</a>
+    </div>
 </div>
 
 <div class="main-content">
@@ -167,7 +285,7 @@
         <p><strong>时间：</strong> 2025 - 至今</p>
         <ul>
             <li>针对持续性极端低新能源出力 (ELRG) 与季节性电量不平衡 (SEI) 的联合风险，构建了长周期的电力系统规划框架。</li>
-            <li>提出并开发了一种新的 ELRG 事件聚类方法，该方法通过提取代表性的真实事件进行分析，摒弃了传统的统一长度典型片段生成法，从而更准确地保留了系统真实的物理边界与特性。</li>
+            <li>提出了一种基于代表性真实事件提取的 ELRG 聚类方法。该方法有效替代了传统的统一长度典型片段生成法，摒弃了常规的事件分类思路，从而更准确地保留了系统真实的物理边界与特性。</li>
             <li>目前相关研究成果已撰写成文，计划提交至 IEEE 顶级期刊。</li>
         </ul>
     </div>
@@ -194,23 +312,41 @@
 </div>
 
 <script>
+    // 1. 板块切换逻辑
     function switchSection(sectionId, element) {
-        // 1. 隐藏所有内容板块
         var sections = document.querySelectorAll('.section');
-        sections.forEach(function(sec) {
-            sec.classList.remove('active');
-        });
+        sections.forEach(function(sec) { sec.classList.remove('active'); });
 
-        // 2. 移除侧边栏所有链接的高亮状态
         var links = document.querySelectorAll('.nav-link');
-        links.forEach(function(link) {
-            link.classList.remove('active');
-        });
+        links.forEach(function(link) { link.classList.remove('active'); });
 
-        // 3. 显示被点击的内容板块，并为对应的导航链接添加高亮
         document.getElementById(sectionId).classList.add('active');
         element.classList.add('active');
     }
+
+    // 2. 暗黑模式切换逻辑
+    function toggleTheme() {
+        const body = document.documentElement;
+        const currentTheme = body.getAttribute('data-theme');
+        let newTheme = 'dark';
+        if (currentTheme === 'dark') {
+            newTheme = 'light';
+        }
+        body.setAttribute('data-theme', newTheme);
+        // 将主题偏好保存在本地浏览器中
+        localStorage.setItem('theme', newTheme);
+    }
+
+    // 3. 页面加载时读取主题偏好
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // 如果用户系统是暗黑模式，默认开启
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    };
 </script>
 
 </body>
