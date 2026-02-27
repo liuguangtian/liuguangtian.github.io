@@ -5,168 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>刘广天 | Guangtian Liu</title>
     <style>
-        :root {
-            --bg: #f0f4f8;
-            --card: rgba(255, 255, 255, 0.98);
-            --text: #334155;
-            --text-dark: #0f172a;
-            --text-mid: #475569;
-            --text-light: #64748b;
-            --line: #e2e8f0;
-            --primary: #1d4ed8;
-            --primary-light: #eff6ff;
-            --soft: #f8fafc;
-            --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
-            --shadow-md: 0 10px 24px rgba(15, 23, 42, 0.06);
-            --radius-xl: 22px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
+        /* 基础页面布局与现代字体栈 */
+        body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            background:
-                radial-gradient(circle at top left, rgba(29,78,216,0.05), transparent 28%),
-                radial-gradient(circle at top right, rgba(14,165,233,0.05), transparent 24%),
-                var(--bg);
-            color: var(--text);
+            margin: 0; 
+            background-color: #f0f4f8;
+            color: #334155;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow-x: hidden; /* 防止手机端整体横向抖动 */
         }
 
-        a, button {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* ---------------- 语言切换 ---------------- */
-        body.lang-zh .en { display: none !important; }
-        body.lang-zh .zh { display: inline-block; }
-        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h1.zh, body.lang-zh h2.zh, body.lang-zh h3.zh, body.lang-zh li.zh { display: block; }
-        body.lang-zh li.zh { display: list-item; }
-
-        body.lang-en .zh { display: none !important; }
+        /* ---------------- 语言切换核心逻辑 ---------------- */
+        body.lang-zh .en { display: none; }
+        body.lang-zh .zh { display: inline-block; } 
+        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h2.zh, body.lang-zh h3.zh, body.lang-zh li.zh { display: list-item; }
+        body.lang-zh div.zh, body.lang-zh p.zh { display: block; }
+        
+        body.lang-en .zh { display: none; }
         body.lang-en .en { display: inline-block; }
-        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h1.en, body.lang-en h2.en, body.lang-en h3.en, body.lang-en li.en { display: block; }
-        body.lang-en li.en { display: list-item; }
+        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h2.en, body.lang-en h3.en, body.lang-en li.en { display: list-item; }
+        body.lang-en div.en, body.lang-en p.en { display: block; }
 
-        /* ---------------- Header ---------------- */
+        /* ---------------- 顶部导航栏（重构版） ---------------- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
-            background: rgba(255,255,255,0.84);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
             box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+            box-sizing: border-box;
         }
 
         .header-inner {
-            max-width: 1120px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 12px 16px 10px;
+            box-sizing: border-box;
         }
 
         .top-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 14px;
-        }
-
-        .brand-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            min-width: 0;
+            gap: 12px;
         }
 
         .brand {
-            font-size: 1.38rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: var(--text-dark);
-            line-height: 1.2;
-            white-space: nowrap;
-            letter-spacing: 0.2px;
-        }
-
-        .brand-sub {
-            color: var(--text-light);
-            font-size: 0.86rem;
-            line-height: 1.2;
-            white-space: nowrap;
-        }
-
-        .lang-btn {
-            background-color: #fff;
-            color: var(--text);
-            border: 1px solid var(--line);
-            padding: 8px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.84rem;
-            transition: all 0.28s ease;
+            color: #0f172a;
+            letter-spacing: 0.5px;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
+        .lang-btn {
+            background-color: #f8fafc;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
         .lang-btn:hover {
-            background-color: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            box-shadow: 0 6px 16px rgba(29,78,216,0.22);
+            background-color: #1d4ed8;
+            color: #ffffff;
+            border-color: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
         }
 
-        /* 导航滚动层 + 左右渐隐提示 */
-        .nav-fade-wrap {
-            position: relative;
-            margin-top: 12px;
-        }
-
-        .nav-fade-wrap::before,
-        .nav-fade-wrap::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 28px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .nav-fade-wrap::before {
-            left: 0;
-            background: linear-gradient(to right, rgba(255,255,255,0.98), rgba(255,255,255,0));
-        }
-
-        .nav-fade-wrap::after {
-            right: 0;
-            background: linear-gradient(to left, rgba(255,255,255,0.98), rgba(255,255,255,0));
-        }
-
+        /* 关键：单独的横向滚动层 */
         .nav-scroll {
+            margin-top: 12px;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             touch-action: pan-x;
             overscroll-behavior-x: contain;
-            padding: 0 4px;
         }
-
         .nav-scroll::-webkit-scrollbar {
             display: none;
         }
@@ -182,364 +110,154 @@
         }
 
         .nav-menu a {
-            position: relative;
-            flex: 0 0 auto;
             text-decoration: none;
-            color: var(--text-light);
+            color: #64748b;
+            font-weight: 500;
             font-size: 0.95rem;
-            font-weight: 600;
-            white-space: nowrap;
             padding: 10px 2px;
-            transition: color 0.28s ease;
+            position: relative;
+            transition: color 0.3s;
+            white-space: nowrap;
+            flex: 0 0 auto;
         }
-
-        .nav-menu a:hover {
-            color: var(--primary);
+        .nav-menu a:hover { 
+            color: #1d4ed8; 
         }
-
+        
         .nav-menu a::after {
-            content: "";
+            content: '';
             position: absolute;
-            left: 50%;
-            bottom: 0;
             width: 0;
             height: 3px;
+            bottom: 0;
+            left: 50%;
+            background-color: #1d4ed8;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
-            border-radius: 999px;
-            background: var(--primary);
-            transition: width 0.28s ease;
+            border-radius: 3px;
+        }
+        .nav-menu a.active { 
+            color: #1d4ed8; 
+            font-weight: 600; 
+        }
+        .nav-menu a.active::after { 
+            width: 100%; 
         }
 
-        .nav-menu a.active {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .nav-menu a.active::after {
-            width: 100%;
-        }
-
-        /* ---------------- Main ---------------- */
+        /* ---------------- 主内容区域样式 ---------------- */
         .main-content {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 152px 16px 72px;
+            padding-top: 150px;
+            padding-bottom: 80px;
+            padding-left: 4%;
+            padding-right: 4%;
+            min-height: calc(100vh - 200px);
         }
 
         .section {
             display: none;
-            background: var(--card);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-lg);
-            padding: 56px 64px;
-            animation: fadeIn 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 860px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px 70px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .section.active {
-            display: block;
-        }
+        .section.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(14px) scale(0.995); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(15px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .section h2 {
-            margin: 0 0 34px;
+        /* 内容排版细节 */
+        .section h2 { 
+            color: #0f172a; 
             font-size: 1.9rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: 0.2px;
+            margin-top: 0;
+            padding-bottom: 15px;
             position: relative;
-            padding-bottom: 14px;
+            margin-bottom: 40px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
-
         .section h2::after {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 40px;
             height: 4px;
-            border-radius: 999px;
-            background: var(--primary);
+            width: 36px;
+            background-color: #1d4ed8;
+            border-radius: 4px;
         }
-
-        .section h3 {
-            margin: 0;
-            font-size: 1.22rem;
-            font-weight: 750;
-            color: var(--text-dark);
-            line-height: 1.45;
-        }
-
-        .section p {
-            color: var(--text-mid);
-            margin: 0 0 16px;
-        }
-
-        .section ul {
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text-mid);
-        }
-
-        .section li {
-            margin-bottom: 12px;
-            padding-left: 6px;
-        }
-
-        .section li::marker {
-            color: #cbd5e1;
-            font-size: 1.1em;
-        }
-
-        strong {
-            color: #1e293b;
-            font-weight: 750;
-        }
-
-        /* ---------------- Hero 首页卡片 ---------------- */
-        .hero-card {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 28px;
-            align-items: stretch;
-            margin-bottom: 28px;
-        }
-
-        .hero-main,
-        .hero-side {
-            background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.95));
-            border: 1px solid rgba(226,232,240,0.9);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-        }
-
-        .hero-main {
-            padding: 28px 30px;
-        }
-
-        .hero-side {
-            padding: 24px 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hero-title {
-            margin: 0 0 10px;
-            font-size: 2rem;
-            font-weight: 850;
-            line-height: 1.22;
-            color: var(--text-dark);
-        }
-
-        .hero-subtitle {
-            display: inline-flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .hero-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid #bfdbfe;
-            padding: 6px 12px;
-            border-radius: 999px;
-            font-size: 0.88rem;
-            font-weight: 700;
-        }
-
-        .hero-text {
-            font-size: 1rem;
-            color: var(--text-mid);
-            margin-bottom: 20px;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-height: 42px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--line);
-            background: #fff;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 700;
-            transition: all 0.25s ease;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(15,23,42,0.08);
-            border-color: #cbd5e1;
-        }
-
-        .action-btn.primary {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: #fff;
-        }
-
-        .quick-card-title {
-            font-size: 0.96rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 12px;
-        }
-
-        .quick-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .quick-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-mid);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .quick-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 10px;
-            background: var(--soft);
-            border: 1px solid var(--line);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        /* ---------------- 通用模块 ---------------- */
-        .experience-item {
-            margin-bottom: 42px;
-        }
-
-        .experience-item:last-child {
-            margin-bottom: 0;
-        }
-
+        
+        .experience-item { margin-bottom: 45px; }
+        .experience-item:last-child { margin-bottom: 0; }
+        
         .experience-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            gap: 14px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            margin-bottom: 14px;
+            gap: 12px;
         }
-
+        
+        .section h3 { 
+            color: #0f172a; 
+            font-size: 1.25rem;
+            margin: 0;
+            font-weight: 700;
+        }
+        
         .date-badge {
-            flex-shrink: 0;
             font-family: 'SFMono-Regular', Consolas, monospace;
-            color: var(--text-mid);
-            font-size: 0.92rem;
+            color: #475569;
+            font-size: 0.95rem;
             background: #f1f5f9;
-            border: 1px solid var(--line);
             padding: 5px 12px;
-            border-radius: 10px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-weight: 500;
         }
 
         .meta-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 18px;
-            font-size: 0.94rem;
-        }
-
-        .meta-info span {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--soft);
-            color: var(--text);
-            padding: 6px 13px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            font-weight: 650;
-        }
-
-        .grid-two {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        .info-card {
-            background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.95));
-            border: 1px solid var(--line);
-            border-radius: var(--radius-lg);
-            padding: 22px 22px;
-            box-shadow: 0 8px 20px rgba(15,23,42,0.04);
-        }
-
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: #f8fafc;
-            border: 1px solid var(--line);
-            color: var(--text);
-            font-size: 0.9rem;
-            font-weight: 650;
-        }
-
-        .note-box {
-            margin-top: 22px;
-            background: linear-gradient(135deg, #eff6ff, #f8fbff);
-            border: 1px solid #dbeafe;
-            color: #1e3a8a;
-            border-radius: 16px;
-            padding: 16px 18px;
             font-size: 0.95rem;
+            margin-bottom: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
         }
+        .meta-info span {
+            background: #f8fafc;
+            color: #334155;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+        
+        .section p { color: #475569; margin-bottom: 16px; }
+        .section ul { padding-left: 20px; color: #475569; }
+        .section li { margin-bottom: 12px; padding-left: 6px; }
+        .section li::marker { color: #cbd5e1; font-size: 1.2em; }
+        strong { color: #1e293b; font-weight: 700; }
 
-        /* ---------------- 响应式 ---------------- */
+        /* ---------------- 桌面端优化 ---------------- */
         @media (min-width: 769px) {
             .header-inner {
                 display: flex;
                 align-items: center;
                 gap: 24px;
+                padding: 0 24px;
                 min-height: 76px;
-                padding: 0 20px;
             }
 
             .top-bar {
                 flex-shrink: 0;
-                min-width: 230px;
             }
 
-            .nav-fade-wrap {
+            .nav-scroll {
                 margin-top: 0;
                 flex: 1;
             }
@@ -549,84 +267,38 @@
             }
 
             .main-content {
-                padding-top: 118px;
+                padding-top: 120px;
             }
         }
 
-        @media (max-width: 980px) {
-            .section {
-                padding: 42px 30px;
-            }
-
-            .hero-card,
-            .grid-two {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        /* ---------------- 移动端适配 ---------------- */
         @media (max-width: 768px) {
-            .header-inner {
-                padding: 12px 14px 10px;
+            .section { 
+                padding: 40px 25px; 
+                border-radius: 16px; 
             }
 
-            .brand {
-                font-size: 1.22rem;
+            .brand { 
+                font-size: 1.25rem; 
             }
 
-            .brand-sub {
-                font-size: 0.8rem;
-            }
-
-            .lang-btn {
-                padding: 7px 13px;
-                font-size: 0.8rem;
-            }
-
-            .nav-menu {
-                gap: 20px;
+            .nav-menu { 
+                gap: 20px; 
                 padding-right: 16px;
             }
 
-            .nav-fade-wrap::before,
-            .nav-fade-wrap::after {
-                width: 22px;
+            .experience-header { 
+                flex-direction: column; 
+                align-items: flex-start; 
             }
 
-            .main-content {
-                padding: 146px 12px 56px;
+            .main-content { 
+                padding-top: 145px; 
             }
 
-            .section {
-                padding: 34px 20px;
-                border-radius: 18px;
-            }
-
-            .section h2 {
-                font-size: 1.6rem;
-                margin-bottom: 28px;
-            }
-
-            .hero-title {
-                font-size: 1.55rem;
-            }
-
-            .hero-main,
-            .hero-side,
-            .info-card {
-                padding: 20px 18px;
-            }
-
-            .experience-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .meta-info span {
-                font-size: 0.9rem;
-            }
-
-            .action-btn {
-                width: 100%;
+            .lang-btn {
+                padding: 7px 14px;
+                font-size: 0.82rem;
             }
         }
     </style>
@@ -636,206 +308,85 @@
 <header>
     <div class="header-inner">
         <div class="top-bar">
-            <div class="brand-wrap">
-                <div class="brand">
-                    <span class="zh">刘广天</span>
-                    <span class="en">Guangtian Liu</span>
-                </div>
-                <div class="brand-sub">
-                    <span class="zh">新能源 × 电力系统 × 优化建模</span>
-                    <span class="en">Renewable Energy × Power Systems × Optimization</span>
-                </div>
+            <div class="brand">
+                <span class="zh">刘广天</span>
+                <span class="en">Guangtian Liu</span>
             </div>
             <button class="lang-btn" onclick="toggleLanguage()">EN / 中文</button>
         </div>
 
-        <div class="nav-fade-wrap">
-            <div class="nav-scroll" id="navScroll">
-                <nav class="nav-menu">
-                    <a href="#personal" class="nav-link active" onclick="switchSection(event, 'personal', this)">
-                        <span class="zh">个人信息</span><span class="en">Profile</span>
-                    </a>
-                    <a href="#education" class="nav-link" onclick="switchSection(event, 'education', this)">
-                        <span class="zh">教育背景</span><span class="en">Education</span>
-                    </a>
-                    <a href="#internship" class="nav-link" onclick="switchSection(event, 'internship', this)">
-                        <span class="zh">实习经历</span><span class="en">Experience</span>
-                    </a>
-                    <a href="#projects" class="nav-link" onclick="switchSection(event, 'projects', this)">
-                        <span class="zh">项目经历</span><span class="en">Projects</span>
-                    </a>
-                    <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
-                        <span class="zh">专业技能</span><span class="en">Skills</span>
-                    </a>
-                    <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
-                        <span class="zh">兴趣爱好</span><span class="en">Interests</span>
-                    </a>
-                </nav>
-            </div>
+        <div class="nav-scroll">
+            <nav class="nav-menu">
+                <a href="#personal" class="nav-link active" onclick="switchSection(event, 'personal', this)">
+                    <span class="zh">个人信息</span><span class="en">Personal Info</span>
+                </a>
+                <a href="#education" class="nav-link" onclick="switchSection(event, 'education', this)">
+                    <span class="zh">教育背景</span><span class="en">Education</span>
+                </a>
+                <a href="#internship" class="nav-link" onclick="switchSection(event, 'internship', this)">
+                    <span class="zh">实习经历</span><span class="en">Experience</span>
+                </a>
+                <a href="#projects" class="nav-link" onclick="switchSection(event, 'projects', this)">
+                    <span class="zh">项目经历</span><span class="en">Projects</span>
+                </a>
+                <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
+                    <span class="zh">专业技能</span><span class="en">Skills</span>
+                </a>
+                <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
+                    <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
+                </a>
+            </nav>
         </div>
     </div>
 </header>
 
-<main class="main-content">
-
-    <!-- Personal -->
-    <section id="personal" class="section active">
+<div class="main-content">
+    
+    <div id="personal" class="section active">
         <h2 class="zh">个人信息</h2>
-        <h2 class="en">Personal Profile</h2>
-
-        <div class="hero-card">
-            <div class="hero-main">
-                <h1 class="hero-title zh">刘广天</h1>
-                <h1 class="hero-title en">Guangtian Liu</h1>
-
-                <div class="hero-subtitle">
-                    <span class="hero-chip zh">硕士在读 · 2027届</span>
-                    <span class="hero-chip en">Master's Candidate · Class of 2027</span>
-
-                    <span class="hero-chip zh">电力系统规划</span>
-                    <span class="hero-chip en">Power System Planning</span>
-
-                    <span class="hero-chip zh">新能源建模</span>
-                    <span class="hero-chip en">Renewable Modeling</span>
-                </div>
-
-                <p class="hero-text zh">
-                    具备新能源发电与电气工程的交叉背景，重点研究长期电力系统规划中
-                    <strong>极端低可再生出力风险</strong>与<strong>季节性电量失衡</strong>问题，
-                    熟悉优化建模、时间序列分析及电力系统仿真。
-                </p>
-                <p class="hero-text en">
-                    With an interdisciplinary background in renewable energy and electrical engineering,
-                    I focus on long-term power system planning under
-                    <strong>extreme low renewable generation risk</strong> and
-                    <strong>seasonal energy imbalance</strong>,
-                    with solid experience in optimization modeling, time-series analysis, and simulation.
-                </p>
-
-                <div class="hero-actions">
-                    <a class="action-btn primary" href="#projects" onclick="switchSection(event, 'projects', document.querySelector('a[href=\'#projects\']'))">
-                        <span class="zh">查看项目经历</span>
-                        <span class="en">View Projects</span>
-                    </a>
-
-                    <a class="action-btn" href="mailto:18832060103@163.com">
-                        <span class="zh">联系我</span>
-                        <span class="en">Contact Me</span>
-                    </a>
-                </div>
+        <h2 class="en">Personal Information</h2>
+        
+        <div class="experience-item">
+            <div class="meta-info zh">
+                <span><strong>姓名：</strong> 刘广天</span>
+                <span><strong>电话：</strong> 18832060103</span>
+                <span><strong>邮箱：</strong> 18832060103@163.com</span>
+                <span><strong>状态：</strong> 2027届硕士毕业生</span>
             </div>
-
-            <div class="hero-side">
-                <div>
-                    <div class="quick-card-title zh">联系信息</div>
-                    <div class="quick-card-title en">Contact</div>
-
-                    <div class="quick-list">
-                        <div class="quick-item">
-                            <span class="quick-icon">📱</span>
-                            <div>
-                                <strong class="zh">电话：</strong><strong class="en">Phone:</strong>
-                                18832060103
-                            </div>
-                        </div>
-
-                        <div class="quick-item">
-                            <span class="quick-icon">✉️</span>
-                            <div>
-                                <strong class="zh">邮箱：</strong><strong class="en">Email:</strong>
-                                18832060103@163.com
-                            </div>
-                        </div>
-
-                        <div class="quick-item">
-                            <span class="quick-icon">🎓</span>
-                            <div>
-                                <strong class="zh">状态：</strong><strong class="en">Status:</strong>
-                                <span class="zh">2027届硕士毕业生</span>
-                                <span class="en">Master's Candidate (Class of 2027)</span>
-                            </div>
-                        </div>
-
-                        <div class="quick-item">
-                            <span class="quick-icon">📍</span>
-                            <div>
-                                <strong class="zh">方向：</strong><strong class="en">Focus:</strong>
-                                <span class="zh">新能源、电力系统、优化建模</span>
-                                <span class="en">Renewables, Power Systems, Optimization</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="note-box">
-                    <span class="zh">提示：手机端顶部导航支持左右滑动。</span>
-                    <span class="en">Tip: The top navigation supports horizontal swipe on mobile.</span>
-                </div>
+            <div class="meta-info en">
+                <span><strong>Name:</strong> Guangtian Liu</span>
+                <span><strong>Phone:</strong> (+86) 18832060103</span>
+                <span><strong>Email:</strong> 18832060103@163.com</span>
+                <span><strong>Status:</strong> Master's Candidate (Class of 2027)</span>
             </div>
+            
+            <br>
+            <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端天气影响（ELRG）与季节性电量失衡（SEI）联合风险的研究空白，熟练掌握严密的运筹学优化算法（如 Benders 分解）与时间序列动态基准线构建技术。能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
+            
+            <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint risks of extreme weather events (ELRG) and seasonal energy imbalances (SEI) in power system planning. Highly proficient in rigorous operations research optimization algorithms (e.g., Benders decomposition) and dynamic time-series baseline construction, with a comprehensive analytical perspective ranging from macroscopic system planning to microscopic physical devices.</p>
         </div>
+    </div>
 
-        <div class="grid-two">
-            <div class="info-card">
-                <h3 class="zh">个人概述</h3>
-                <h3 class="en">Profile Summary</h3>
-
-                <p class="zh">
-                    致力于研究高比例可再生能源电力系统中的规划问题，关注
-                    <strong>极端天气驱动的持续低出力风险</strong>、
-                    <strong>季节尺度电量失衡</strong>以及
-                    <strong>储能与灵活资源配置</strong>。
-                </p>
-                <p class="en">
-                    Dedicated to planning problems in high-renewable power systems,
-                    especially
-                    <strong>persistent low-generation risks caused by extreme weather</strong>,
-                    <strong>seasonal energy imbalance</strong>, and
-                    <strong>flexibility resource allocation with storage</strong>.
-                </p>
-            </div>
-
-            <div class="info-card">
-                <h3 class="zh">关键词</h3>
-                <h3 class="en">Keywords</h3>
-
-                <div class="tag-list">
-                    <span class="tag">PELRG / ELRG</span>
-                    <span class="tag">SEI</span>
-                    <span class="tag zh">电力系统规划</span>
-                    <span class="tag en">Power Planning</span>
-                    <span class="tag zh">优化建模</span>
-                    <span class="tag en">Optimization</span>
-                    <span class="tag">Benders</span>
-                    <span class="tag zh">时间序列分析</span>
-                    <span class="tag en">Time Series</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section">
+    <div id="education" class="section">
         <h2 class="zh">教育背景</h2>
         <h2 class="en">Education</h2>
-
+        
         <div class="experience-item">
             <div class="experience-header">
-                <h3 class="zh">香港中文大学（深圳）</h3>
+                <h3 class="zh">香港中文大学 (深圳)</h3>
                 <h3 class="en">The Chinese University of Hong Kong, Shenzhen</h3>
                 <div class="date-badge">2025.09 - 2027.06</div>
             </div>
-
             <div class="meta-info zh">
-                <span><strong>研究方向：</strong>电力系统</span>
-                <span><strong>学位：</strong>硕士研究生</span>
+                <span><strong>研究方向：</strong> 电力系统</span>
+                <span><strong>学位：</strong> 硕士研究生</span>
             </div>
             <div class="meta-info en">
                 <span><strong>Research:</strong> Power Systems</span>
                 <span><strong>Degree:</strong> Master's Candidate</span>
             </div>
-
             <ul>
-                <li class="zh"><strong>主修课程：</strong>电力系统、智能电网、机器学习、半导体物理与器件、模拟电路、数字电路、电机学。</li>
+                <li class="zh"><strong>主修课程：</strong> 电力系统、智能电网、机器学习、半导体物理与器件、模拟电路、数字电路、电机学。</li>
                 <li class="en"><strong>Core Courses:</strong> Power Systems, Smart Grids, Machine Learning, Semiconductor Physics and Devices, Analog/Digital Circuits, Electrical Machinery.</li>
             </ul>
         </div>
@@ -846,241 +397,141 @@
                 <h3 class="en">Nanjing University of Science and Technology</h3>
                 <div class="date-badge">2021.09 - 2025.06</div>
             </div>
-
             <div class="meta-info zh">
-                <span><strong>专业：</strong>新能源科学与工程</span>
-                <span><strong>综合排名：</strong>9 / 56</span>
+                <span><strong>专业：</strong> 新能源科学与工程</span>
+                <span><strong>综合排名：</strong> 9/56</span>
             </div>
             <div class="meta-info en">
                 <span><strong>Major:</strong> New Energy Science & Engineering</span>
-                <span><strong>Rank:</strong> 9 / 56</span>
+                <span><strong>Rank:</strong> 9/56</span>
             </div>
-
             <ul>
-                <li class="zh"><strong>主修课程：</strong>电路、电力电子技术、控制工程基础、风力发电系统与控制技术、风力机原理、光伏器件与系统、储能原理与技术、传热传质学、工程热力学、流体力学等。</li>
-                <li class="en"><strong>Core Courses:</strong> Circuits, Power Electronics, Control Engineering, Wind Power Systems, Wind Turbine Theory, Photovoltaic Devices and Systems, Energy Storage Technology, Heat and Mass Transfer, Thermodynamics, and Fluid Mechanics.</li>
+                <li class="zh"><strong>主修课程：</strong> 电路、电力电子技术、控制工程基础、风力发电系统与控制技术、风力机原理、光伏器件与系统、储能原理与技术、传热传质学、工程热力学、流体力学等。</li>
+                <li class="en"><strong>Core Courses:</strong> Circuits, Power Electronics, Control Engineering, Wind Power Systems, Photovoltaic Systems, Energy Storage Technology, Fluid Mechanics, Thermodynamics, etc.</li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <!-- Internship -->
-    <section id="internship" class="section">
+    <div id="internship" class="section">
         <h2 class="zh">实习经历</h2>
         <h2 class="en">Professional Experience</h2>
 
         <div class="experience-item">
             <div class="experience-header">
-                <h3 class="zh">北京北方华创微电子装备有限公司（总部）</h3>
+                <h3 class="zh">北京北方华创微电子装备有限公司 (总部)</h3>
                 <h3 class="en">NAURA Technology Group Co., Ltd. (HQ)</h3>
                 <div class="date-badge">2025.06 - 2025.08</div>
             </div>
-
-            <div class="meta-info zh">
-                <span><strong>职位：</strong>助理电气工程师</span>
-            </div>
-            <div class="meta-info en">
-                <span><strong>Role:</strong> Assistant Electrical Engineer</span>
-            </div>
-
+            <div class="meta-info zh"><span><strong>职位：</strong> 助理电气工程师</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Assistant Electrical Engineer</span></div>
             <ul>
-                <li class="zh"><strong>PLM 管理：</strong>负责新物料申请与发布，完成变更物料图纸的修改、检入及 BOM 发布。</li>
-                <li class="en"><strong>PLM Management:</strong> Managed new material applications and releases, including drawing revisions, check-ins, and BOM releases.</li>
-
-                <li class="zh"><strong>电气制图：</strong>基于 SWE 完成电缆图、配线图的核对与修正，并使用中望 CAD 进行图纸校对。</li>
-                <li class="en"><strong>Electrical Drafting:</strong> Verified and corrected cable and wiring diagrams using SWE, and reviewed drawings with ZWCAD.</li>
-
-                <li class="zh"><strong>洁净间测试与维保：</strong>协助完成设备出厂前 Safety Check 安全测试，确保故障预警功能正常；编写限温器等产品的符合性 SOP 文件并协助软件配置；累计完成 300+ 次清洗机腔室电机驱动器输入/输出电压测试。</li>
-                <li class="en"><strong>Cleanroom Testing & Maintenance:</strong> Assisted in pre-delivery safety checks, prepared compliance SOPs for components such as temperature limiters, supported software configuration, and completed 300+ voltage I/O tests on chamber motor drivers.</li>
+                <li class="zh"><strong>PLM 管理：</strong> 负责新物料的申请与发布，完成变更物料图纸的修改、检入及 BOM 的发布。</li>
+                <li class="en"><strong>PLM Management:</strong> Managed new material applications and releases; handled drawing modifications, check-ins, and BOM releases.</li>
+                
+                <li class="zh"><strong>电气制图：</strong> 基于 SWE 完成电缆图、配线图的核对与修正；基于中望 CAD 对图纸进行校对修正。</li>
+                <li class="en"><strong>Electrical Drafting:</strong> Proofread and corrected cable/wiring diagrams using SWE; verified mechanical drawings using ZWCAD.</li>
+                
+                <li class="zh"><strong>洁净间测试与维保：</strong> 协助制造人员完成设备出厂前的 Safety Check 安全测试，确保故障预警功能正常；编写限温器等产品的符合性 SOP 文件并协助软件配置；累计 300+ 次测试清洗机腔室电机驱动器的输入输出电压。</li>
+                <li class="en"><strong>Cleanroom Operations:</strong> Assisted in pre-factory safety tests ensuring fault warning functionalities; authored SOPs for components like temperature limiters; conducted 300+ voltage I/O tests on motor drivers using multimeters.</li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <!-- Projects -->
-    <section id="projects" class="section">
+    <div id="projects" class="section">
         <h2 class="zh">项目经历</h2>
         <h2 class="en">Project Experience</h2>
 
         <div class="experience-item">
             <div class="experience-header">
-                <h3 class="zh">考虑季节电量失衡及极端低出力场景的电力系统规划问题</h3>
-                <h3 class="en">Long-Term Power System Planning Considering Seasonal Energy Imbalance and Extreme Low-Generation Scenarios</h3>
+                <h3 class="zh">考虑季节电量失衡以及极端低出力场景的电力系统规划问题</h3>
+                <h3 class="en">Long-Term Power System Planning Considering Seasonal Energy Imbalances & Extreme Scenarios</h3>
                 <div class="date-badge">2025.09 - 至今</div>
             </div>
-
-            <div class="meta-info zh">
-                <span><strong>角色：</strong>第一负责人</span>
-                <span><strong>方向：</strong>电力系统规划 / 优化建模</span>
-            </div>
-            <div class="meta-info en">
-                <span><strong>Role:</strong> Project Lead</span>
-                <span><strong>Area:</strong> Planning / Optimization</span>
-            </div>
-
+            <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Project Lead</span></div>
             <ul>
-                <li class="zh">针对研究空缺，构建同时考虑可再生能源<strong>季节性电量失衡（SEI）</strong>与<strong>极端低出力场景</strong>的源-荷-储长期电力系统规划模型。</li>
-                <li class="en">Developed a source-load-storage long-term planning model that jointly addresses <strong>seasonal energy imbalance (SEI)</strong> and <strong>extreme low renewable generation scenarios</strong>.</li>
-
-                <li class="zh">提出一种新的低出力事件识别与聚类思路，通过直接提取代表性真实事件，避免传统统一长度典型片段方法对物理边界的削弱。</li>
-                <li class="en">Proposed a new event identification and clustering framework that directly preserves representative real low-generation events, avoiding the boundary distortion of fixed-length typical-fragment methods.</li>
-
-                <li class="zh">围绕长期规划中的风险表征、储能配置及多时间尺度建模开展研究，目前正在撰写论文，计划投稿相关领域高水平期刊。</li>
-                <li class="en">Currently studying risk representation, storage allocation, and multi-timescale modeling in long-term planning, with a manuscript in progress targeting a high-level journal.</li>
+                <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力 (ELRG) 场景的源-荷-储长期电力系统规划模型。</li>
+                <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation (ELRG).</li>
+                
+                <li class="zh">提出一种新的 ELRG 事件聚类方法，通过直接提取并分析代表性的真实事件，有效摒弃了传统的统一长度典型片段生成法及事件分类法，精确保留了系统真实的物理边界。</li>
+                <li class="en">Proposed a novel ELRG clustering method by directly selecting representative real events, overcoming the limitations of unified-length typical fragments and event classification methods to preserve actual physical boundaries.</li>
+                
+                <li class="zh">目前正撰写相关学术论文，计划提交至相关领域顶级期刊。</li>
+                <li class="en">Currently writing the manuscript, targeting submission to a top-tier journal.</li>
             </ul>
         </div>
 
         <div class="experience-item">
             <div class="experience-header">
-                <h3 class="zh">结构变形对风力机超长柔性叶片气动弹性影响分析（本科毕设）</h3>
-                <h3 class="en">Aeroelastic Effects of Structural Deformation on Ultra-Long Flexible Wind Turbine Blades</h3>
+                <h3 class="zh">结构变形对风力机超长柔性叶片气动弹性影响分析 (本科毕设)</h3>
+                <h3 class="en">Aeroelastic Effects of Structural Deformation on Ultra-long Flexible Wind Turbine Blades</h3>
                 <div class="date-badge">2025.01 - 2025.06</div>
             </div>
-
-            <div class="meta-info zh">
-                <span><strong>角色：</strong>第一负责人</span>
-            </div>
-            <div class="meta-info en">
-                <span><strong>Role:</strong> Project Lead (Undergraduate Thesis)</span>
-            </div>
-
+            <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Project Lead (Undergrad Thesis)</span></div>
             <ul>
-                <li class="zh">基于 OpenFAST 多物理场开源平台完成风力机叶片建模，并进行仿真验证与可靠性分析。</li>
-                <li class="en">Modeled wind turbine blades on the OpenFAST multi-physics platform and carried out simulation validation and reliability analysis.</li>
-
-                <li class="zh">研究 5MW、10MW、22MW 不同展长柔性叶片在额定风速下的动态形变规律。</li>
-                <li class="en">Studied the dynamic deformation of 5 MW, 10 MW, and 22 MW flexible blades with different spans under rated wind conditions.</li>
-
-                <li class="zh">基于 IEA-22-280-RWT 风力机，分析超长柔性叶片动态变形对气动性能及整机性能的影响。</li>
-                <li class="en">Analyzed the influence of dynamic deformation of ultra-long flexible blades on aerodynamic behavior and overall turbine performance based on the IEA-22-280-RWT model.</li>
+                <li class="zh">基于 OpenFAST 多物理场开源平台对风力机叶片建模并进行可靠性仿真验证。</li>
+                <li class="en">Modeled wind turbine blades and verified reliability simulations using the OpenFAST multi-physics platform.</li>
+                <li class="zh">系统研究了 5MW、10MW、22MW 三种基于 FFA-W3、不同展长的柔性叶片在额定风速下的动态形变。</li>
+                <li class="en">Systematically studied the dynamic deformation of 5MW, 10MW, and 22MW flexible blades (FFA-W3 based) under rated wind speeds.</li>
+                <li class="zh">基于 IEA-22-280-RWT 风力机，深入探究超长柔性叶片的动态变形对叶片气动性能及风机整体性能的影响。</li>
+                <li class="en">Analyzed the impact of ultra-long blade dynamic deformation on aerodynamic and overall turbine performance based on the IEA-22-280-RWT model.</li>
             </ul>
         </div>
 
         <div class="experience-item">
             <div class="experience-header">
-                <h3 class="zh">悬浮式高空风力机的流体力学问题研究及其设计实现（校级重点）</h3>
+                <h3 class="zh">悬浮式高空风力机的流体力学问题研究及其设计实现 (校级重点)</h3>
                 <h3 class="en">Fluid Dynamics and Design of Suspended Airborne Wind Turbines</h3>
                 <div class="date-badge">2024.04 - 2024.10</div>
             </div>
-
-            <div class="meta-info zh">
-                <span><strong>角色：</strong>核心成员</span>
-            </div>
-            <div class="meta-info en">
-                <span><strong>Role:</strong> Core Member (University-Level Key Project)</span>
-            </div>
-
+            <div class="meta-info zh"><span><strong>角色：</strong> 核心成员</span></div>
+            <div class="meta-info en"><span><strong>Role:</strong> Core Member (Univ-level Key Project)</span></div>
             <ul>
-                <li class="zh">利用 ANSYS Workbench 瞬态结构模块开展结构稳定性仿真，分析系统在流体作用下的变形与应力。</li>
-                <li class="en">Performed structural stability simulations with ANSYS Workbench Transient Structural to analyze deformation and stress under fluid interaction.</li>
-
-                <li class="zh">辅助完成系统双向流固耦合仿真，并参与高空风力机关键设计分析。</li>
-                <li class="en">Supported two-way fluid-structure coupling simulations and contributed to key design analysis of airborne wind turbine systems.</li>
-
-                <li class="zh">使用 Fluent 对功率提升、舵面偏转受力等问题进行数值模拟，提升流体力学分析能力。</li>
-                <li class="en">Used Fluent to numerically simulate turbine power enhancement and rudder deflection forces, strengthening fluid dynamics analysis capability.</li>
+                <li class="zh">利用 Workbench 的瞬态结构模块对高空风电机组进行结构稳定性仿真，分析系统受流体作用时的变形应力，辅助完成系统的双向流固耦合仿真。</li>
+                <li class="en">Conducted structural stability simulations using Workbench Transient Structural module, analyzing deformation stress under fluid interaction to support two-way fluid-solid coupling simulations.</li>
+                <li class="zh">深入学习 Fluent 流体仿真，对风力机功率提升、舵面偏转受力等问题进行数值模拟，大幅提升数据分析能力。</li>
+                <li class="en">Applied Fluent for fluid numerical simulations on turbine power enhancement and rudder deflection forces, significantly improving fluid dynamics analysis capabilities.</li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <!-- Skills -->
-    <section id="skills" class="section">
+    <div id="skills" class="section">
         <h2 class="zh">专业技能</h2>
         <h2 class="en">Technical Skills</h2>
 
-        <div class="grid-two">
-            <div class="info-card">
-                <h3 class="zh">编程与分析</h3>
-                <h3 class="en">Programming & Analysis</h3>
-                <div class="tag-list">
-                    <span class="tag">Python</span>
-                    <span class="tag">MATLAB</span>
-                    <span class="tag">Benders</span>
-                    <span class="tag">Time Series</span>
-                    <span class="tag">STL</span>
-                    <span class="tag zh">优化建模</span>
-                    <span class="tag en">Optimization</span>
-                </div>
-            </div>
+        <ul>
+            <li class="zh"><strong>语言与编程：</strong> 英语水平良好（CET-6, 雅思 6.5）；熟练掌握 Python、MATLAB 编程语言。</li>
+            <li class="en"><strong>Language & Programming:</strong> Fluent in English (IELTS 6.5, CET-6); Proficient in Python and MATLAB.</li>
+            
+            <li class="zh"><strong>运筹与时间序列分析：</strong> 熟练应用 Benders 分解（严格精确算法，非启发式）解决大规模系统优化问题；掌握 STL 分解等高级数据分析技术。</li>
+            <li class="en"><strong>Optimization & Data Analysis:</strong> Proficient in exact algorithms like Benders decomposition for large-scale optimization; mastered time-series analysis like STL decomposition.</li>
+            
+            <li class="zh"><strong>工程与制图软件：</strong> SolidWorks (SW), SolidWorks Electrical (SWE), 中望 CAD, OpenFAST, Fluent/Workbench。</li>
+            <li class="en"><strong>Engineering & CAD:</strong> SolidWorks (SW), SW Electrical (SWE), ZWCAD, OpenFAST, Fluent/Workbench.</li>
+            
+            <li class="zh"><strong>科研绘图与设计：</strong> Origin, Visio, Adobe Photoshop (PS), Adobe Premiere Pro (PR)。</li>
+            <li class="en"><strong>Scientific Plotting & Media:</strong> Origin, Visio, Adobe Photoshop (PS), Premiere Pro (PR).</li>
+        </ul>
+    </div>
 
-            <div class="info-card">
-                <h3 class="zh">工程软件</h3>
-                <h3 class="en">Engineering Software</h3>
-                <div class="tag-list">
-                    <span class="tag">OpenFAST</span>
-                    <span class="tag">Fluent</span>
-                    <span class="tag">Workbench</span>
-                    <span class="tag">SolidWorks</span>
-                    <span class="tag">SWE</span>
-                    <span class="tag">ZWCAD</span>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h3 class="zh">科研表达与设计</h3>
-                <h3 class="en">Scientific Communication & Design</h3>
-                <div class="tag-list">
-                    <span class="tag">Origin</span>
-                    <span class="tag">Visio</span>
-                    <span class="tag">Photoshop</span>
-                    <span class="tag">Premiere Pro</span>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h3 class="zh">语言能力</h3>
-                <h3 class="en">Languages</h3>
-                <div class="tag-list">
-                    <span class="tag zh">英语 CET-6</span>
-                    <span class="tag en">CET-6</span>
-                    <span class="tag zh">雅思 6.5</span>
-                    <span class="tag en">IELTS 6.5</span>
-                    <span class="tag zh">中英双语科研阅读</span>
-                    <span class="tag en">Bilingual Technical Reading</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="note-box">
-            <span class="zh">建议：如果你准备投递技术岗，可以再增加一项“研究方向 / Representative Research Topics”，把 PELRG、SEI、储能规划直接列出来，HR 会更容易抓住重点。</span>
-            <span class="en">Suggestion: If you are applying for technical roles, add a “Representative Research Topics” block to highlight PELRG, SEI, and storage planning more directly.</span>
-        </div>
-    </section>
-
-    <!-- Hobbies -->
-    <section id="hobbies" class="section">
+    <div id="hobbies" class="section">
         <h2 class="zh">兴趣爱好</h2>
         <h2 class="en">Interests & Hobbies</h2>
 
-        <div class="grid-two">
-            <div class="info-card">
-                <h3 class="zh">运动与探索</h3>
-                <h3 class="en">Sports & Exploration</h3>
-                <p class="zh">建议替换为你的真实兴趣，例如：徒步、羽毛球、跑步、游泳。正式简历站最好不要保留占位文本。</p>
-                <p class="en">Replace this with your real interests, such as hiking, badminton, running, or swimming. Avoid placeholder text on a formal portfolio site.</p>
-            </div>
+        <ul>
+            <li class="zh"><strong>探索与运动：</strong> [请填写如：徒步、羽毛球、游泳]，在运动中保持充沛的精力与专注力。</li>
+            <li class="en"><strong>Sports & Outdoors:</strong> [e.g., Hiking, Badminton, Swimming], maintaining high energy and focus through physical activities.</li>
+            
+            <li class="zh"><strong>阅读与思考：</strong> 热爱科技前沿、历史或传记类书籍，享受深度阅读带来的思维拓展。</li>
+            <li class="en"><strong>Reading & Thinking:</strong> Passionate about cutting-edge tech, history, and biographies, enjoying the cognitive expansion from deep reading.</li>
+            
+            <li class="zh"><strong>艺术与生活：</strong> [请填写如：摄影、咖啡拉花、吉他]，在科研之余探索生活的美学。</li>
+            <li class="en"><strong>Arts & Lifestyle:</strong> [e.g., Photography, Coffee Art, Guitar], exploring the aesthetics of life outside of research.</li>
+        </ul>
+    </div>
 
-            <div class="info-card">
-                <h3 class="zh">阅读与思考</h3>
-                <h3 class="en">Reading & Thinking</h3>
-                <p class="zh">热爱科技前沿、历史或传记类书籍，习惯通过阅读与记录持续拓展知识边界。</p>
-                <p class="en">Interested in frontier technology, history, and biographies, and accustomed to extending knowledge boundaries through reading and note-taking.</p>
-            </div>
-
-            <div class="info-card">
-                <h3 class="zh">审美与表达</h3>
-                <h3 class="en">Aesthetics & Expression</h3>
-                <p class="zh">可填写摄影、视频剪辑、设计表达等兴趣，用于体现审美和信息呈现能力。</p>
-                <p class="en">You may include interests such as photography, video editing, or design to show visual taste and communication ability.</p>
-            </div>
-
-            <div class="info-card">
-                <h3 class="zh">建议填写方式</h3>
-                <h3 class="en">Suggested Format</h3>
-                <p class="zh">例如：羽毛球 / 徒步 / 摄影 / 科技阅读。简短、真实、无占位符即可。</p>
-                <p class="en">For example: badminton / hiking / photography / technology reading. Keep it concise, authentic, and without placeholders.</p>
-            </div>
-        </div>
-    </section>
-</main>
+</div>
 
 <script>
     function switchSection(event, sectionId, element) {
@@ -1104,11 +555,6 @@
             block: 'nearest',
             inline: 'center'
         });
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     }
 
     function toggleLanguage() {
@@ -1121,18 +567,6 @@
             body.classList.add('lang-zh');
         }
     }
-
-    // 可选：页面加载时让激活导航尽量处于可见中间区域
-    window.addEventListener('load', function () {
-        var activeLink = document.querySelector('.nav-link.active');
-        if (activeLink) {
-            activeLink.scrollIntoView({
-                behavior: 'auto',
-                block: 'nearest',
-                inline: 'center'
-            });
-        }
-    });
 </script>
 
 </body>
