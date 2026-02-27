@@ -13,21 +13,35 @@
             color: #334155;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* 防止手机端整体横向抖动 */
+            overflow-x: hidden;
         }
 
-        /* ---------------- 语言切换核心逻辑 ---------------- */
-        body.lang-zh .en { display: none; }
-        body.lang-zh .zh { display: inline-block; } 
-        body.lang-zh div.zh, body.lang-zh p.zh, body.lang-zh ul.zh, body.lang-zh h2.zh, body.lang-zh h3.zh, body.lang-zh li.zh { display: list-item; }
-        body.lang-zh div.zh, body.lang-zh p.zh { display: block; }
-        
-        body.lang-en .zh { display: none; }
-        body.lang-en .en { display: inline-block; }
-        body.lang-en div.en, body.lang-en p.en, body.lang-en ul.en, body.lang-en h2.en, body.lang-en h3.en, body.lang-en li.en { display: list-item; }
-        body.lang-en div.en, body.lang-en p.en { display: block; }
+        * {
+            box-sizing: border-box;
+        }
 
-        /* ---------------- 顶部导航栏（重构版） ---------------- */
+        /* ---------------- 语言切换核心逻辑（修复黑点问题） ---------------- */
+        body.lang-zh .en { display: none !important; }
+        body.lang-zh .zh { display: inline; }
+        body.lang-zh div.zh,
+        body.lang-zh p.zh,
+        body.lang-zh ul.zh,
+        body.lang-zh h2.zh,
+        body.lang-zh h3.zh,
+        body.lang-zh span.zh { display: block; }
+        body.lang-zh li.zh { display: list-item; }
+
+        body.lang-en .zh { display: none !important; }
+        body.lang-en .en { display: inline; }
+        body.lang-en div.en,
+        body.lang-en p.en,
+        body.lang-en ul.en,
+        body.lang-en h2.en,
+        body.lang-en h3.en,
+        body.lang-en span.en { display: block; }
+        body.lang-en li.en { display: list-item; }
+
+        /* ---------------- 顶部导航栏 ---------------- */
         header {
             position: fixed;
             top: 0;
@@ -78,6 +92,7 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
+
         .lang-btn:hover {
             background-color: #1d4ed8;
             color: #ffffff;
@@ -85,16 +100,44 @@
             box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
         }
 
-        /* 关键：单独的横向滚动层 */
-        .nav-scroll {
+        /* 外层渐隐提示 */
+        .nav-fade-wrap {
+            position: relative;
             margin-top: 12px;
+        }
+
+        .nav-fade-wrap::before,
+        .nav-fade-wrap::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 28px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .nav-fade-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0));
+        }
+
+        .nav-fade-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255,255,255,0.95), rgba(255,255,255,0));
+        }
+
+        /* 单独的横向滚动层 */
+        .nav-scroll {
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             touch-action: pan-x;
             overscroll-behavior-x: contain;
+            padding: 0 8px;
         }
+
         .nav-scroll::-webkit-scrollbar {
             display: none;
         }
@@ -120,10 +163,11 @@
             white-space: nowrap;
             flex: 0 0 auto;
         }
+
         .nav-menu a:hover { 
             color: #1d4ed8; 
         }
-        
+
         .nav-menu a::after {
             content: '';
             position: absolute;
@@ -136,10 +180,12 @@
             transform: translateX(-50%);
             border-radius: 3px;
         }
+
         .nav-menu a.active { 
             color: #1d4ed8; 
             font-weight: 600; 
         }
+
         .nav-menu a.active::after { 
             width: 100%; 
         }
@@ -155,14 +201,15 @@
 
         .section {
             display: none;
-            max-width: 860px;
+            max-width: 980px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
-            padding: 60px 70px;
-            border-radius: 20px;
+            padding: 56px 60px;
+            border-radius: 22px;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
             animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .section.active { display: block; }
 
         @keyframes fadeIn {
@@ -175,21 +222,16 @@
             color: #0f172a; 
             font-size: 1.9rem;
             margin-top: 0;
-            padding-bottom: 15px;
-            position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 34px;
             font-weight: 800;
             letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 0;
         }
+
+        /* 删除蓝色横线 */
         .section h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 4px;
-            width: 36px;
-            background-color: #1d4ed8;
-            border-radius: 4px;
+            display: none;
         }
         
         .experience-item { margin-bottom: 45px; }
@@ -199,7 +241,7 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
             gap: 12px;
         }
@@ -219,6 +261,7 @@
             padding: 5px 12px;
             border-radius: 8px;
             font-weight: 500;
+            border: 1px solid #e2e8f0;
         }
 
         .meta-info {
@@ -228,10 +271,13 @@
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .meta-info span {
+            display: inline-flex;
+            align-items: center;
             background: #f8fafc;
             color: #334155;
-            padding: 5px 14px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
             font-weight: 600;
@@ -242,6 +288,113 @@
         .section li { margin-bottom: 12px; padding-left: 6px; }
         .section li::marker { color: #cbd5e1; font-size: 1.2em; }
         strong { color: #1e293b; font-weight: 700; }
+
+        /* ---------------- 个人信息区：头像 + 内容 ---------------- */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .avatar-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+        }
+
+        .avatar-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px dashed #cbd5e1;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            background:
+                linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.85));
+        }
+
+        .avatar-tip {
+            margin-top: 12px;
+            font-size: 0.86rem;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .profile-main {
+            min-width: 0;
+        }
+
+        /* ---------------- 更专业的标签样式 ---------------- */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0 18px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #dbe3ee;
+            color: #334155;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+        }
+
+        .tag.highlight {
+            color: #1d4ed8;
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        /* 技能分组卡片 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .skill-card {
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 22px 20px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+        }
 
         /* ---------------- 桌面端优化 ---------------- */
         @media (min-width: 769px) {
@@ -257,7 +410,7 @@
                 flex-shrink: 0;
             }
 
-            .nav-scroll {
+            .nav-fade-wrap {
                 margin-top: 0;
                 flex: 1;
             }
@@ -274,7 +427,7 @@
         /* ---------------- 移动端适配 ---------------- */
         @media (max-width: 768px) {
             .section { 
-                padding: 40px 25px; 
+                padding: 34px 20px; 
                 border-radius: 16px; 
             }
 
@@ -285,6 +438,11 @@
             .nav-menu { 
                 gap: 20px; 
                 padding-right: 16px;
+            }
+
+            .nav-fade-wrap::before,
+            .nav-fade-wrap::after {
+                width: 20px;
             }
 
             .experience-header { 
@@ -299,6 +457,24 @@
             .lang-btn {
                 padding: 7px 14px;
                 font-size: 0.82rem;
+            }
+
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar-card {
+                max-width: 240px;
+                margin: 0 auto;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+                margin-bottom: 24px;
             }
         }
     </style>
@@ -315,27 +491,29 @@
             <button class="lang-btn" onclick="toggleLanguage()">EN / 中文</button>
         </div>
 
-        <div class="nav-scroll">
-            <nav class="nav-menu">
-                <a href="#personal" class="nav-link active" onclick="switchSection(event, 'personal', this)">
-                    <span class="zh">个人信息</span><span class="en">Personal Info</span>
-                </a>
-                <a href="#education" class="nav-link" onclick="switchSection(event, 'education', this)">
-                    <span class="zh">教育背景</span><span class="en">Education</span>
-                </a>
-                <a href="#internship" class="nav-link" onclick="switchSection(event, 'internship', this)">
-                    <span class="zh">实习经历</span><span class="en">Experience</span>
-                </a>
-                <a href="#projects" class="nav-link" onclick="switchSection(event, 'projects', this)">
-                    <span class="zh">项目经历</span><span class="en">Projects</span>
-                </a>
-                <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
-                    <span class="zh">专业技能</span><span class="en">Skills</span>
-                </a>
-                <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
-                    <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
-                </a>
-            </nav>
+        <div class="nav-fade-wrap">
+            <div class="nav-scroll">
+                <nav class="nav-menu">
+                    <a href="#personal" class="nav-link active" onclick="switchSection(event, 'personal', this)">
+                        <span class="zh">个人信息</span><span class="en">Personal Info</span>
+                    </a>
+                    <a href="#education" class="nav-link" onclick="switchSection(event, 'education', this)">
+                        <span class="zh">教育背景</span><span class="en">Education</span>
+                    </a>
+                    <a href="#internship" class="nav-link" onclick="switchSection(event, 'internship', this)">
+                        <span class="zh">实习经历</span><span class="en">Experience</span>
+                    </a>
+                    <a href="#projects" class="nav-link" onclick="switchSection(event, 'projects', this)">
+                        <span class="zh">项目经历</span><span class="en">Projects</span>
+                    </a>
+                    <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
+                        <span class="zh">专业技能</span><span class="en">Skills</span>
+                    </a>
+                    <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
+                        <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
+                    </a>
+                </nav>
+            </div>
         </div>
     </div>
 </header>
@@ -345,25 +523,74 @@
     <div id="personal" class="section active">
         <h2 class="zh">个人信息</h2>
         <h2 class="en">Personal Information</h2>
-        
-        <div class="experience-item">
-            <div class="meta-info zh">
-                <span><strong>姓名：</strong> 刘广天</span>
-                <span><strong>电话：</strong> 18832060103</span>
-                <span><strong>邮箱：</strong> 18832060103@163.com</span>
-                <span><strong>状态：</strong> 2027届硕士毕业生</span>
+
+        <div class="profile-layout">
+            <!-- 头像区 -->
+            <div class="avatar-card">
+                <div class="avatar-box">
+                    <!-- 把 your-photo.jpg 改成你的照片文件名 -->
+                    <!-- 例如：src="photo.jpg" -->
+                    <!-- 也可以直接写 base64：src="data:image/jpeg;base64,..." -->
+                    <img 
+                        src="your-photo.jpg" 
+                        alt="刘广天照片" 
+                        class="profile-photo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="avatar-placeholder zh">
+                        头像占位区<br>
+                        将照片文件放在<br>
+                        与 index.html 同目录<br>
+                        并把 src 改成你的文件名
+                    </div>
+                    <div class="avatar-placeholder en">
+                        Photo Placeholder<br>
+                        Put your photo in the same folder<br>
+                        as index.html and change the src path
+                    </div>
+                </div>
+                <div class="avatar-tip zh">
+                    建议使用 1:1 或 4:5 的正式证件/职业照片。
+                </div>
+                <div class="avatar-tip en">
+                    A formal portrait with 1:1 or 4:5 ratio is recommended.
+                </div>
             </div>
-            <div class="meta-info en">
-                <span><strong>Name:</strong> Guangtian Liu</span>
-                <span><strong>Phone:</strong> (+86) 18832060103</span>
-                <span><strong>Email:</strong> 18832060103@163.com</span>
-                <span><strong>Status:</strong> Master's Candidate (Class of 2027)</span>
+
+            <!-- 文本区 -->
+            <div class="profile-main">
+                <div class="meta-info zh">
+                    <span><strong>姓名：</strong> 刘广天</span>
+                    <span><strong>电话：</strong> 18832060103</span>
+                    <span><strong>邮箱：</strong> 18832060103@163.com</span>
+                    <span><strong>状态：</strong> 2027届硕士毕业生</span>
+                </div>
+                <div class="meta-info en">
+                    <span><strong>Name:</strong> Guangtian Liu</span>
+                    <span><strong>Phone:</strong> (+86) 18832060103</span>
+                    <span><strong>Email:</strong> 18832060103@163.com</span>
+                    <span><strong>Status:</strong> Master's Candidate (Class of 2027)</span>
+                </div>
+
+                <div class="tag-list zh">
+                    <span class="tag highlight">电力系统规划</span>
+                    <span class="tag">新能源建模</span>
+                    <span class="tag">Benders 分解</span>
+                    <span class="tag">时间序列分析</span>
+                    <span class="tag">SEI / ELRG</span>
+                </div>
+                <div class="tag-list en">
+                    <span class="tag highlight">Power System Planning</span>
+                    <span class="tag">Renewable Modeling</span>
+                    <span class="tag">Benders Decomposition</span>
+                    <span class="tag">Time-Series Analysis</span>
+                    <span class="tag">SEI / ELRG</span>
+                </div>
+                
+                <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端天气影响（ELRG）与季节性电量失衡（SEI）联合风险的研究空白，熟练掌握严密的运筹学优化算法（如 Benders 分解）与时间序列动态基准线构建技术。能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
+                
+                <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint risks of extreme weather events (ELRG) and seasonal energy imbalances (SEI) in power system planning. Highly proficient in rigorous operations research optimization algorithms (e.g., Benders decomposition) and dynamic time-series baseline construction, with a comprehensive analytical perspective ranging from macroscopic system planning to microscopic physical devices.</p>
             </div>
-            
-            <br>
-            <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端天气影响（ELRG）与季节性电量失衡（SEI）联合风险的研究空白，熟练掌握严密的运筹学优化算法（如 Benders 分解）与时间序列动态基准线构建技术。能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
-            
-            <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint risks of extreme weather events (ELRG) and seasonal energy imbalances (SEI) in power system planning. Highly proficient in rigorous operations research optimization algorithms (e.g., Benders decomposition) and dynamic time-series baseline construction, with a comprehensive analytical perspective ranging from macroscopic system planning to microscopic physical devices.</p>
         </div>
     </div>
 
@@ -424,6 +651,22 @@
             </div>
             <div class="meta-info zh"><span><strong>职位：</strong> 助理电气工程师</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Assistant Electrical Engineer</span></div>
+
+            <div class="tag-list zh">
+                <span class="tag highlight">PLM 管理</span>
+                <span class="tag">电气制图</span>
+                <span class="tag">SWE / 中望 CAD</span>
+                <span class="tag">洁净间测试</span>
+                <span class="tag">SOP 编写</span>
+            </div>
+            <div class="tag-list en">
+                <span class="tag highlight">PLM Management</span>
+                <span class="tag">Electrical Drafting</span>
+                <span class="tag">SWE / ZWCAD</span>
+                <span class="tag">Cleanroom Testing</span>
+                <span class="tag">SOP Writing</span>
+            </div>
+
             <ul>
                 <li class="zh"><strong>PLM 管理：</strong> 负责新物料的申请与发布，完成变更物料图纸的修改、检入及 BOM 的发布。</li>
                 <li class="en"><strong>PLM Management:</strong> Managed new material applications and releases; handled drawing modifications, check-ins, and BOM releases.</li>
@@ -449,6 +692,22 @@
             </div>
             <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Project Lead</span></div>
+
+            <div class="tag-list zh">
+                <span class="tag highlight">长期电力系统规划</span>
+                <span class="tag">SEI</span>
+                <span class="tag">ELRG</span>
+                <span class="tag">源-荷-储模型</span>
+                <span class="tag">优化建模</span>
+            </div>
+            <div class="tag-list en">
+                <span class="tag highlight">Long-Term Planning</span>
+                <span class="tag">SEI</span>
+                <span class="tag">ELRG</span>
+                <span class="tag">Source-Load-Storage</span>
+                <span class="tag">Optimization Modeling</span>
+            </div>
+
             <ul>
                 <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力 (ELRG) 场景的源-荷-储长期电力系统规划模型。</li>
                 <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation (ELRG).</li>
@@ -469,6 +728,20 @@
             </div>
             <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Project Lead (Undergrad Thesis)</span></div>
+
+            <div class="tag-list zh">
+                <span class="tag highlight">OpenFAST</span>
+                <span class="tag">风力机叶片建模</span>
+                <span class="tag">气动弹性分析</span>
+                <span class="tag">IEA-22-280-RWT</span>
+            </div>
+            <div class="tag-list en">
+                <span class="tag highlight">OpenFAST</span>
+                <span class="tag">Blade Modeling</span>
+                <span class="tag">Aeroelastic Analysis</span>
+                <span class="tag">IEA-22-280-RWT</span>
+            </div>
+
             <ul>
                 <li class="zh">基于 OpenFAST 多物理场开源平台对风力机叶片建模并进行可靠性仿真验证。</li>
                 <li class="en">Modeled wind turbine blades and verified reliability simulations using the OpenFAST multi-physics platform.</li>
@@ -487,6 +760,20 @@
             </div>
             <div class="meta-info zh"><span><strong>角色：</strong> 核心成员</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Core Member (Univ-level Key Project)</span></div>
+
+            <div class="tag-list zh">
+                <span class="tag highlight">Fluent</span>
+                <span class="tag">Workbench</span>
+                <span class="tag">流固耦合</span>
+                <span class="tag">结构稳定性分析</span>
+            </div>
+            <div class="tag-list en">
+                <span class="tag highlight">Fluent</span>
+                <span class="tag">Workbench</span>
+                <span class="tag">FSI</span>
+                <span class="tag">Structural Stability</span>
+            </div>
+
             <ul>
                 <li class="zh">利用 Workbench 的瞬态结构模块对高空风电机组进行结构稳定性仿真，分析系统受流体作用时的变形应力，辅助完成系统的双向流固耦合仿真。</li>
                 <li class="en">Conducted structural stability simulations using Workbench Transient Structural module, analyzing deformation stress under fluid interaction to support two-way fluid-solid coupling simulations.</li>
@@ -500,19 +787,83 @@
         <h2 class="zh">专业技能</h2>
         <h2 class="en">Technical Skills</h2>
 
-        <ul>
-            <li class="zh"><strong>语言与编程：</strong> 英语水平良好（CET-6, 雅思 6.5）；熟练掌握 Python、MATLAB 编程语言。</li>
-            <li class="en"><strong>Language & Programming:</strong> Fluent in English (IELTS 6.5, CET-6); Proficient in Python and MATLAB.</li>
-            
-            <li class="zh"><strong>运筹与时间序列分析：</strong> 熟练应用 Benders 分解（严格精确算法，非启发式）解决大规模系统优化问题；掌握 STL 分解等高级数据分析技术。</li>
-            <li class="en"><strong>Optimization & Data Analysis:</strong> Proficient in exact algorithms like Benders decomposition for large-scale optimization; mastered time-series analysis like STL decomposition.</li>
-            
-            <li class="zh"><strong>工程与制图软件：</strong> SolidWorks (SW), SolidWorks Electrical (SWE), 中望 CAD, OpenFAST, Fluent/Workbench。</li>
-            <li class="en"><strong>Engineering & CAD:</strong> SolidWorks (SW), SW Electrical (SWE), ZWCAD, OpenFAST, Fluent/Workbench.</li>
-            
-            <li class="zh"><strong>科研绘图与设计：</strong> Origin, Visio, Adobe Photoshop (PS), Adobe Premiere Pro (PR)。</li>
-            <li class="en"><strong>Scientific Plotting & Media:</strong> Origin, Visio, Adobe Photoshop (PS), Premiere Pro (PR).</li>
-        </ul>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3 class="zh">语言与编程</h3>
+                <h3 class="en">Language & Programming</h3>
+                <div class="tag-list zh">
+                    <span class="tag highlight">Python</span>
+                    <span class="tag highlight">MATLAB</span>
+                    <span class="tag">CET-6</span>
+                    <span class="tag">雅思 6.5</span>
+                    <span class="tag">科研英语阅读</span>
+                </div>
+                <div class="tag-list en">
+                    <span class="tag highlight">Python</span>
+                    <span class="tag highlight">MATLAB</span>
+                    <span class="tag">CET-6</span>
+                    <span class="tag">IELTS 6.5</span>
+                    <span class="tag">Technical English</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3 class="zh">运筹与数据分析</h3>
+                <h3 class="en">Optimization & Data Analysis</h3>
+                <div class="tag-list zh">
+                    <span class="tag highlight">Benders 分解</span>
+                    <span class="tag">精确算法</span>
+                    <span class="tag">时间序列分析</span>
+                    <span class="tag">STL 分解</span>
+                    <span class="tag">大规模优化</span>
+                </div>
+                <div class="tag-list en">
+                    <span class="tag highlight">Benders Decomposition</span>
+                    <span class="tag">Exact Algorithms</span>
+                    <span class="tag">Time-Series Analysis</span>
+                    <span class="tag">STL Decomposition</span>
+                    <span class="tag">Large-Scale Optimization</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3 class="zh">工程与制图软件</h3>
+                <h3 class="en">Engineering & CAD</h3>
+                <div class="tag-list zh">
+                    <span class="tag highlight">SolidWorks</span>
+                    <span class="tag">SWE</span>
+                    <span class="tag">中望 CAD</span>
+                    <span class="tag">OpenFAST</span>
+                    <span class="tag">Fluent</span>
+                    <span class="tag">Workbench</span>
+                </div>
+                <div class="tag-list en">
+                    <span class="tag highlight">SolidWorks</span>
+                    <span class="tag">SWE</span>
+                    <span class="tag">ZWCAD</span>
+                    <span class="tag">OpenFAST</span>
+                    <span class="tag">Fluent</span>
+                    <span class="tag">Workbench</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3 class="zh">科研绘图与设计</h3>
+                <h3 class="en">Scientific Plotting & Media</h3>
+                <div class="tag-list zh">
+                    <span class="tag highlight">Origin</span>
+                    <span class="tag">Visio</span>
+                    <span class="tag">Photoshop</span>
+                    <span class="tag">Premiere Pro</span>
+                </div>
+                <div class="tag-list en">
+                    <span class="tag highlight">Origin</span>
+                    <span class="tag">Visio</span>
+                    <span class="tag">Photoshop</span>
+                    <span class="tag">Premiere Pro</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="hobbies" class="section">
@@ -555,6 +906,11 @@
             block: 'nearest',
             inline: 'center'
         });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     function toggleLanguage() {
@@ -567,6 +923,17 @@
             body.classList.add('lang-zh');
         }
     }
+
+    window.addEventListener('load', function () {
+        var activeLink = document.querySelector('.nav-link.active');
+        if (activeLink) {
+            activeLink.scrollIntoView({
+                behavior: 'auto',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+    });
 </script>
 
 </body>
