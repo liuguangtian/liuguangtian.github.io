@@ -137,43 +137,62 @@
             margin-bottom: 18px;
         }
 
-        .list-grid {
+        .gallery {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
+            gap: 18px;
         }
 
-        .card-item {
+        .gallery-item {
             border: 1px solid var(--line);
-            border-radius: 18px;
-            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-            padding: 18px 18px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .card-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
         }
 
-        .card-item h3 {
-            margin: 0 0 8px;
-            font-size: 1rem;
+        .gallery-image-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            padding: 16px;
+            min-height: 340px;
+            border-bottom: 1px solid var(--line);
+            cursor: zoom-in;
+        }
+
+        .gallery-image-wrap img {
+            width: 100%;
+            max-width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .gallery-caption {
+            padding: 14px 16px 16px;
+            background: #fff;
+        }
+
+        .gallery-caption strong {
+            display: block;
             color: var(--title);
-            font-weight: 700;
-            word-break: break-word;
+            font-size: 0.98rem;
+            margin-bottom: 4px;
         }
 
-        .card-item p {
-            margin: 0 0 10px;
+        .gallery-caption span {
             color: var(--muted);
-            font-size: 0.93rem;
-        }
-
-        .card-item a {
-            color: var(--blue);
-            font-size: 0.93rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .doc-list {
@@ -216,32 +235,80 @@
             font-weight: 700;
         }
 
-        .gallery {
+        .list-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
+            gap: 14px;
         }
 
-        .gallery-item {
+        .card-item {
             border: 1px solid var(--line);
             border-radius: 18px;
-            overflow: hidden;
-            background: #f8fafc;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            padding: 18px 18px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .gallery-item img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
+        .card-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
         }
 
-        .gallery-caption {
-            padding: 12px 14px;
+        .card-item h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: var(--title);
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .card-item p {
+            margin: 0 0 10px;
             color: var(--muted);
-            font-size: 0.92rem;
-            border-top: 1px solid var(--line);
+            font-size: 0.93rem;
+        }
+
+        .card-item a {
+            color: var(--blue);
+            font-size: 0.93rem;
+            font-weight: 700;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.82);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            z-index: 9999;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: min(1200px, 94vw);
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
             background: #fff;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 400;
+            cursor: pointer;
+            line-height: 1;
+            user-select: none;
         }
 
         .footer-nav {
@@ -255,14 +322,22 @@
         }
 
         @media (max-width: 900px) {
-            .list-grid,
-            .gallery {
+            .gallery,
+            .list-grid {
                 grid-template-columns: 1fr;
             }
 
             .doc-item {
                 grid-template-columns: 1fr;
                 align-items: start;
+            }
+
+            .gallery-image-wrap {
+                min-height: 280px;
+            }
+
+            .gallery-image-wrap img {
+                max-height: 260px;
             }
         }
 
@@ -286,8 +361,13 @@
                 align-items: flex-start;
             }
 
-            .gallery-item img {
-                height: 220px;
+            .gallery-image-wrap {
+                min-height: 220px;
+                padding: 12px;
+            }
+
+            .gallery-image-wrap img {
+                max-height: 220px;
             }
         }
     </style>
@@ -304,49 +384,62 @@
             <div class="subtitle">DexHand Open-Source Dexterous Hand Development & Validation</div>
             <p class="summary">
                 本项目围绕 DexHand 开源灵巧手展开，主要完成机械结构、腱驱动方式、电控架构与软件工作流的梳理，
-                并基于 Arduino、ROS2 与 RViz 开展基础控制与仿真验证。页面中展示的内容包括源代码文件夹、
-                阶段汇报 PPT、项目要求文档、最终报告以及相关图片资料。
+                并基于 Arduino、ROS2 与 RViz 开展基础控制与仿真验证。页面中展示的内容包括项目图片、阶段汇报材料、
+                项目文档以及源代码文件夹。
             </p>
 
             <div class="meta-row">
-                <span class="badge highlight">2026.02 - 至今</span>
+                <span class="badge">2026.02 - 至今</span>
                 <span class="badge">核心成员</span>
                 <span class="badge">机器人硬件</span>
-                <span class="badge">Arduino</span>
-                <span class="badge">ROS2</span>
-                <span class="badge">RViz</span>
             </div>
         </section>
 
         <section class="section">
-            <h2>源代码文件夹</h2>
+            <h2>图片展示</h2>
             <div class="section-desc">
-                下面四个文件夹对应项目不同部分的源码与工程文件。建议点击后跳转到 GitHub 仓库中的对应目录。
+                展示项目中的关键图像资料，包括成本分析、结构示意、电控设计与实物效果。点击图片可放大查看完整内容。
             </div>
 
-            <div class="list-grid">
-                <div class="card-item">
-                    <h3>dexhand_ros2_meta-main</h3>
-                    <p>ROS2 相关工程与元信息配置文件夹。</p>
-                    <a href="code/dexhand/dexhand_ros2_meta-main/" target="_blank">查看文件夹</a>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div class="gallery-image-wrap" onclick="openLightbox('assets/dexhand/图片1.png')">
+                        <img src="assets/dexhand/图片1.png" alt="DexHand 成本构成图">
+                    </div>
+                    <div class="gallery-caption">
+                        <strong>图片1｜成本构成分析</strong>
+                        <span>展示 DexHand 项目主要硬件成本组成，用于说明系统的低成本实现路径。</span>
+                    </div>
                 </div>
 
-                <div class="card-item">
-                    <h3>dexhand-ble-main</h3>
-                    <p>蓝牙通信与相关控制逻辑源码。</p>
-                    <a href="code/dexhand/dexhand-ble-main/" target="_blank">查看文件夹</a>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrap" onclick="openLightbox('assets/dexhand/图片2.png')">
+                        <img src="assets/dexhand/图片2.png" alt="DexHand 机械结构示意图">
+                    </div>
+                    <div class="gallery-caption">
+                        <strong>图片2｜机械结构示意</strong>
+                        <span>展示灵巧手手指、腕部与前臂部分的结构设计和驱动布局。</span>
+                    </div>
                 </div>
 
-                <div class="card-item">
-                    <h3>dexhand-mechanical-build-main</h3>
-                    <p>机械结构构建、装配或相关资料文件夹。</p>
-                    <a href="code/dexhand/dexhand-mechanical-build-main/" target="_blank">查看文件夹</a>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrap" onclick="openLightbox('assets/dexhand/图片3.png')">
+                        <img src="assets/dexhand/图片3.png" alt="DexHand 电控系统设计图">
+                    </div>
+                    <div class="gallery-caption">
+                        <strong>图片3｜电控系统设计</strong>
+                        <span>展示主控板、舵机分布和电子系统连接关系，用于说明硬件控制架构。</span>
+                    </div>
                 </div>
 
-                <div class="card-item">
-                    <h3>V1.0-Dexhand-main</h3>
-                    <p>项目初版或综合版本的工程代码与资料。</p>
-                    <a href="code/dexhand/V1.0-Dexhand-main/" target="_blank">查看文件夹</a>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrap" onclick="openLightbox('assets/dexhand/图片4.jpg')">
+                        <img src="assets/dexhand/图片4.jpg" alt="DexHand 实物效果图">
+                    </div>
+                    <div class="gallery-caption">
+                        <strong>图片4｜实物展示效果</strong>
+                        <span>展示项目实物形态与局部动作效果，用于体现结构落地与实验展示结果。</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -361,7 +454,7 @@
                 <div class="doc-item">
                     <div class="doc-main">
                         <h3>Proposal Presentation_20260311.pptx</h3>
-                        <p>项目开题/初始阶段汇报材料。</p>
+                        <p>项目开题或初始阶段汇报材料。</p>
                     </div>
                     <div class="doc-links">
                         <a href="files/dexhand/Proposal Presentation_20260311.pptx" target="_blank">打开</a>
@@ -391,7 +484,7 @@
                 <div class="doc-item">
                     <div class="doc-main">
                         <h3>Project.pdf</h3>
-                        <p>项目要求、任务说明或项目原始文档。</p>
+                        <p>项目要求、任务说明或原始项目文档。</p>
                     </div>
                     <div class="doc-links">
                         <a href="files/dexhand/Project.pdf" target="_blank">查看</a>
@@ -411,30 +504,34 @@
         </section>
 
         <section class="section">
-            <h2>图片展示</h2>
+            <h2>源代码文件夹</h2>
             <div class="section-desc">
-                下面展示项目相关的四张图片，可用于展示结构、界面、实验过程或结果。
+                下面列出项目中涉及的源码与工程文件夹。建议点击后跳转到 GitHub 仓库中的对应目录。
             </div>
 
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="assets/dexhand/图片1.png" alt="DexHand 图片1">
-                    <div class="gallery-caption">图片1</div>
+            <div class="list-grid">
+                <div class="card-item">
+                    <h3>dexhand_ros2_meta-main</h3>
+                    <p>ROS2 相关工程、配置文件以及元信息管理目录。</p>
+                    <a href="code/dexhand/dexhand_ros2_meta-main/" target="_blank">查看文件夹</a>
                 </div>
 
-                <div class="gallery-item">
-                    <img src="assets/dexhand/图片2.png" alt="DexHand 图片2">
-                    <div class="gallery-caption">图片2</div>
+                <div class="card-item">
+                    <h3>dexhand-ble-main</h3>
+                    <p>蓝牙通信、设备连接以及相关控制逻辑源码目录。</p>
+                    <a href="code/dexhand/dexhand-ble-main/" target="_blank">查看文件夹</a>
                 </div>
 
-                <div class="gallery-item">
-                    <img src="assets/dexhand/图片3.png" alt="DexHand 图片3">
-                    <div class="gallery-caption">图片3</div>
+                <div class="card-item">
+                    <h3>printable-files</h3>
+                    <p>机械结构打印件、装配相关文件及补充资料目录。</p>
+                    <a href="code/dexhand/printable-files/" target="_blank">查看文件夹</a>
                 </div>
 
-                <div class="gallery-item">
-                    <img src="assets/dexhand/图片4.jpg" alt="DexHand 图片4">
-                    <div class="gallery-caption">图片4</div>
+                <div class="card-item">
+                    <h3>firmware / control scripts</h3>
+                    <p>可放置底层控制程序、实验脚本或你后续补充的控制文件目录。</p>
+                    <a href="code/dexhand/" target="_blank">查看总目录</a>
                 </div>
             </div>
         </section>
@@ -443,5 +540,27 @@
             <a href="index.html#projects">← 返回项目经历</a>
         </div>
     </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-img" src="" alt="放大预览">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
