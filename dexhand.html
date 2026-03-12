@@ -5,58 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DexHand 项目详情 | 刘广天</title>
     <style>
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            margin: 0;
-            background: #f0f4f8;
-            color: #334155;
-            line-height: 1.8;
+        :root {
+            --bg: #f4f7fb;
+            --card: rgba(255, 255, 255, 0.96);
+            --text: #334155;
+            --title: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --blue: #1d4ed8;
+            --blue-light: #eff6ff;
+            --shadow: 0 18px 40px -12px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03);
+            --radius: 22px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+        }
 
         .page {
             max-width: 980px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 36px 18px 72px;
         }
 
-        .top-nav {
-            margin-bottom: 24px;
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .back-link {
-            display: inline-block;
-            text-decoration: none;
-            color: #1d4ed8;
+            color: var(--blue);
             font-weight: 700;
+            font-size: 0.96rem;
+        }
+
+        .home-link {
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 600;
         }
 
         .hero {
-            background: rgba(255,255,255,0.98);
-            border-radius: 24px;
-            padding: 40px 36px;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
-            margin-bottom: 24px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 34px 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 22px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr;
+            gap: 24px;
+            align-items: start;
         }
 
         .hero h1 {
-            margin: 0 0 10px;
+            margin: 0 0 8px;
+            color: var(--title);
             font-size: 2rem;
-            color: #0f172a;
+            line-height: 1.25;
+            font-weight: 800;
         }
 
         .subtitle {
+            color: var(--muted);
             font-size: 1rem;
-            color: #64748b;
             margin-bottom: 18px;
         }
 
-        .badge-row {
+        .summary {
+            margin: 0;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .cover-box {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            background: #f8fafc;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cover-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .cover-placeholder {
+            padding: 24px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 22px;
+            margin: 18px 0 0;
         }
 
         .badge {
@@ -64,248 +134,292 @@
             align-items: center;
             padding: 7px 12px;
             border-radius: 999px;
+            border: 1px solid var(--line);
             background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            color: #334155;
-            font-size: 0.9rem;
+            color: var(--text);
+            font-size: 0.88rem;
             font-weight: 600;
         }
 
-        .section-card {
-            background: rgba(255,255,255,0.98);
-            border-radius: 24px;
-            padding: 32px 36px;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
-            margin-bottom: 24px;
+        .badge.highlight {
+            color: var(--blue);
+            background: var(--blue-light);
+            border-color: #bfdbfe;
         }
 
-        .section-card h2 {
-            margin-top: 0;
-            color: #0f172a;
-            font-size: 1.35rem;
+        .section {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 28px 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
         }
 
-        .file-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
+        .section h2 {
+            margin: 0 0 16px;
+            color: var(--title);
+            font-size: 1.2rem;
+            font-weight: 800;
         }
 
-        .file-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 18px;
-            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-        }
-
-        .file-card h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: #0f172a;
-        }
-
-        .file-card p {
+        .section p {
             margin: 0 0 12px;
-            color: #64748b;
-            font-size: 0.95rem;
+            color: var(--text);
         }
 
-        .file-link {
-            display: inline-block;
-            text-decoration: none;
-            color: #fff;
-            background: #1d4ed8;
-            padding: 9px 14px;
+        .section ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+        }
+
+        .section li {
+            margin-bottom: 10px;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech {
+            padding: 8px 12px;
             border-radius: 999px;
-            font-weight: 600;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid var(--line);
             font-size: 0.9rem;
-        }
-
-        .preview-box {
-            border: 1px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 18px;
-            background: #f8fafc;
-            color: #64748b;
-        }
-
-        .cover-image {
-            width: 100%;
-            max-height: 460px;
-            object-fit: cover;
-            border-radius: 18px;
-            border: 1px solid #e2e8f0;
+            font-weight: 600;
+            color: var(--text);
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .gallery img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
+        .gallery-item {
+            border: 1px solid var(--line);
             border-radius: 16px;
-            border: 1px solid #e2e8f0;
+            overflow: hidden;
             background: #f8fafc;
+            min-height: 180px;
         }
 
-        .note {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            color: #1e3a8a;
-            border-radius: 16px;
-            padding: 16px 18px;
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
         }
 
-        code {
-            background: #eef2f7;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-family: Consolas, monospace;
-            font-size: 0.92em;
+        .gallery-placeholder {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.92rem;
+            text-align: center;
+            padding: 14px;
         }
 
-        @media (max-width: 768px) {
-            .hero, .section-card {
-                padding: 24px 20px;
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .file-card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 18px 16px;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+        }
+
+        .file-card h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: var(--title);
+        }
+
+        .file-card p {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 0.93rem;
+            min-height: 48px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 24px rgba(37, 99, 235, 0.22);
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .footer-nav a {
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery,
+            .file-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 20px 14px 52px;
+            }
+
+            .hero,
+            .section {
+                padding: 22px 18px;
                 border-radius: 18px;
             }
 
             .hero h1 {
                 font-size: 1.55rem;
             }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
     <div class="page">
-        <div class="top-nav">
-            <a href="index.html#projects" class="back-link">← 返回主页 / Back to Home</a>
+        <div class="topbar">
+            <a href="index.html#projects" class="back-link">← 返回项目经历</a>
+            <a href="index.html" class="home-link">返回主页</a>
         </div>
 
-        <div class="hero">
-            <h1>DexHand 开源灵巧手项目开发与验证</h1>
-            <div class="subtitle">
-                DexHand Open-Source Dexterous Hand Development & Validation
+        <section class="hero">
+            <div class="hero-grid">
+                <div>
+                    <h1>DexHand 开源灵巧手项目开发与验证</h1>
+                    <div class="subtitle">DexHand Open-Source Dexterous Hand Development & Validation</div>
+                    <p class="summary">
+                        围绕开源灵巧手 DexHand，完成机械结构、腱驱动、电控架构与软件工作流梳理，
+                        并基于 Arduino Nano RP2040 Connect 与 ROS2/RViz 开展基础控制与仿真验证。
+                    </p>
+
+                    <div class="meta-row">
+                        <span class="badge highlight">2026.02 - 至今</span>
+                        <span class="badge">核心成员</span>
+                        <span class="badge">机器人硬件</span>
+                        <span class="badge">Arduino</span>
+                        <span class="badge">ROS2</span>
+                    </div>
+                </div>
+
+                <div class="cover-box">
+                    <img src="assets/dexhand-cover.jpg" alt="DexHand 封面图"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="cover-placeholder" style="display:none;">
+                        项目封面图<br>
+                        建议文件路径：assets/dexhand-cover.jpg
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="badge-row">
-                <span class="badge">2026.02 - 至今</span>
-                <span class="badge">核心成员</span>
-                <span class="badge">机器人硬件</span>
-                <span class="badge">Arduino</span>
-                <span class="badge">ROS2</span>
-                <span class="badge">RViz</span>
-            </div>
-
-            <p>
-                本项目围绕开源灵巧手 DexHand 展开，重点包括机械结构梳理、腱驱动方式分析、
-                Arduino Nano RP2040 Connect 多舵机控制方案研究，以及 ROS2 仿真环境搭建与基础运动验证。
-            </p>
-        </div>
-
-        <div class="section-card">
-            <h2>项目封面 / Cover</h2>
-            <img src="assets/dexhand-cover.jpg" alt="DexHand Cover" class="cover-image"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div class="preview-box" style="display:none;">
-                这里可以放项目封面图。<br>
-                建议把图片放到 <code>assets/</code> 文件夹中，例如：<code>assets/dexhand-cover.jpg</code>
-            </div>
-        </div>
-
-        <div class="section-card">
-            <h2>项目简介 / Overview</h2>
+        <section class="section">
+            <h2>项目内容</h2>
             <ul>
-                <li>系统梳理 DexHand 的机械结构、腱驱动方式、电控架构和软件工作流。</li>
-                <li>研究基于 Arduino Nano RP2040 Connect 的多舵机控制逻辑，包括供电、布线和执行器选型。</li>
-                <li>搭建 ROS2 仿真环境，完成模型启动、RViz 可视化与基础关节运动验证。</li>
-                <li>为后续实物搭建、控制算法开发与功能演示提供基础验证平台。</li>
+                <li>系统梳理 DexHand 的机械结构、腱驱动方式、电控架构及软件工作流。</li>
+                <li>研究基于 Arduino Nano RP2040 Connect 的多舵机控制方案，理解控制器、供电、布线与执行器选型逻辑。</li>
+                <li>搭建 ROS2 仿真环境，完成手部模型启动、RViz 可视化及基础关节/手指运动验证。</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="section-card">
-            <h2>图片展示 / Gallery</h2>
+        <section class="section">
+            <h2>技术栈</h2>
+            <div class="tech-list">
+                <span class="tech">DexHand</span>
+                <span class="tech">Arduino Nano RP2040 Connect</span>
+                <span class="tech">Servo Control</span>
+                <span class="tech">ROS2</span>
+                <span class="tech">RViz</span>
+                <span class="tech">机器人仿真验证</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>项目展示</h2>
             <div class="gallery">
-                <img src="assets/dexhand-1.jpg" alt="DexHand Image 1" onerror="this.style.display='none';">
-                <img src="assets/dexhand-2.jpg" alt="DexHand Image 2" onerror="this.style.display='none';">
-                <img src="assets/dexhand-rviz.png" alt="DexHand RViz" onerror="this.style.display='none';">
-            </div>
-            <div class="preview-box" style="margin-top: 16px;">
-                你可以把实物照片、结构图、接线图、RViz 截图都丢进 <code>assets/</code> 文件夹，
-                再把文件名改成这里对应的名字。
-            </div>
-        </div>
+                <div class="gallery-item">
+                    <img src="assets/dexhand-1.jpg" alt="DexHand 展示图1"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display:none;">assets/dexhand-1.jpg</div>
+                </div>
 
-        <div class="section-card">
-            <h2>项目文件 / Project Files</h2>
+                <div class="gallery-item">
+                    <img src="assets/dexhand-2.jpg" alt="DexHand 展示图2"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display:none;">assets/dexhand-2.jpg</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="assets/dexhand-rviz.png" alt="DexHand RViz 图"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display:none;">assets/dexhand-rviz.png</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>项目文件</h2>
             <div class="file-grid">
                 <div class="file-card">
-                    <h3>项目报告 PDF</h3>
-                    <p>可放项目说明文档、汇报材料、实验记录。</p>
-                    <a class="file-link" href="files/dexhand-report.pdf" target="_blank">打开 PDF</a>
+                    <h3>项目 PPT</h3>
+                    <p>用于展示项目背景、结构设计、控制方案与阶段成果。</p>
+                    <a class="btn" href="files/dexhand-slides.pptx" target="_blank">下载 PPT</a>
                 </div>
 
                 <div class="file-card">
-                    <h3>演示视频</h3>
-                    <p>可链接 Bilibili、YouTube 或本地 mp4 文件。</p>
-                    <a class="file-link" href="files/dexhand-demo.mp4" target="_blank">打开视频</a>
+                    <h3>项目 PDF</h3>
+                    <p>推荐同步提供 PDF 版本，网页端查看体验通常更稳定。</p>
+                    <a class="btn" href="files/dexhand-slides.pdf" target="_blank">查看 PDF</a>
                 </div>
 
                 <div class="file-card">
-                    <h3>代码仓库</h3>
-                    <p>建议直接链接 GitHub 仓库，最适合展示代码。</p>
-                    <a class="file-link" href="https://github.com/yourname/dexhand-project" target="_blank">查看仓库</a>
-                </div>
-
-                <div class="file-card">
-                    <h3>项目压缩包</h3>
-                    <p>可放控制代码、模型文件、电路图、说明书等。</p>
-                    <a class="file-link" href="files/dexhand-package.zip" target="_blank">下载文件</a>
+                    <h3>项目资料包</h3>
+                    <p>可放代码、接线说明、模型文件、实验记录等材料。</p>
+                    <a class="btn" href="files/dexhand-package.zip" target="_blank">下载资料</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="section-card">
-            <h2>开发内容 / What I Worked On</h2>
-            <ul>
-                <li><strong>机械结构理解：</strong>分析手指、手掌、手腕与前臂的组成关系。</li>
-                <li><strong>驱动方式研究：</strong>理解 tendon-driven 腱驱动结构与多自由度协调方式。</li>
-                <li><strong>控制硬件学习：</strong>基于 Arduino Nano RP2040 Connect 研究多舵机控制流程。</li>
-                <li><strong>仿真环境搭建：</strong>完成 ROS2 环境部署、模型启动与 RViz 可视化验证。</li>
-            </ul>
-        </div>
-
-        <div class="section-card">
-            <h2>你说的“上传项目文件”怎么做</h2>
-            <div class="note">
-                GitHub Pages 是静态网站，不能像后台系统那样直接把网页上选中的文件永久保存到服务器。<br><br>
-                正确做法是：先把文件上传到你的 GitHub 仓库里的 <code>files/</code> 或 <code>assets/</code> 文件夹，
-                然后这个详情页再通过链接或图片路径去展示它们。<br><br>
-                也就是说，这个页面可以<strong>展示你上传过的文件</strong>，但不能自己充当“在线上传后台”。
-            </div>
-        </div>
-
-        <div class="section-card">
-            <h2>推荐的仓库结构</h2>
-            <div class="preview-box">
-                /<br>
-                ├─ index.html<br>
-                ├─ dexhand.html<br>
-                ├─ assets/<br>
-                │&nbsp;&nbsp;├─ dexhand-cover.jpg<br>
-                │&nbsp;&nbsp;├─ dexhand-1.jpg<br>
-                │&nbsp;&nbsp;├─ dexhand-2.jpg<br>
-                │&nbsp;&nbsp;└─ dexhand-rviz.png<br>
-                ├─ files/<br>
-                │&nbsp;&nbsp;├─ dexhand-report.pdf<br>
-                │&nbsp;&nbsp;├─ dexhand-demo.mp4<br>
-                │&nbsp;&nbsp;└─ dexhand-package.zip
-            </div>
+        <div class="footer-nav">
+            <a href="index.html#projects">← 返回项目经历</a>
         </div>
     </div>
 </body>
