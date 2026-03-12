@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>刘广天 | Guangtian Liu</title>
     <style>
-        /* 基础页面布局与现代字体栈 */
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0; 
@@ -20,7 +19,7 @@
             box-sizing: border-box;
         }
 
-        /* ---------------- 语言切换核心逻辑（修复黑点问题） ---------------- */
+        /* ---------------- 语言切换核心逻辑 ---------------- */
         body.lang-zh .en { display: none !important; }
         body.lang-zh .zh { display: inline; }
         body.lang-zh div.zh,
@@ -100,7 +99,6 @@
             box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
         }
 
-        /* 外层渐隐提示 */
         .nav-fade-wrap {
             position: relative;
             margin-top: 12px;
@@ -127,7 +125,6 @@
             background: linear-gradient(to left, rgba(255,255,255,0.95), rgba(255,255,255,0));
         }
 
-        /* 单独的横向滚动层 */
         .nav-scroll {
             overflow-x: auto;
             overflow-y: hidden;
@@ -217,7 +214,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* 内容排版细节 */
         .section h2 { 
             color: #0f172a; 
             font-size: 1.9rem;
@@ -229,7 +225,6 @@
             padding-bottom: 0;
         }
 
-        /* 删除蓝色横线 */
         .section h2::after {
             display: none;
         }
@@ -337,18 +332,11 @@
                 linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.85));
         }
 
-        .avatar-tip {
-            margin-top: 12px;
-            font-size: 0.86rem;
-            color: #64748b;
-            line-height: 1.7;
-        }
-
         .profile-main {
             min-width: 0;
         }
 
-        /* ---------------- 更专业的标签样式 ---------------- */
+        /* 标签样式 */
         .tag-list {
             display: flex;
             flex-wrap: wrap;
@@ -394,6 +382,54 @@
         .skill-card h3 {
             margin-bottom: 14px;
             font-size: 1.05rem;
+        }
+
+        /* ---------------- 项目卡片可点击样式 ---------------- */
+        .project-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 24px 22px;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .project-link {
+            color: #0f172a;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .project-link:hover {
+            color: #1d4ed8;
+        }
+
+        .project-actions {
+            margin-top: 18px;
+        }
+
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.20);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 22px rgba(37, 99, 235, 0.24);
         }
 
         /* ---------------- 桌面端优化 ---------------- */
@@ -525,12 +561,8 @@
         <h2 class="en">Personal Information</h2>
 
         <div class="profile-layout">
-            <!-- 头像区 -->
             <div class="avatar-card">
                 <div class="avatar-box">
-                    <!-- 把 your-photo.jpg 改成你的照片文件名 -->
-                    <!-- 例如：src="photo.jpg" -->
-                    <!-- 也可以直接写 base64：src="data:image/jpeg;base64,..." -->
                     <img 
                         src="your-photo.png" 
                         alt="刘广天照片" 
@@ -551,7 +583,6 @@
                 </div>
             </div>
 
-            <!-- 文本区 -->
             <div class="profile-main">
                 <div class="meta-info zh">
                     <span><strong>姓名：</strong> 刘广天</span>
@@ -566,9 +597,9 @@
                     <span><strong>Status:</strong> Master's Candidate (Class of 2027)</span>
                 </div>
 
-                <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端天气影响（ELRG）与季节性电量失衡（SEI）联合风险的研究空白，熟练掌握严密的运筹学优化算法（如 Benders 分解）与时间序列动态基准线构建技术。能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
+                <p class="zh"><strong>个人简介：</strong><br>具备新能源发电与电气工程的深度交叉背景。致力于填补电力系统规划领域中极端低可再生出力风险与季节性电量失衡联合影响的研究空白，熟练掌握运筹优化、时间序列分析与电力系统建模方法，能够从宏观系统规划到微观物理器件进行全方位分析与思考。</p>
                 
-                <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint risks of extreme weather events (ELRG) and seasonal energy imbalances (SEI) in power system planning. Highly proficient in rigorous operations research optimization algorithms (e.g., Benders decomposition) and dynamic time-series baseline construction, with a comprehensive analytical perspective ranging from macroscopic system planning to microscopic physical devices.</p>
+                <p class="en"><strong>Profile Summary:</strong><br>Possess a deep interdisciplinary background in renewable energy generation and electrical engineering. Dedicated to addressing the joint impacts of extreme low renewable generation risks and seasonal energy imbalance in power system planning. Proficient in optimization, time-series analysis, and power system modeling, with an analytical perspective ranging from system-level planning to physical-device-level understanding.</p>
             </div>
         </div>
     </div>
@@ -635,10 +666,10 @@
                 <li class="en"><strong>PLM Management:</strong> Managed new material applications and releases; handled drawing modifications, check-ins, and BOM releases.</li>
                 
                 <li class="zh"><strong>电气制图：</strong> 基于 SWE 完成电缆图、配线图的核对与修正；基于中望 CAD 对图纸进行校对修正。</li>
-                <li class="en"><strong>Electrical Drafting:</strong> Proofread and corrected cable/wiring diagrams using SWE; verified mechanical drawings using ZWCAD.</li>
+                <li class="en"><strong>Electrical Drafting:</strong> Proofread and corrected cable/wiring diagrams using SWE; verified drawings using ZWCAD.</li>
                 
                 <li class="zh"><strong>洁净间测试与维保：</strong> 协助制造人员完成设备出厂前的 Safety Check 安全测试，确保故障预警功能正常；编写限温器等产品的符合性 SOP 文件并协助软件配置；累计 300+ 次测试清洗机腔室电机驱动器的输入输出电压。</li>
-                <li class="en"><strong>Cleanroom Operations:</strong> Assisted in pre-factory safety tests ensuring fault warning functionalities; authored SOPs for components like temperature limiters; conducted 300+ voltage I/O tests on motor drivers using multimeters.</li>
+                <li class="en"><strong>Cleanroom Operations:</strong> Assisted in pre-factory safety tests, authored SOPs for components like temperature limiters, and conducted 300+ voltage I/O tests on motor drivers.</li>
             </ul>
         </div>
     </div>
@@ -646,6 +677,44 @@
     <div id="projects" class="section">
         <h2 class="zh">项目经历</h2>
         <h2 class="en">Project Experience</h2>
+
+        <!-- 新增：灵巧手项目 -->
+        <div class="experience-item project-card">
+            <div class="experience-header">
+                <h3 class="zh">
+                    <a href="dexhand.html" class="project-link">DexHand 开源灵巧手项目开发与验证</a>
+                </h3>
+                <h3 class="en">
+                    <a href="dexhand.html" class="project-link">DexHand Open-Source Dexterous Hand Development & Validation</a>
+                </h3>
+                <div class="date-badge">2026.02 - 至今</div>
+            </div>
+
+            <div class="meta-info zh">
+                <span><strong>角色：</strong> 核心成员</span>
+                <span><strong>方向：</strong> 机器人硬件开发 / 仿真验证</span>
+            </div>
+            <div class="meta-info en">
+                <span><strong>Role:</strong> Core Member</span>
+                <span><strong>Area:</strong> Robotics Hardware / Simulation Validation</span>
+            </div>
+
+            <ul>
+                <li class="zh">系统梳理 DexHand 的机械结构、腱驱动方式、电控架构及软件工作流。</li>
+                <li class="en">Systematically studied the mechanical structure, tendon-driven actuation, electrical architecture, and software workflow of DexHand.</li>
+
+                <li class="zh">研究基于 Arduino Nano RP2040 Connect 的多舵机控制方案，掌握控制器、供电、布线与执行器选型逻辑。</li>
+                <li class="en">Investigated a multi-servo control solution based on Arduino Nano RP2040 Connect, covering controller selection, power supply, wiring, and actuator selection.</li>
+
+                <li class="zh">搭建 ROS2 仿真环境，完成手部模型启动、RViz 可视化及基础关节/手指运动验证。</li>
+                <li class="en">Built a ROS2 simulation environment and completed model launch, RViz visualization, and basic joint/finger motion validation.</li>
+            </ul>
+
+            <div class="project-actions">
+                <a href="dexhand.html" class="project-btn zh">查看项目详情</a>
+                <a href="dexhand.html" class="project-btn en">View Project Details</a>
+            </div>
+        </div>
 
         <div class="experience-item">
             <div class="experience-header">
@@ -656,11 +725,11 @@
             <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Project Lead</span></div>
             <ul>
-                <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力 (ELRG) 场景的源-荷-储长期电力系统规划模型。</li>
-                <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation (ELRG).</li>
+                <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力场景的源-荷-储长期电力系统规划模型。</li>
+                <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation scenarios.</li>
                 
-                <li class="zh">提出一种新的 ELRG 事件聚类方法，通过直接提取并分析代表性的真实事件，有效摒弃了传统的统一长度典型片段生成法及事件分类法，精确保留了系统真实的物理边界。</li>
-                <li class="en">Proposed a novel ELRG clustering method by directly selecting representative real events, overcoming the limitations of unified-length typical fragments and event classification methods to preserve actual physical boundaries.</li>
+                <li class="zh">提出一种新的极端低出力事件聚类方法，通过直接提取并分析代表性的真实事件，有效保留系统真实的物理边界。</li>
+                <li class="en">Proposed a novel clustering method for extreme low-generation events by directly selecting representative real events to preserve actual physical boundaries.</li>
                 
                 <li class="zh">目前正撰写相关学术论文，计划提交至相关领域顶级期刊。</li>
                 <li class="en">Currently writing the manuscript, targeting submission to a top-tier journal.</li>
@@ -679,9 +748,9 @@
             <ul>
                 <li class="zh">基于 OpenFAST 多物理场开源平台对风力机叶片建模并进行可靠性仿真验证。</li>
                 <li class="en">Modeled wind turbine blades and verified reliability simulations using the OpenFAST multi-physics platform.</li>
-                <li class="zh">系统研究了 5MW、10MW、22MW 三种基于 FFA-W3、不同展长的柔性叶片在额定风速下的动态形变。</li>
-                <li class="en">Systematically studied the dynamic deformation of 5MW, 10MW, and 22MW flexible blades (FFA-W3 based) under rated wind speeds.</li>
-                <li class="zh">基于 IEA-22-280-RWT 风力机，深入探究超长柔性叶片的动态变形对叶片气动性能及风机整体性能的影响。</li>
+                <li class="zh">系统研究了 5MW、10MW、22MW 三种不同展长柔性叶片在额定风速下的动态形变。</li>
+                <li class="en">Systematically studied the dynamic deformation of 5MW, 10MW, and 22MW flexible blades under rated wind speeds.</li>
+                <li class="zh">基于 IEA-22-280-RWT 风力机，探究超长柔性叶片动态变形对叶片气动性能及风机整体性能的影响。</li>
                 <li class="en">Analyzed the impact of ultra-long blade dynamic deformation on aerodynamic and overall turbine performance based on the IEA-22-280-RWT model.</li>
             </ul>
         </div>
@@ -698,8 +767,8 @@
             <ul>
                 <li class="zh">利用 Workbench 的瞬态结构模块对高空风电机组进行结构稳定性仿真，分析系统受流体作用时的变形应力，辅助完成系统的双向流固耦合仿真。</li>
                 <li class="en">Conducted structural stability simulations using Workbench Transient Structural module, analyzing deformation stress under fluid interaction to support two-way fluid-solid coupling simulations.</li>
-                <li class="zh">深入学习 Fluent 流体仿真，对风力机功率提升、舵面偏转受力等问题进行数值模拟，大幅提升数据分析能力。</li>
-                <li class="en">Applied Fluent for fluid numerical simulations on turbine power enhancement and rudder deflection forces, significantly improving fluid dynamics analysis capabilities.</li>
+                <li class="zh">深入学习 Fluent 流体仿真，对风力机功率提升、舵面偏转受力等问题进行数值模拟。</li>
+                <li class="en">Applied Fluent for numerical simulations on turbine power enhancement and rudder deflection forces.</li>
             </ul>
         </div>
     </div>
@@ -792,14 +861,14 @@
         <h2 class="en">Interests & Hobbies</h2>
 
         <ul>
-            <li class="zh"><strong>探索与运动：</strong> [请填写如：徒步、羽毛球、游泳]，在运动中保持充沛的精力与专注力。</li>
-            <li class="en"><strong>Sports & Outdoors:</strong> [e.g., Hiking, Badminton, Swimming], maintaining high energy and focus through physical activities.</li>
+            <li class="zh"><strong>探索与运动：</strong> 徒步、羽毛球、游泳，在运动中保持充沛的精力与专注力。</li>
+            <li class="en"><strong>Sports & Outdoors:</strong> Hiking, badminton, and swimming, maintaining energy and focus through physical activities.</li>
             
-            <li class="zh"><strong>阅读与思考：</strong> 热爱科技前沿、历史或传记类书籍，享受深度阅读带来的思维拓展。</li>
-            <li class="en"><strong>Reading & Thinking:</strong> Passionate about cutting-edge tech, history, and biographies, enjoying the cognitive expansion from deep reading.</li>
+            <li class="zh"><strong>阅读与思考：</strong> 热爱科技前沿、历史与传记类书籍，享受深度阅读带来的思维拓展。</li>
+            <li class="en"><strong>Reading & Thinking:</strong> Passionate about cutting-edge technology, history, and biographies, and enjoy the intellectual expansion brought by deep reading.</li>
             
-            <li class="zh"><strong>艺术与生活：</strong> [请填写如：摄影、咖啡拉花、吉他]，在科研之余探索生活的美学。</li>
-            <li class="en"><strong>Arts & Lifestyle:</strong> [e.g., Photography, Coffee Art, Guitar], exploring the aesthetics of life outside of research.</li>
+            <li class="zh"><strong>艺术与生活：</strong> 摄影、咖啡与简约设计，在科研之余探索生活的美学。</li>
+            <li class="en"><strong>Arts & Lifestyle:</strong> Photography, coffee, and minimalist design, exploring the aesthetics of life beyond research.</li>
         </ul>
     </div>
 
