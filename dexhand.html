@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #f4f7fb;
-            --card: rgba(255, 255, 255, 0.96);
+            --card: rgba(255, 255, 255, 0.97);
             --text: #334155;
             --title: #0f172a;
             --muted: #64748b;
@@ -36,7 +36,7 @@
         }
 
         .page {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 36px 18px 72px;
         }
@@ -72,7 +72,7 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.9fr;
+            grid-template-columns: 1.15fr 0.85fr;
             gap: 24px;
             align-items: start;
         }
@@ -226,106 +226,54 @@
             padding: 14px;
         }
 
-        .attachment-layout {
-            display: grid;
-            grid-template-columns: 1.45fr 0.8fr;
-            gap: 18px;
-            align-items: start;
-        }
-
-        .preview-panel,
-        .info-card {
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-        }
-
-        .preview-panel {
-            padding: 18px;
-        }
-
-        .preview-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-
-        .preview-header h3,
-        .info-card h3 {
-            margin: 0;
-            font-size: 1rem;
-            color: var(--title);
-        }
-
-        .text-link {
-            color: var(--blue);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .pdf-frame {
-            width: 100%;
-            height: 620px;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            overflow: hidden;
-            background: #f8fafc;
-        }
-
-        .pdf-frame iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .attachment-info {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .info-card {
-            padding: 18px 16px;
-        }
-
-        .info-card p {
-            margin: 0;
+        .attachment-note {
             color: var(--muted);
             font-size: 0.95rem;
+            margin-bottom: 16px;
         }
 
-        .file-list {
-            list-style: none;
+        .doc-list {
+            border-top: 1px solid #edf2f7;
+        }
+
+        .doc-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .doc-main h3 {
+            margin: 0 0 4px;
+            font-size: 1rem;
+            color: var(--title);
+            font-weight: 700;
+        }
+
+        .doc-main p {
             margin: 0;
-            padding: 0;
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.7;
         }
 
-        .file-list li {
+        .doc-links {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid #edf2f7;
-            margin: 0;
+            gap: 14px;
+            white-space: nowrap;
         }
 
-        .file-list li:last-child {
-            border-bottom: none;
-        }
-
-        .file-list span {
-            color: var(--text);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .file-list a {
+        .doc-links a {
             color: var(--blue);
-            font-size: 0.92rem;
+            font-size: 0.93rem;
             font-weight: 700;
+        }
+
+        .doc-links span {
+            color: #cbd5e1;
         }
 
         .footer-nav {
@@ -339,8 +287,7 @@
         }
 
         @media (max-width: 900px) {
-            .hero-grid,
-            .attachment-layout {
+            .hero-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -348,8 +295,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .pdf-frame {
-                height: 460px;
+            .doc-item {
+                grid-template-columns: 1fr;
+                align-items: start;
             }
         }
 
@@ -373,13 +321,9 @@
                 align-items: flex-start;
             }
 
-            .preview-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .pdf-frame {
-                height: 360px;
+            .doc-links {
+                gap: 10px;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -467,47 +411,48 @@
 
         <section class="section">
             <h2>项目附件</h2>
+            <p class="attachment-note">
+                附件区保留为简洁文档列表，用于提供汇报文档、资料包及补充材料入口。
+            </p>
 
-            <div class="attachment-layout">
-                <div class="preview-panel">
-                    <div class="preview-header">
-                        <h3>项目展示文档</h3>
-                        <a href="files/dexhand-slides.pdf" target="_blank" class="text-link">新窗口打开</a>
+            <div class="doc-list">
+                <div class="doc-item">
+                    <div class="doc-main">
+                        <h3>项目汇报 PPT</h3>
+                        <p>包含项目背景、结构设计、控制方案与阶段性成果展示。</p>
                     </div>
-
-                    <div class="pdf-frame">
-                        <iframe 
-                            src="files/dexhand-slides.pdf"
-                            title="DexHand 项目 PDF 预览">
-                        </iframe>
+                    <div class="doc-links">
+                        <a href="files/dexhand-slides.pptx" target="_blank">打开</a>
                     </div>
                 </div>
 
-                <div class="attachment-info">
-                    <div class="info-card">
-                        <h3>附件说明</h3>
-                        <p>
-                            此处展示项目汇报文档与相关材料。网页内推荐优先预览 PDF，
-                            因为浏览器对 PDF 的兼容性通常比 PPT 更稳定。
-                        </p>
+                <div class="doc-item">
+                    <div class="doc-main">
+                        <h3>项目汇报 PDF</h3>
+                        <p>建议同步提供 PDF 版本，便于不同设备查看和存档。</p>
                     </div>
+                    <div class="doc-links">
+                        <a href="files/dexhand-slides.pdf" target="_blank">查看</a>
+                    </div>
+                </div>
 
-                    <div class="info-card">
-                        <h3>附件列表</h3>
-                        <ul class="file-list">
-                            <li>
-                                <span>项目汇报 PPT</span>
-                                <a href="files/dexhand-slides.pptx" target="_blank">打开</a>
-                            </li>
-                            <li>
-                                <span>项目汇报 PDF</span>
-                                <a href="files/dexhand-slides.pdf" target="_blank">预览</a>
-                            </li>
-                            <li>
-                                <span>项目资料包</span>
-                                <a href="files/dexhand-package.zip" target="_blank">下载</a>
-                            </li>
-                        </ul>
+                <div class="doc-item">
+                    <div class="doc-main">
+                        <h3>项目资料包</h3>
+                        <p>可包含代码、接线说明、模型文件、实验记录及其他补充材料。</p>
+                    </div>
+                    <div class="doc-links">
+                        <a href="files/dexhand-package.zip" target="_blank">下载</a>
+                    </div>
+                </div>
+
+                <div class="doc-item">
+                    <div class="doc-main">
+                        <h3>代码仓库</h3>
+                        <p>用于展示项目源码、版本记录与后续开发内容。</p>
+                    </div>
+                    <div class="doc-links">
+                        <a href="https://github.com/yourname/dexhand-project" target="_blank">访问</a>
                     </div>
                 </div>
             </div>
