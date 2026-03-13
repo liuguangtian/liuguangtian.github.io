@@ -27,7 +27,8 @@
         body.lang-zh ul.zh,
         body.lang-zh h2.zh,
         body.lang-zh h3.zh,
-        body.lang-zh span.zh { display: block; }
+        body.lang-zh span.zh,
+        body.lang-zh a.zh { display: block; }
         body.lang-zh li.zh { display: list-item; }
 
         body.lang-en .zh { display: none !important; }
@@ -37,7 +38,8 @@
         body.lang-en ul.en,
         body.lang-en h2.en,
         body.lang-en h3.en,
-        body.lang-en span.en { display: block; }
+        body.lang-en span.en,
+        body.lang-en a.en { display: block; }
         body.lang-en li.en { display: list-item; }
 
         /* ---------------- 顶部导航栏 ---------------- */
@@ -221,14 +223,9 @@
             margin-bottom: 34px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            position: relative;
             padding-bottom: 0;
         }
 
-        .section h2::after {
-            display: none;
-        }
-        
         .experience-item { margin-bottom: 45px; }
         .experience-item:last-child { margin-bottom: 0; }
         
@@ -284,7 +281,7 @@
         .section li::marker { color: #cbd5e1; font-size: 1.2em; }
         strong { color: #1e293b; font-weight: 700; }
 
-        /* ---------------- 个人信息区：头像 + 内容 ---------------- */
+        /* ---------------- 个人信息区 ---------------- */
         .profile-layout {
             display: grid;
             grid-template-columns: 220px 1fr;
@@ -328,8 +325,7 @@
             color: #64748b;
             font-size: 0.95rem;
             line-height: 1.7;
-            background:
-                linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.85));
+            background: linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.85));
         }
 
         .profile-main {
@@ -358,12 +354,6 @@
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
         }
 
-        .tag.highlight {
-            color: #1d4ed8;
-            background: #eff6ff;
-            border-color: #bfdbfe;
-        }
-
         /* 技能分组卡片 */
         .skills-grid {
             display: grid;
@@ -384,7 +374,7 @@
             font-size: 1.05rem;
         }
 
-        /* ---------------- 获奖经历模块 ---------------- */
+        /* ---------------- 获奖经历模块：支持多图 ---------------- */
         .awards-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -418,26 +408,39 @@
             margin-bottom: 16px;
         }
 
+        .award-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
         .award-image-box {
             width: 100%;
-            aspect-ratio: 4 / 3;
+            min-height: 160px;
             border-radius: 14px;
             overflow: hidden;
             border: 1px dashed #cbd5e1;
-            background: linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.92));
+            background: #ffffff;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
         }
 
         .award-image-box img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            max-height: 240px;
+            object-fit: contain;   /* 关键：完整显示，不裁切 */
             display: block;
+            border-radius: 10px;
+            background: #fff;
         }
 
         .award-placeholder {
             width: 100%;
-            height: 100%;
+            min-height: 140px;
             display: none;
             align-items: center;
             justify-content: center;
@@ -446,9 +449,11 @@
             color: #64748b;
             font-size: 0.92rem;
             line-height: 1.7;
+            background: linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.92));
+            border-radius: 10px;
         }
 
-        /* ---------------- 项目卡片可点击样式 ---------------- */
+        /* ---------------- 项目卡片 ---------------- */
         .project-card {
             border: 1px solid #e2e8f0;
             border-radius: 18px;
@@ -477,23 +482,34 @@
             margin-top: 18px;
         }
 
-        .project-btn {
+        .project-btn,
+        .proof-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             padding: 10px 18px;
             border-radius: 999px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.92rem;
-            color: #ffffff;
+            color: #ffffff !important;
             background: linear-gradient(135deg, #1d4ed8, #2563eb);
             box-shadow: 0 8px 18px rgba(37, 99, 235, 0.20);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: fit-content;
         }
 
-        .project-btn:hover {
+        .project-btn:hover,
+        .proof-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 12px 22px rgba(37, 99, 235, 0.24);
+        }
+
+        .proof-actions {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         /* ---------------- 桌面端优化 ---------------- */
@@ -568,10 +584,7 @@
                 margin: 0 auto;
             }
 
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .skills-grid,
             .awards-grid {
                 grid-template-columns: 1fr;
             }
@@ -579,6 +592,10 @@
             .section h2 {
                 font-size: 1.6rem;
                 margin-bottom: 24px;
+            }
+
+            .award-image-box img {
+                max-height: 260px;
             }
         }
     </style>
@@ -635,21 +652,22 @@
             <div class="avatar-card">
                 <div class="avatar-box">
                     <img 
-                        src="your-photo.png" 
+                        src="images/profile/your-photo.png" 
                         alt="刘广天照片" 
                         class="profile-photo"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     >
                     <div class="avatar-placeholder zh">
                         头像占位区<br>
-                        将照片文件放在<br>
-                        与 index.html 同目录<br>
-                        并把 src 改成你的文件名
+                        请将照片放入<br>
+                        images/profile/<br>
+                        并修改 src 文件名
                     </div>
                     <div class="avatar-placeholder en">
                         Photo Placeholder<br>
-                        Put your photo in the same folder<br>
-                        as index.html and change the src path
+                        Put your photo in<br>
+                        images/profile/<br>
+                        and update the src path
                     </div>
                 </div>
             </div>
@@ -742,7 +760,15 @@
                 <li class="zh"><strong>洁净间测试与维保：</strong> 协助制造人员完成设备出厂前的 Safety Check 安全测试，确保故障预警功能正常；编写限温器等产品的符合性 SOP 文件并协助软件配置；累计 300+ 次测试清洗机腔室电机驱动器的输入输出电压。</li>
                 <li class="en"><strong>Cleanroom Operations:</strong> Assisted in pre-factory safety tests, authored SOPs for components like temperature limiters, and conducted 300+ voltage I/O tests on motor drivers.</li>
             </ul>
+
+            <div class="proof-actions">
+                <a href="files/internship/naura-proof.pdf" target="_blank" class="proof-btn zh">查看实习证明</a>
+                <a href="files/internship/naura-proof.pdf" target="_blank" class="proof-btn en">View Internship Certificate</a>
+            </div>
         </div>
+
+        <!-- 以后新增实习，直接复制这一整块 experience-item，
+             然后把下面 href 改成你的新 PDF 路径即可 -->
     </div>
 
     <div id="projects" class="section">
@@ -931,86 +957,89 @@
         <h2 class="en">Awards & Achievements</h2>
 
         <div class="awards-grid">
+            <!-- 奖学金 -->
             <div class="award-card">
                 <h3 class="zh">奖学金</h3>
                 <h3 class="en">Scholarships</h3>
 
                 <p class="award-desc zh">
-                    可在此上传国家奖学金、校级奖学金、学业奖学金等相关证书或证明图片。
+                    该分栏支持粘贴多张图片。你只需要继续复制下面的图片框，并把图片路径改成你的实际文件名即可。
                 </p>
                 <p class="award-desc en">
-                    Upload images of scholarship certificates here, such as national, university-level, or academic scholarships.
+                    This section supports multiple images. Simply duplicate the image boxes below and update the image paths.
                 </p>
 
-                <div class="award-image-box">
-                    <img 
-                        src="images/awards/scholarship.jpg" 
-                        alt="奖学金证书" 
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    >
-                    <div class="award-placeholder zh">
-                        奖学金图片占位区<br>
-                        将 scholarship.jpg 替换为你的图片文件名
+                <div class="award-gallery">
+                    <div class="award-image-box">
+                        <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">奖学金图片 1<br>路径示例：images/awards/scholarship-1.jpg</div>
+                        <div class="award-placeholder en">Scholarship Image 1<br>Example: images/awards/scholarship-1.jpg</div>
                     </div>
-                    <div class="award-placeholder en">
-                        Scholarship image placeholder<br>
-                        Replace scholarship.jpg with your actual file name
+
+                    <div class="award-image-box">
+                        <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">奖学金图片 2<br>继续复制这个框即可添加更多图片</div>
+                        <div class="award-placeholder en">Scholarship Image 2<br>Duplicate this box for more images</div>
                     </div>
                 </div>
             </div>
 
+            <!-- 活动 -->
             <div class="award-card">
                 <h3 class="zh">活动</h3>
                 <h3 class="en">Activities</h3>
 
                 <p class="award-desc zh">
-                    可在此上传学生组织、志愿服务、科研交流、校园活动等照片或证明材料。
+                    可放学生组织、志愿服务、学术交流、校园活动等多张图片，图片将完整显示，不会硬裁切。
                 </p>
                 <p class="award-desc en">
-                    Upload images for student activities, volunteering, academic exchange, or campus events here.
+                    You can place multiple images here for student activities, volunteering, academic exchange, and campus events.
                 </p>
 
-                <div class="award-image-box">
-                    <img 
-                        src="images/awards/activity.jpg" 
-                        alt="活动经历图片" 
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    >
-                    <div class="award-placeholder zh">
-                        活动图片占位区<br>
-                        将 activity.jpg 替换为你的图片文件名
+                <div class="award-gallery">
+                    <div class="award-image-box">
+                        <img src="images/awards/activity-1.jpg" alt="活动图片1"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">活动图片 1<br>路径示例：images/awards/activity-1.jpg</div>
+                        <div class="award-placeholder en">Activity Image 1<br>Example: images/awards/activity-1.jpg</div>
                     </div>
-                    <div class="award-placeholder en">
-                        Activity image placeholder<br>
-                        Replace activity.jpg with your actual file name
+
+                    <div class="award-image-box">
+                        <img src="images/awards/activity-2.jpg" alt="活动图片2"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">活动图片 2<br>继续复制这个框即可添加更多图片</div>
+                        <div class="award-placeholder en">Activity Image 2<br>Duplicate this box for more images</div>
                     </div>
                 </div>
             </div>
 
+            <!-- 部分竞赛 -->
             <div class="award-card">
                 <h3 class="zh">部分竞赛</h3>
                 <h3 class="en">Selected Competitions</h3>
 
                 <p class="award-desc zh">
-                    可在此上传竞赛获奖证书、参赛照片或项目展示图片，例如创新创业、学科竞赛等。
+                    可放竞赛获奖证书、参赛照片、项目展示图等多张图片。建议文件名用英文，少踩路径坑。
                 </p>
                 <p class="award-desc en">
-                    Upload competition certificates, event photos, or project showcase images here, such as innovation or discipline-based contests.
+                    Place multiple images here for competition certificates, participation photos, and showcase materials.
                 </p>
 
-                <div class="award-image-box">
-                    <img 
-                        src="images/awards/competition.jpg" 
-                        alt="竞赛获奖图片" 
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    >
-                    <div class="award-placeholder zh">
-                        竞赛图片占位区<br>
-                        将 competition.jpg 替换为你的图片文件名
+                <div class="award-gallery">
+                    <div class="award-image-box">
+                        <img src="images/awards/competition-1.jpg" alt="竞赛图片1"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">竞赛图片 1<br>路径示例：images/awards/competition-1.jpg</div>
+                        <div class="award-placeholder en">Competition Image 1<br>Example: images/awards/competition-1.jpg</div>
                     </div>
-                    <div class="award-placeholder en">
-                        Competition image placeholder<br>
-                        Replace competition.jpg with your actual file name
+
+                    <div class="award-image-box">
+                        <img src="images/awards/competition-2.jpg" alt="竞赛图片2"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="award-placeholder zh">竞赛图片 2<br>继续复制这个框即可添加更多图片</div>
+                        <div class="award-placeholder en">Competition Image 2<br>Duplicate this box for more images</div>
                     </div>
                 </div>
             </div>
