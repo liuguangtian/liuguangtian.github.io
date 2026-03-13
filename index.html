@@ -55,7 +55,7 @@
         }
 
         .header-inner {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 12px 16px 10px;
         }
@@ -195,7 +195,7 @@
 
         .section {
             display: none;
-            max-width: 980px;
+            max-width: 1080px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             padding: 56px 60px;
@@ -365,46 +365,42 @@
             font-size: 1.05rem;
         }
 
-        .awards-grid {
+        /* -------- 获奖经历：更明显横排结构 -------- */
+        .awards-row {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
+            gap: 22px;
+            align-items: start;
         }
 
         .award-card {
             background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
             border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 22px;
             box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             min-width: 0;
         }
 
         .award-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.07);
             border-color: #cbd5e1;
         }
 
         .award-card h3 {
-            margin-bottom: 14px;
-            font-size: 1.08rem;
+            margin-bottom: 12px;
+            font-size: 1.12rem;
             color: #0f172a;
-        }
-
-        .award-desc {
-            color: #64748b;
-            font-size: 0.94rem;
-            margin-bottom: 14px;
         }
 
         .gallery-scroll {
             overflow-x: auto;
             overflow-y: hidden;
             display: flex;
-            gap: 12px;
-            padding-bottom: 6px;
+            gap: 16px;
+            padding-bottom: 8px;
             scroll-snap-type: x proximity;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -420,25 +416,32 @@
         }
 
         .gallery-item {
-            flex: 0 0 220px;
+            flex: 0 0 320px;
             scroll-snap-align: start;
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
         }
 
         .gallery-image-box {
             width: 100%;
-            height: 220px;
-            border-radius: 12px;
+            height: 280px;
+            border-radius: 14px;
             overflow: hidden;
             background: #fff;
             border: 1px dashed #cbd5e1;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: zoom-in;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .gallery-image-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
         }
 
         .gallery-image-box img {
@@ -447,6 +450,7 @@
             object-fit: contain;
             display: block;
             background: #fff;
+            cursor: zoom-in;
         }
 
         .gallery-placeholder {
@@ -465,7 +469,7 @@
 
         .gallery-caption {
             margin-top: 10px;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             color: #64748b;
             line-height: 1.6;
             text-align: center;
@@ -529,6 +533,66 @@
             gap: 12px;
         }
 
+        /* -------- 图片放大预览 -------- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 3000;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: min(1100px, 96vw);
+            max-height: 92vh;
+            width: auto;
+        }
+
+        .lightbox-img {
+            display: block;
+            max-width: 100%;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+        }
+
+        .lightbox-caption {
+            margin-top: 14px;
+            color: #e2e8f0;
+            text-align: center;
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+
         @media (min-width: 769px) {
             .header-inner {
                 display: flex;
@@ -553,6 +617,12 @@
 
             .main-content {
                 padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .awards-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -599,8 +669,7 @@
                 margin: 0 auto;
             }
 
-            .skills-grid,
-            .awards-grid {
+            .skills-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -610,11 +679,22 @@
             }
 
             .gallery-item {
-                flex: 0 0 82%;
+                flex: 0 0 86%;
             }
 
             .gallery-image-box {
-                height: 240px;
+                height: 260px;
+            }
+
+            .lightbox {
+                padding: 16px;
+            }
+
+            .lightbox-close {
+                top: -10px;
+                right: -6px;
+                width: 38px;
+                height: 38px;
             }
         }
     </style>
@@ -968,7 +1048,7 @@
         <h2 class="zh">获奖经历</h2>
         <h2 class="en">Awards & Achievements</h2>
 
-        <div class="awards-grid">
+        <div class="awards-row">
             <div class="award-card">
                 <h3 class="zh">奖学金</h3>
                 <h3 class="en">Scholarships</h3>
@@ -976,7 +1056,7 @@
                 <div class="gallery-scroll">
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/scholarship-1.jpg" alt="国家奖学金 / 学业奖学金等" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">奖学金图片 1</div>
                             <div class="gallery-placeholder en">Scholarship 1</div>
                         </div>
@@ -986,7 +1066,7 @@
 
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/scholarship-2.jpg" alt="奖学金图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">奖学金图片 2</div>
                             <div class="gallery-placeholder en">Scholarship 2</div>
                         </div>
@@ -998,11 +1078,10 @@
                 <h3 class="zh">活动</h3>
                 <h3 class="en">Activities</h3>
 
-  
                 <div class="gallery-scroll">
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/activity-1.jpg" alt="活动图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/activity-1.jpg" alt="校园活动 / 志愿服务" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">活动图片 1</div>
                             <div class="gallery-placeholder en">Activity 1</div>
                         </div>
@@ -1012,7 +1091,7 @@
 
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/activity-2.jpg" alt="活动图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/activity-2.jpg" alt="活动图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">活动图片 2</div>
                             <div class="gallery-placeholder en">Activity 2</div>
                         </div>
@@ -1027,7 +1106,7 @@
                 <div class="gallery-scroll">
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/competition-1.jpg" alt="竞赛图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/competition-1.jpg" alt="数学建模 / 创新创业 / 学科竞赛" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">竞赛图片 1</div>
                             <div class="gallery-placeholder en">Competition 1</div>
                         </div>
@@ -1037,7 +1116,7 @@
 
                     <div class="gallery-item">
                         <div class="gallery-image-box">
-                            <img src="images/awards/competition-2.jpg" alt="竞赛图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="images/awards/competition-2.jpg" alt="竞赛图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="gallery-placeholder zh">竞赛图片 2</div>
                             <div class="gallery-placeholder en">Competition 2</div>
                         </div>
@@ -1061,6 +1140,15 @@
             <li class="zh"><strong>艺术与生活：</strong> 摄影、咖啡与简约设计，在科研之余探索生活的美学。</li>
             <li class="en"><strong>Arts & Lifestyle:</strong> Photography, coffee, and minimalist design, exploring the aesthetics of life beyond research.</li>
         </ul>
+    </div>
+</div>
+
+<!-- 图片预览层 -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="关闭预览">×</button>
+        <img id="lightboxImg" class="lightbox-img" src="" alt="预览大图">
+        <div id="lightboxCaption" class="lightbox-caption"></div>
     </div>
 </div>
 
@@ -1104,6 +1192,28 @@
         }
     }
 
+    function openLightbox(src, altText) {
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
+        var lightboxCaption = document.getElementById('lightboxCaption');
+
+        lightboxImg.src = src;
+        lightboxImg.alt = altText || '预览大图';
+        lightboxCaption.textContent = altText || '';
+        lightbox.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+        if (!event || event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightboxImg');
+            lightbox.classList.remove('show');
+            lightboxImg.src = '';
+            document.body.style.overflow = '';
+        }
+    }
+
     window.addEventListener('load', function () {
         var activeLink = document.querySelector('.nav-link.active');
         if (activeLink) {
@@ -1112,6 +1222,30 @@
                 block: 'nearest',
                 inline: 'center'
             });
+        }
+
+        var previewImages = document.querySelectorAll('.previewable');
+        previewImages.forEach(function(img) {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openLightbox(this.src, this.alt);
+            });
+        });
+
+        var previewBoxes = document.querySelectorAll('.gallery-image-box');
+        previewBoxes.forEach(function(box) {
+            box.addEventListener('click', function() {
+                var img = this.querySelector('.previewable');
+                if (img && img.style.display !== 'none') {
+                    openLightbox(img.src, img.alt);
+                }
+            });
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
         }
     });
 </script>
