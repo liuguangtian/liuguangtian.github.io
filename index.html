@@ -365,22 +365,41 @@
             font-size: 1.05rem;
         }
 
-        /* -------- 获奖经历：更明显横排结构 -------- */
+        /* -------- 获奖经历：始终横排 -------- */
+        .awards-strip {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .awards-strip::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .awards-strip::-webkit-scrollbar-thumb {
+            background: #dbe3ee;
+            border-radius: 999px;
+        }
+
         .awards-row {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            display: flex;
+            flex-wrap: nowrap;
             gap: 22px;
-            align-items: start;
+            align-items: stretch;
+            min-width: max-content;
         }
 
         .award-card {
+            width: 320px;
+            min-width: 320px;
             background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
             border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 22px;
             box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            min-width: 0;
         }
 
         .award-card:hover {
@@ -390,7 +409,7 @@
         }
 
         .award-card h3 {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             font-size: 1.12rem;
             color: #0f172a;
         }
@@ -399,7 +418,8 @@
             overflow-x: auto;
             overflow-y: hidden;
             display: flex;
-            gap: 16px;
+            flex-wrap: nowrap;
+            gap: 14px;
             padding-bottom: 8px;
             scroll-snap-type: x proximity;
             -webkit-overflow-scrolling: touch;
@@ -416,18 +436,18 @@
         }
 
         .gallery-item {
-            flex: 0 0 320px;
+            flex: 0 0 240px;
             scroll-snap-align: start;
             background: #fff;
             border: 1px solid #e2e8f0;
             border-radius: 16px;
-            padding: 12px;
+            padding: 10px;
             box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
         }
 
         .gallery-image-box {
             width: 100%;
-            height: 280px;
+            height: 300px;
             border-radius: 14px;
             overflow: hidden;
             background: #fff;
@@ -468,11 +488,7 @@
         }
 
         .gallery-caption {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #64748b;
-            line-height: 1.6;
-            text-align: center;
+            display: none !important;
         }
 
         .project-card {
@@ -620,12 +636,6 @@
             }
         }
 
-        @media (max-width: 1100px) {
-            .awards-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
             .section { 
                 padding: 34px 20px; 
@@ -678,12 +688,17 @@
                 margin-bottom: 24px;
             }
 
+            .award-card {
+                width: 300px;
+                min-width: 300px;
+            }
+
             .gallery-item {
-                flex: 0 0 86%;
+                flex: 0 0 220px;
             }
 
             .gallery-image-box {
-                height: 260px;
+                height: 280px;
             }
 
             .lightbox {
@@ -1048,80 +1063,78 @@
         <h2 class="zh">获奖经历</h2>
         <h2 class="en">Awards & Achievements</h2>
 
-        <div class="awards-row">
-            <div class="award-card">
-                <h3 class="zh">奖学金</h3>
-                <h3 class="en">Scholarships</h3>
-                
-                <div class="gallery-scroll">
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/scholarship-1.jpg" alt="国家奖学金 / 学业奖学金等" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">奖学金图片 1</div>
-                            <div class="gallery-placeholder en">Scholarship 1</div>
+        <div class="awards-strip">
+            <div class="awards-row">
+
+                <div class="award-card">
+                    <h3 class="zh">奖学金</h3>
+                    <h3 class="en">Scholarships</h3>
+
+                    <div class="gallery-scroll">
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">奖学金图片 1</div>
+                                <div class="gallery-placeholder en">Scholarship 1</div>
+                            </div>
                         </div>
-                        <div class="gallery-caption zh">国家奖学金 / 学业奖学金等</div>
-                        <div class="gallery-caption en">National / Academic Scholarship</div>
-                    </div>
 
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/scholarship-2.jpg" alt="奖学金图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">奖学金图片 2</div>
-                            <div class="gallery-placeholder en">Scholarship 2</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="award-card">
-                <h3 class="zh">活动</h3>
-                <h3 class="en">Activities</h3>
-
-                <div class="gallery-scroll">
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/activity-1.jpg" alt="校园活动 / 志愿服务" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">活动图片 1</div>
-                            <div class="gallery-placeholder en">Activity 1</div>
-                        </div>
-                        <div class="gallery-caption zh">校园活动 / 志愿服务</div>
-                        <div class="gallery-caption en">Campus / Volunteering</div>
-                    </div>
-
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/activity-2.jpg" alt="活动图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">活动图片 2</div>
-                            <div class="gallery-placeholder en">Activity 2</div>
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">奖学金图片 2</div>
+                                <div class="gallery-placeholder en">Scholarship 2</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="award-card">
-                <h3 class="zh">部分竞赛</h3>
-                <h3 class="en">Selected Competitions</h3>
+                <div class="award-card">
+                    <h3 class="zh">活动</h3>
+                    <h3 class="en">Activities</h3>
 
-                <div class="gallery-scroll">
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/competition-1.jpg" alt="数学建模 / 创新创业 / 学科竞赛" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">竞赛图片 1</div>
-                            <div class="gallery-placeholder en">Competition 1</div>
+                    <div class="gallery-scroll">
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/activity-1.jpg" alt="活动图片1" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">活动图片 1</div>
+                                <div class="gallery-placeholder en">Activity 1</div>
+                            </div>
                         </div>
-                        <div class="gallery-caption zh">数学建模 / 创新创业 / 学科竞赛</div>
-                        <div class="gallery-caption en">Modeling / Innovation / Discipline Contest</div>
-                    </div>
 
-                    <div class="gallery-item">
-                        <div class="gallery-image-box">
-                            <img src="images/awards/competition-2.jpg" alt="竞赛图片 2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="gallery-placeholder zh">竞赛图片 2</div>
-                            <div class="gallery-placeholder en">Competition 2</div>
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/activity-2.jpg" alt="活动图片2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">活动图片 2</div>
+                                <div class="gallery-placeholder en">Activity 2</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="award-card">
+                    <h3 class="zh">部分竞赛</h3>
+                    <h3 class="en">Selected Competitions</h3>
+
+                    <div class="gallery-scroll">
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/competition-1.jpg" alt="竞赛图片1" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">竞赛图片 1</div>
+                                <div class="gallery-placeholder en">Competition 1</div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-image-box">
+                                <img src="images/awards/competition-2.jpg" alt="竞赛图片2" class="previewable" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="gallery-placeholder zh">竞赛图片 2</div>
+                                <div class="gallery-placeholder en">Competition 2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1143,7 +1156,6 @@
     </div>
 </div>
 
-<!-- 图片预览层 -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
     <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="关闭预览">×</button>
