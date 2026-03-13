@@ -19,7 +19,6 @@
             box-sizing: border-box;
         }
 
-        /* ---------------- 语言切换核心逻辑 ---------------- */
         body.lang-zh .en { display: none !important; }
         body.lang-zh .zh { display: inline; }
         body.lang-zh div.zh,
@@ -42,7 +41,6 @@
         body.lang-en a.en { display: block; }
         body.lang-en li.en { display: list-item; }
 
-        /* ---------------- 顶部导航栏 ---------------- */
         header {
             position: fixed;
             top: 0;
@@ -54,14 +52,12 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             z-index: 1000;
-            box-sizing: border-box;
         }
 
         .header-inner {
             max-width: 1100px;
             margin: 0 auto;
             padding: 12px 16px 10px;
-            box-sizing: border-box;
         }
 
         .top-bar {
@@ -189,7 +185,6 @@
             width: 100%; 
         }
 
-        /* ---------------- 主内容区域样式 ---------------- */
         .main-content {
             padding-top: 150px;
             padding-bottom: 80px;
@@ -223,12 +218,11 @@
             margin-bottom: 34px;
             font-weight: 800;
             letter-spacing: 0.5px;
-            padding-bottom: 0;
         }
 
         .experience-item { margin-bottom: 45px; }
         .experience-item:last-child { margin-bottom: 0; }
-        
+
         .experience-header {
             display: flex;
             justify-content: space-between;
@@ -237,14 +231,14 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        
+
         .section h3 { 
             color: #0f172a; 
             font-size: 1.25rem;
             margin: 0;
             font-weight: 700;
         }
-        
+
         .date-badge {
             font-family: 'SFMono-Regular', Consolas, monospace;
             color: #475569;
@@ -274,14 +268,13 @@
             border: 1px solid #e2e8f0;
             font-weight: 600;
         }
-        
+
         .section p { color: #475569; margin-bottom: 16px; }
         .section ul { padding-left: 20px; color: #475569; }
         .section li { margin-bottom: 12px; padding-left: 6px; }
         .section li::marker { color: #cbd5e1; font-size: 1.2em; }
         strong { color: #1e293b; font-weight: 700; }
 
-        /* ---------------- 个人信息区 ---------------- */
         .profile-layout {
             display: grid;
             grid-template-columns: 220px 1fr;
@@ -332,7 +325,6 @@
             min-width: 0;
         }
 
-        /* 标签样式 */
         .tag-list {
             display: flex;
             flex-wrap: wrap;
@@ -354,7 +346,6 @@
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
         }
 
-        /* 技能分组卡片 */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -374,7 +365,6 @@
             font-size: 1.05rem;
         }
 
-        /* ---------------- 获奖经历模块：支持多图 ---------------- */
         .awards-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -388,6 +378,7 @@
             padding: 20px;
             box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            min-width: 0;
         }
 
         .award-card:hover {
@@ -405,55 +396,81 @@
         .award-desc {
             color: #64748b;
             font-size: 0.94rem;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
-        .award-gallery {
-            display: grid;
-            grid-template-columns: 1fr;
+        .gallery-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
             gap: 12px;
+            padding-bottom: 6px;
+            scroll-snap-type: x proximity;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
         }
 
-        .award-image-box {
-            width: 100%;
-            min-height: 160px;
+        .gallery-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: #dbe3ee;
+            border-radius: 999px;
+        }
+
+        .gallery-item {
+            flex: 0 0 220px;
+            scroll-snap-align: start;
+            background: #fff;
+            border: 1px solid #e2e8f0;
             border-radius: 14px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
+        }
+
+        .gallery-image-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
             overflow: hidden;
+            background: #fff;
             border: 1px dashed #cbd5e1;
-            background: #ffffff;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
         }
 
-        .award-image-box img {
+        .gallery-image-box img {
             width: 100%;
             height: 100%;
-            max-height: 240px;
-            object-fit: contain;   /* 关键：完整显示，不裁切 */
+            object-fit: contain;
             display: block;
-            border-radius: 10px;
             background: #fff;
         }
 
-        .award-placeholder {
+        .gallery-placeholder {
             width: 100%;
-            min-height: 140px;
+            height: 100%;
             display: none;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 16px;
             color: #64748b;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             line-height: 1.7;
             background: linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.92));
-            border-radius: 10px;
         }
 
-        /* ---------------- 项目卡片 ---------------- */
+        .gallery-caption {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            color: #64748b;
+            line-height: 1.6;
+            text-align: center;
+        }
+
         .project-card {
             border: 1px solid #e2e8f0;
             border-radius: 18px;
@@ -512,7 +529,6 @@
             gap: 12px;
         }
 
-        /* ---------------- 桌面端优化 ---------------- */
         @media (min-width: 769px) {
             .header-inner {
                 display: flex;
@@ -540,7 +556,6 @@
             }
         }
 
-        /* ---------------- 移动端适配 ---------------- */
         @media (max-width: 768px) {
             .section { 
                 padding: 34px 20px; 
@@ -594,8 +609,12 @@
                 margin-bottom: 24px;
             }
 
-            .award-image-box img {
-                max-height: 260px;
+            .gallery-item {
+                flex: 0 0 82%;
+            }
+
+            .gallery-image-box {
+                height: 240px;
             }
         }
     </style>
@@ -766,9 +785,6 @@
                 <a href="files/internship/naura-proof.pdf" target="_blank" class="proof-btn en">View Internship Certificate</a>
             </div>
         </div>
-
-        <!-- 以后新增实习，直接复制这一整块 experience-item，
-             然后把下面 href 改成你的新 PDF 路径即可 -->
     </div>
 
     <div id="projects" class="section">
@@ -823,10 +839,8 @@
             <ul>
                 <li class="zh">针对目前研究空缺，构建了同时考虑由于可再生能源季节性波动造成的电量失衡 (SEI)，以及恶劣天气造成的极端低出力场景的源-荷-储长期电力系统规划模型。</li>
                 <li class="en">Developed a source-load-storage long-term planning model addressing the research gap of joint risks from Seasonal Energy Imbalance (SEI) and Extreme Low Renewable Generation scenarios.</li>
-                
                 <li class="zh">提出一种新的极端低出力事件聚类方法，通过直接提取并分析代表性的真实事件，有效保留系统真实的物理边界。</li>
                 <li class="en">Proposed a novel clustering method for extreme low-generation events by directly selecting representative real events to preserve actual physical boundaries.</li>
-                
                 <li class="zh">目前正撰写相关学术论文，计划提交至相关领域顶级期刊。</li>
                 <li class="en">Currently writing the manuscript, targeting submission to a top-tier journal.</li>
             </ul>
@@ -840,7 +854,6 @@
             </div>
             <div class="meta-info zh"><span><strong>角色：</strong> 第一负责人</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Project Lead (Undergrad Thesis)</span></div>
-
             <ul>
                 <li class="zh">基于 OpenFAST 多物理场开源平台对风力机叶片建模并进行可靠性仿真验证。</li>
                 <li class="en">Modeled wind turbine blades and verified reliability simulations using the OpenFAST multi-physics platform.</li>
@@ -859,7 +872,6 @@
             </div>
             <div class="meta-info zh"><span><strong>角色：</strong> 核心成员</span></div>
             <div class="meta-info en"><span><strong>Role:</strong> Core Member (Univ-level Key Project)</span></div>
-    
             <ul>
                 <li class="zh">利用 Workbench 的瞬态结构模块对高空风电机组进行结构稳定性仿真，分析系统受流体作用时的变形应力，辅助完成系统的双向流固耦合仿真。</li>
                 <li class="en">Conducted structural stability simulations using Workbench Transient Structural module, analyzing deformation stress under fluid interaction to support two-way fluid-solid coupling simulations.</li>
@@ -957,67 +969,92 @@
         <h2 class="en">Awards & Achievements</h2>
 
         <div class="awards-grid">
-            <!-- 奖学金 -->
             <div class="award-card">
                 <h3 class="zh">奖学金</h3>
                 <h3 class="en">Scholarships</h3>
-                <div class="award-gallery">
-                    <div class="award-image-box">
-                        <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">奖学金图片 1<br>路径示例：images/awards/scholarship-1.jpg</div>
-                        <div class="award-placeholder en">Scholarship Image 1<br>Example: images/awards/scholarship-1.jpg</div>
+
+                <p class="award-desc zh">支持横向滑动展示多张图片。将图片放入 <strong>images/awards/</strong> 后，继续复制下方 gallery-item 即可。</p>
+                <p class="award-desc en">Supports horizontal scrolling for multiple images. Put images in <strong>images/awards/</strong> and duplicate the gallery items below.</p>
+
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">奖学金图片 1</div>
+                            <div class="gallery-placeholder en">Scholarship 1</div>
+                        </div>
+                        <div class="gallery-caption zh">国家奖学金 / 学业奖学金等</div>
+                        <div class="gallery-caption en">National / Academic Scholarship</div>
                     </div>
 
-                    <div class="award-image-box">
-                        <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">奖学金图片 2<br>继续复制这个框即可添加更多图片</div>
-                        <div class="award-placeholder en">Scholarship Image 2<br>Duplicate this box for more images</div>
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">奖学金图片 2</div>
+                            <div class="gallery-placeholder en">Scholarship 2</div>
+                        </div>
+                        <div class="gallery-caption zh">继续复制此卡片可增加更多</div>
+                        <div class="gallery-caption en">Duplicate this card for more</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 活动 -->
             <div class="award-card">
                 <h3 class="zh">活动</h3>
                 <h3 class="en">Activities</h3>
 
-                <div class="award-gallery">
-                    <div class="award-image-box">
-                        <img src="images/awards/activity-1.jpg" alt="活动图片1"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">活动图片 1<br>路径示例：images/awards/activity-1.jpg</div>
-                        <div class="award-placeholder en">Activity Image 1<br>Example: images/awards/activity-1.jpg</div>
+                <p class="award-desc zh">适合放志愿服务、科研交流、学生组织、校园活动等图片。图片会完整显示。</p>
+                <p class="award-desc en">Suitable for volunteering, academic exchange, student organizations, and campus activities.</p>
+
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/activity-1.jpg" alt="活动图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">活动图片 1</div>
+                            <div class="gallery-placeholder en">Activity 1</div>
+                        </div>
+                        <div class="gallery-caption zh">校园活动 / 志愿服务</div>
+                        <div class="gallery-caption en">Campus / Volunteering</div>
                     </div>
 
-                    <div class="award-image-box">
-                        <img src="images/awards/activity-2.jpg" alt="活动图片2"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">活动图片 2<br>继续复制这个框即可添加更多图片</div>
-                        <div class="award-placeholder en">Activity Image 2<br>Duplicate this box for more images</div>
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/activity-2.jpg" alt="活动图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">活动图片 2</div>
+                            <div class="gallery-placeholder en">Activity 2</div>
+                        </div>
+                        <div class="gallery-caption zh">继续复制此卡片可增加更多</div>
+                        <div class="gallery-caption en">Duplicate this card for more</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 部分竞赛 -->
             <div class="award-card">
                 <h3 class="zh">部分竞赛</h3>
                 <h3 class="en">Selected Competitions</h3>
 
-                <div class="award-gallery">
-                    <div class="award-image-box">
-                        <img src="images/awards/competition-1.jpg" alt="竞赛图片1"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">竞赛图片 1<br>路径示例：images/awards/competition-1.jpg</div>
-                        <div class="award-placeholder en">Competition Image 1<br>Example: images/awards/competition-1.jpg</div>
+                <p class="award-desc zh">适合放竞赛证书、比赛现场、作品展示图。建议文件名用英文。</p>
+                <p class="award-desc en">Suitable for certificates, event photos, and project showcases. English filenames are recommended.</p>
+
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/competition-1.jpg" alt="竞赛图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">竞赛图片 1</div>
+                            <div class="gallery-placeholder en">Competition 1</div>
+                        </div>
+                        <div class="gallery-caption zh">数学建模 / 创新创业 / 学科竞赛</div>
+                        <div class="gallery-caption en">Modeling / Innovation / Discipline Contest</div>
                     </div>
 
-                    <div class="award-image-box">
-                        <img src="images/awards/competition-2.jpg" alt="竞赛图片2"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="award-placeholder zh">竞赛图片 2<br>继续复制这个框即可添加更多图片</div>
-                        <div class="award-placeholder en">Competition Image 2<br>Duplicate this box for more images</div>
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/competition-2.jpg" alt="竞赛图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="gallery-placeholder zh">竞赛图片 2</div>
+                            <div class="gallery-placeholder en">Competition 2</div>
+                        </div>
+                        <div class="gallery-caption zh">继续复制此卡片可增加更多</div>
+                        <div class="gallery-caption en">Duplicate this card for more</div>
                     </div>
                 </div>
             </div>
@@ -1039,7 +1076,6 @@
             <li class="en"><strong>Arts & Lifestyle:</strong> Photography, coffee, and minimalist design, exploring the aesthetics of life beyond research.</li>
         </ul>
     </div>
-
 </div>
 
 <script>
