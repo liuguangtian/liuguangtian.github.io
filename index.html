@@ -365,44 +365,26 @@
             font-size: 1.05rem;
         }
 
-        /* -------- 获奖经历：真正强制横排 -------- */
-        .awards-strip {
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            padding-bottom: 8px;
-        }
-
-        .awards-strip::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .awards-strip::-webkit-scrollbar-thumb {
-            background: #dbe3ee;
-            border-radius: 999px;
-        }
-
+        /* ===== 获奖经历：三栏固定横排，无外层大滑动 ===== */
         .awards-row {
-            display: inline-flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 22px;
-            width: max-content;
-            min-width: max-content;
+            align-items: stretch;
         }
 
         .award-card {
-            flex: 0 0 360px;
-            width: 360px;
-            min-width: 360px;
+            width: 100%;
+            min-width: 0;
+            min-height: 430px;
             background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
             border: 1px solid #e2e8f0;
             border-radius: 20px;
-            padding: 22px;
+            padding: 20px;
             box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .award-card:hover {
@@ -412,8 +394,8 @@
         }
 
         .award-card h3 {
-            margin-bottom: 14px;
-            font-size: 1.12rem;
+            margin: 0 0 14px 0;
+            font-size: 1.08rem;
             color: #0f172a;
         }
 
@@ -421,11 +403,9 @@
             overflow-x: auto;
             overflow-y: hidden;
             display: flex;
-            flex-direction: row;
             flex-wrap: nowrap;
-            gap: 14px;
-            padding-bottom: 8px;
-            scroll-snap-type: x proximity;
+            gap: 12px;
+            padding-bottom: 6px;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
         }
@@ -440,10 +420,9 @@
         }
 
         .gallery-item {
-            flex: 0 0 280px;
-            width: 280px;
-            min-width: 280px;
-            scroll-snap-align: start;
+            flex: 0 0 220px;
+            width: 220px;
+            min-width: 220px;
             background: #fff;
             border: 1px solid #e2e8f0;
             border-radius: 16px;
@@ -453,7 +432,7 @@
 
         .gallery-image-box {
             width: 100%;
-            height: 340px;
+            height: 300px;
             border-radius: 14px;
             overflow: hidden;
             background: #fff;
@@ -479,13 +458,7 @@
             cursor: zoom-in;
         }
 
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            display: none;
-            background: #f8fafc;
-        }
-
+        .gallery-placeholder,
         .gallery-caption {
             display: none !important;
         }
@@ -548,7 +521,7 @@
             gap: 12px;
         }
 
-        /* -------- 图片放大预览 -------- */
+        /* ===== 图片放大预览 ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -601,11 +574,7 @@
         }
 
         .lightbox-caption {
-            margin-top: 14px;
-            color: #e2e8f0;
-            text-align: center;
-            font-size: 0.96rem;
-            line-height: 1.6;
+            display: none;
         }
 
         @media (min-width: 769px) {
@@ -632,6 +601,12 @@
 
             .main-content {
                 padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .awards-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -687,21 +662,12 @@
                 margin-bottom: 24px;
             }
 
-            /* 注意：这里也保持横排，不改竖排 */
             .award-card {
-                flex: 0 0 320px;
-                width: 320px;
-                min-width: 320px;
-            }
-
-            .gallery-item {
-                flex: 0 0 250px;
-                width: 250px;
-                min-width: 250px;
+                min-height: auto;
             }
 
             .gallery-image-box {
-                height: 300px;
+                height: 240px;
             }
 
             .lightbox {
@@ -1066,73 +1032,83 @@
         <h2 class="zh">获奖经历</h2>
         <h2 class="en">Awards & Achievements</h2>
 
-        <div class="awards-strip">
-            <div class="awards-row">
+        <div class="awards-row">
 
-                <div class="award-card">
-                    <h3 class="zh">奖学金</h3>
-                    <h3 class="en">Scholarships</h3>
+            <div class="award-card">
+                <h3 class="zh">奖学金</h3>
+                <h3 class="en">Scholarships</h3>
 
-                    <div class="gallery-scroll">
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/scholarship-1.jpg" alt="奖学金图片1" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/scholarship-1.jpg"
+                                 alt="奖学金图片1"
+                                 class="previewable"
+                                 onerror="this.remove();">
                         </div>
+                    </div>
 
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/scholarship-2.jpg" alt="奖学金图片2" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/scholarship-2.jpg"
+                                 alt="奖学金图片2"
+                                 class="previewable"
+                                 onerror="this.remove();">
                         </div>
                     </div>
                 </div>
-
-                <div class="award-card">
-                    <h3 class="zh">活动</h3>
-                    <h3 class="en">Activities</h3>
-
-                    <div class="gallery-scroll">
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/activity-1.jpg" alt="活动图片1" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
-                        </div>
-
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/activity-2.jpg" alt="活动图片2" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="award-card">
-                    <h3 class="zh">部分竞赛</h3>
-                    <h3 class="en">Selected Competitions</h3>
-
-                    <div class="gallery-scroll">
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/competition-1.jpg" alt="竞赛图片1" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
-                        </div>
-
-                        <div class="gallery-item">
-                            <div class="gallery-image-box">
-                                <img src="images/awards/competition-2.jpg" alt="竞赛图片2" class="previewable"
-                                     onerror="this.remove();">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="award-card">
+                <h3 class="zh">活动</h3>
+                <h3 class="en">Activities</h3>
+
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/activity-1.jpg"
+                                 alt="活动图片1"
+                                 class="previewable"
+                                 onerror="this.remove();">
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/activity-2.jpg"
+                                 alt="活动图片2"
+                                 class="previewable"
+                                 onerror="this.remove();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="award-card">
+                <h3 class="zh">部分竞赛</h3>
+                <h3 class="en">Selected Competitions</h3>
+
+                <div class="gallery-scroll">
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/competition-1.jpg"
+                                 alt="竞赛图片1"
+                                 class="previewable"
+                                 onerror="this.remove();">
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image-box">
+                            <img src="images/awards/competition-2.jpg"
+                                 alt="竞赛图片2"
+                                 class="previewable"
+                                 onerror="this.remove();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -1204,11 +1180,9 @@
     function openLightbox(src, altText) {
         var lightbox = document.getElementById('lightbox');
         var lightboxImg = document.getElementById('lightboxImg');
-        var lightboxCaption = document.getElementById('lightboxCaption');
 
         lightboxImg.src = src;
         lightboxImg.alt = altText || '预览大图';
-        lightboxCaption.textContent = '';
         lightbox.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
