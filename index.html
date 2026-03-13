@@ -384,6 +384,70 @@
             font-size: 1.05rem;
         }
 
+        /* ---------------- 获奖经历模块 ---------------- */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .award-card {
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .award-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.08rem;
+            color: #0f172a;
+        }
+
+        .award-desc {
+            color: #64748b;
+            font-size: 0.94rem;
+            margin-bottom: 16px;
+        }
+
+        .award-image-box {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px dashed #cbd5e1;
+            background: linear-gradient(135deg, rgba(29,78,216,0.04), rgba(255,255,255,0.92));
+            position: relative;
+        }
+
+        .award-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .award-placeholder {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px;
+            color: #64748b;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
         /* ---------------- 项目卡片可点击样式 ---------------- */
         .project-card {
             border: 1px solid #e2e8f0;
@@ -508,6 +572,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+
             .section h2 {
                 font-size: 1.6rem;
                 margin-bottom: 24px;
@@ -544,6 +612,9 @@
                     </a>
                     <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
                         <span class="zh">专业技能</span><span class="en">Skills</span>
+                    </a>
+                    <a href="#awards" class="nav-link" onclick="switchSection(event, 'awards', this)">
+                        <span class="zh">获奖经历</span><span class="en">Awards</span>
                     </a>
                     <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
                         <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
@@ -678,7 +749,6 @@
         <h2 class="zh">项目经历</h2>
         <h2 class="en">Project Experience</h2>
 
-        <!-- 新增：灵巧手项目 -->
         <div class="experience-item project-card">
             <div class="experience-header">
                 <h3 class="zh">
@@ -851,6 +921,97 @@
                     <span class="tag">Visio</span>
                     <span class="tag">Photoshop</span>
                     <span class="tag">Premiere Pro</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="awards" class="section">
+        <h2 class="zh">获奖经历</h2>
+        <h2 class="en">Awards & Achievements</h2>
+
+        <div class="awards-grid">
+            <div class="award-card">
+                <h3 class="zh">奖学金</h3>
+                <h3 class="en">Scholarships</h3>
+
+                <p class="award-desc zh">
+                    可在此上传国家奖学金、校级奖学金、学业奖学金等相关证书或证明图片。
+                </p>
+                <p class="award-desc en">
+                    Upload images of scholarship certificates here, such as national, university-level, or academic scholarships.
+                </p>
+
+                <div class="award-image-box">
+                    <img 
+                        src="scholarship.jpg" 
+                        alt="奖学金证书" 
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="award-placeholder zh">
+                        奖学金图片占位区<br>
+                        将 scholarship.jpg 替换为你的图片文件名
+                    </div>
+                    <div class="award-placeholder en">
+                        Scholarship image placeholder<br>
+                        Replace scholarship.jpg with your actual file name
+                    </div>
+                </div>
+            </div>
+
+            <div class="award-card">
+                <h3 class="zh">活动</h3>
+                <h3 class="en">Activities</h3>
+
+                <p class="award-desc zh">
+                    可在此上传学生组织、志愿服务、科研交流、校园活动等照片或证明材料。
+                </p>
+                <p class="award-desc en">
+                    Upload images for student activities, volunteering, academic exchange, or campus events here.
+                </p>
+
+                <div class="award-image-box">
+                    <img 
+                        src="activity.jpg" 
+                        alt="活动经历图片" 
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="award-placeholder zh">
+                        活动图片占位区<br>
+                        将 activity.jpg 替换为你的图片文件名
+                    </div>
+                    <div class="award-placeholder en">
+                        Activity image placeholder<br>
+                        Replace activity.jpg with your actual file name
+                    </div>
+                </div>
+            </div>
+
+            <div class="award-card">
+                <h3 class="zh">部分竞赛</h3>
+                <h3 class="en">Selected Competitions</h3>
+
+                <p class="award-desc zh">
+                    可在此上传竞赛获奖证书、参赛照片或项目展示图片，例如创新创业、学科竞赛等。
+                </p>
+                <p class="award-desc en">
+                    Upload competition certificates, event photos, or project showcase images here, such as innovation or discipline-based contests.
+                </p>
+
+                <div class="award-image-box">
+                    <img 
+                        src="competition.jpg" 
+                        alt="竞赛获奖图片" 
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="award-placeholder zh">
+                        竞赛图片占位区<br>
+                        将 competition.jpg 替换为你的图片文件名
+                    </div>
+                    <div class="award-placeholder en">
+                        Competition image placeholder<br>
+                        Replace competition.jpg with your actual file name
+                    </div>
                 </div>
             </div>
         </div>
