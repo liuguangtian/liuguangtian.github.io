@@ -194,22 +194,16 @@
         }
 
         .section {
-            display: none;
+            display: block;
             max-width: 1080px;
-            margin: 0 auto;
+            margin: 0 auto 48px;
             background: rgba(255, 255, 255, 0.98);
             padding: 56px 60px;
             border-radius: 22px;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.02);
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .section.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px) scale(0.99); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
 
         .section h2 { 
             color: #0f172a; 
@@ -612,7 +606,8 @@
 
         @media (max-width: 768px) {
             .section { 
-                padding: 34px 20px; 
+                padding: 34px 20px;
+                margin-bottom: 36px;
                 border-radius: 16px; 
             }
 
@@ -698,25 +693,25 @@
         <div class="nav-fade-wrap">
             <div class="nav-scroll">
                 <nav class="nav-menu">
-                    <a href="#personal" class="nav-link active" onclick="switchSection(event, 'personal', this)">
+                    <a href="#personal" class="nav-link active">
                         <span class="zh">个人信息</span><span class="en">Personal Info</span>
                     </a>
-                    <a href="#education" class="nav-link" onclick="switchSection(event, 'education', this)">
+                    <a href="#education" class="nav-link">
                         <span class="zh">教育背景</span><span class="en">Education</span>
                     </a>
-                    <a href="#internship" class="nav-link" onclick="switchSection(event, 'internship', this)">
+                    <a href="#internship" class="nav-link">
                         <span class="zh">实习经历</span><span class="en">Experience</span>
                     </a>
-                    <a href="#projects" class="nav-link" onclick="switchSection(event, 'projects', this)">
+                    <a href="#projects" class="nav-link">
                         <span class="zh">项目经历</span><span class="en">Projects</span>
                     </a>
-                    <a href="#skills" class="nav-link" onclick="switchSection(event, 'skills', this)">
+                    <a href="#skills" class="nav-link">
                         <span class="zh">专业技能</span><span class="en">Skills</span>
                     </a>
-                    <a href="#awards" class="nav-link" onclick="switchSection(event, 'awards', this)">
+                    <a href="#awards" class="nav-link">
                         <span class="zh">获奖经历</span><span class="en">Awards</span>
                     </a>
-                    <a href="#hobbies" class="nav-link" onclick="switchSection(event, 'hobbies', this)">
+                    <a href="#hobbies" class="nav-link">
                         <span class="zh">兴趣爱好</span><span class="en">Hobbies</span>
                     </a>
                 </nav>
@@ -1110,34 +1105,6 @@
 </div>
 
 <script>
-    function switchSection(event, sectionId, element) {
-        if (event) event.preventDefault();
-
-        var sections = document.querySelectorAll('.section');
-        sections.forEach(function(sec) {
-            sec.classList.remove('active');
-        });
-
-        var links = document.querySelectorAll('.nav-link');
-        links.forEach(function(link) {
-            link.classList.remove('active');
-        });
-
-        document.getElementById(sectionId).classList.add('active');
-        element.classList.add('active');
-
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
-        });
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
     function toggleLanguage() {
         var body = document.body;
         if (body.classList.contains('lang-zh')) {
@@ -1169,16 +1136,34 @@
         }
     }
 
-    window.addEventListener('load', function () {
-        var activeLink = document.querySelector('.nav-link.active');
-        if (activeLink) {
-            activeLink.scrollIntoView({
-                behavior: 'auto',
-                block: 'nearest',
-                inline: 'center'
-            });
-        }
+    // 自动激活导航栏链接
+    function updateActiveNavLink() {
+        var sections = document.querySelectorAll('.section');
+        var navLinks = document.querySelectorAll('.nav-link');
+        
+        var scrollPosition = window.scrollY + 200; // 偏移量用于检测
 
+        sections.forEach(function(section, index) {
+            var sectionTop = section.offsetTop;
+            var sectionBottom = sectionTop + section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                });
+                navLinks[index].classList.add('active');
+                
+                // 平滑滚动导航栏到视图中心
+                navLinks[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            }
+        });
+    }
+
+    window.addEventListener('load', function () {
         var previewImages = document.querySelectorAll('.previewable');
         previewImages.forEach(function(img) {
             img.addEventListener('click', function(e) {
@@ -1195,6 +1180,26 @@
                     openLightbox(img.src, img.alt);
                 }
             });
+        });
+    });
+
+    // 监听滚动事件
+    window.addEventListener('scroll', function() {
+        updateActiveNavLink();
+    });
+
+    // 处理导航链接的点击，平滑滚动
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = this.getAttribute('href').substring(1);
+            var targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
